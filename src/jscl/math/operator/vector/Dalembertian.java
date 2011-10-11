@@ -4,7 +4,6 @@ import jscl.math.Expression;
 import jscl.math.Generic;
 import jscl.math.Variable;
 import jscl.math.operator.VectorOperator;
-import jscl.mathml.MathML;
 
 public class Dalembertian extends VectorOperator {
     public Dalembertian(Generic vector, Generic variable) {
@@ -17,9 +16,8 @@ public class Dalembertian extends VectorOperator {
         return expression.dalembertian(variable);
     }
 
-    protected void bodyToMathML(MathML element) {
-        operator(element,"square");
-        parameter[0].toMathML(element,null);
+    protected String bodyToMathML() {
+        return operator("square") + parameter[0].toMathML(null);
     }
 
     protected Variable newinstance() {

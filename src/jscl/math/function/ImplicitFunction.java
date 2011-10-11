@@ -3,7 +3,6 @@ package jscl.math.function;
 import jscl.math.Generic;
 import jscl.math.NotIntegrableException;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 import jscl.util.ArrayComparator;
 
 public class ImplicitFunction extends Function {
@@ -149,72 +148,73 @@ public class ImplicitFunction extends Function {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
-        MathML e1;
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) bodyToMathML(element);
+        if(exponent==1) b.append(bodyToMathML());
         else {
-            e1=element.element("msup");
-            bodyToMathML(e1);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append(bodyToMathML());
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
-        e1=element.element("mfenced");
+	b.append("<mfenced>");
         for(int i=0;i<parameter.length;i++) {
-            parameter[i].toMathML(e1,null);
+            b.append(parameter[i].toMathML(null));
         }
-        element.appendChild(e1);
+	b.append("</mfenced>");
+	return b.toString();
     }
 
-    void bodyToMathML(MathML element) {
+    String bodyToMathML() {
+	StringBuffer b = new StringBuffer();
         int n=0;
         for(int i=0;i<derivation.length;i++) n+=derivation[i];
         if(subscript.length==0) {
             if(n==0) {
-                nameToMathML(element);
+                b.append(nameToMathML());
             } else {
-                MathML e1=element.element("msup");
-                nameToMathML(e1);
-                derivationToMathML(e1,n);
-                element.appendChild(e1);
+		b.append("<msup>");
+                b.append(nameToMathML());
+                b.append(derivationToMathML(n));
+		b.append("</msup>");
             }
         } else {
             if(n==0) {
-                MathML e1=element.element("msub");
-                nameToMathML(e1);
-                MathML e2=element.element("mrow");
+		b.append("<msub>");
+                b.append(nameToMathML());
+		b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
-                    subscript[i].toMathML(e2,null);
+                    b.append(subscript[i].toMathML(null));
                 }
-                e1.appendChild(e2);
-                element.appendChild(e1);
+		b.append("</mrow>");
+		b.append("</msub>");
             } else {
-                MathML e1=element.element("msubsup");
-                nameToMathML(e1);
-                MathML e2=element.element("mrow");
+		b.append("<msubsup>");
+                b.append(nameToMathML());
+		b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
-                    subscript[i].toMathML(e2,null);
+                    b.append(subscript[i].toMathML(null));
                 }
-                e1.appendChild(e2);
-                derivationToMathML(e1,n);
-                element.appendChild(e1);
+		b.append("</mrow>");
+                b.append(derivationToMathML(n));
+		b.append("</msubsup>");
             }
         }
+	return b.toString();
     }
 
-    void derivationToMathML(MathML element, int n) {
-        if(parameter.length==1?n<=Constant.PRIMECHARS:false) Constant.primecharsToMathML(element,n);
+    String derivationToMathML(int n) {
+	StringBuffer b = new StringBuffer();
+        if(parameter.length==1?n<=Constant.PRIMECHARS:false) b.append(Constant.primecharsToMathML(n));
         else {
-            MathML e1=element.element("mfenced");
+	    b.append("<mfenced>");
             for(int i=0;i<derivation.length;i++) {
-                MathML e2=element.element("mn");
-                e2.appendChild(element.text(String.valueOf(derivation[i])));
-                e1.appendChild(e2);
+		b.append("<mn>" + String.valueOf(derivation[i]) + "</mn>");
             }
-            element.appendChild(e1);
+	    b.append("</mfenced>");
         }
+	return b.toString();
     }
 
     protected Variable newinstance() {

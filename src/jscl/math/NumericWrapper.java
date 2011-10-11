@@ -5,7 +5,6 @@ import jscl.math.numeric.JSCLDouble;
 import jscl.math.numeric.Numeric;
 import jscl.math.numeric.NumericMatrix;
 import jscl.math.numeric.NumericVector;
-import jscl.mathml.MathML;
 
 public final class NumericWrapper extends Generic {
     final Numeric content;
@@ -319,23 +318,21 @@ public final class NumericWrapper extends Generic {
         return "JSCLDouble.valueOf("+new Double(((JSCLDouble)content).doubleValue())+")";
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) bodyToMathML(element);
+        if(exponent==1) b.append(bodyToMathML());
         else {
-            MathML e1=element.element("msup");
-            bodyToMathML(e1);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append(bodyToMathML());
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
+	return b.toString();
     }
 
-    void bodyToMathML(MathML element) {
-        MathML e1=element.element("mn");
-        e1.appendChild(element.text(String.valueOf(new Double(((JSCLDouble)content).doubleValue()))));
-        element.appendChild(e1);
+    String bodyToMathML() {
+	return "<mn>" + String.valueOf(new Double(((JSCLDouble)content).doubleValue())) + "</mn>";
     }
 
     protected Generic newinstance() {

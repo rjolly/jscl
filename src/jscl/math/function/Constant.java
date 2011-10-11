@@ -5,7 +5,6 @@ import jscl.math.JSCLInteger;
 import jscl.math.NotIntegrableException;
 import jscl.math.NumericWrapper;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 import jscl.util.ArrayComparator;
 
 public class Constant extends Variable {
@@ -158,69 +157,73 @@ public class Constant extends Variable {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) bodyToMathML(element);
+        if(exponent==1) b.append(bodyToMathML());
         else {
-            MathML e1=element.element("msup");
-            bodyToMathML(e1);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append(bodyToMathML());
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
+	return b.toString();
     }
 
-    public void bodyToMathML(MathML element) {
+    public String bodyToMathML() {
+	StringBuffer b = new StringBuffer();
         if(subscript.length==0) {
             if(prime==0) {
-                nameToMathML(element);
+                b.append(nameToMathML());
             } else {
-                MathML e1=element.element("msup");
-                nameToMathML(e1);
-                primeToMathML(e1);
-                element.appendChild(e1);
+		b.append("<msup>");
+                b.append(nameToMathML());
+                b.append(primeToMathML());
+		b.append("</msup>");
             }
         } else {
             if(prime==0) {
-                MathML e1=element.element("msub");
-                nameToMathML(e1);
-                MathML e2=element.element("mrow");
+		b.append("<msub>");
+                b.append(nameToMathML());
+		b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
-                    subscript[i].toMathML(e2,null);
+                    b.append(subscript[i].toMathML(null));
                 }
-                e1.appendChild(e2);
-                element.appendChild(e1);
+		b.append("</mrow>");
+		b.append("</msub>");
             } else {
-                MathML e1=element.element("msubsup");
-                nameToMathML(e1);
-                MathML e2=element.element("mrow");
+		b.append("<msubsup>");
+                b.append(nameToMathML());
+		b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
-                    subscript[i].toMathML(e2,null);
+                    b.append(subscript[i].toMathML(null));
                 }
-                e1.appendChild(e2);
-                primeToMathML(e1);
-                element.appendChild(e1);
+		b.append("</mrow>");
+                b.append(primeToMathML());
+		b.append("</msubsup>");
             }
         }
+	return b.toString();
     }
 
-    void primeToMathML(MathML element) {
+    String primeToMathML() {
+	StringBuffer b = new StringBuffer();
         if(prime<=PRIMECHARS) {
-            primecharsToMathML(element,prime);
+            b.append(primecharsToMathML(prime));
         } else {
-            MathML e1=element.element("mfenced");
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(prime)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<mfenced>");
+		b.append("<mn>" + String.valueOf(prime) + "</mn>");
+		b.append("</mfenced>");
         }
+	return b.toString();
     }
 
-    static void primecharsToMathML(MathML element, int n) {
-        MathML e1=element.element("mo");
-        for(int i=0;i<n;i++) e1.appendChild(element.text("\u2032"));
-        element.appendChild(e1);
+    static String primecharsToMathML(int n) {
+	StringBuffer b = new StringBuffer();
+	b.append("<mo>");
+        for(int i=0;i<n;i++) b.append("\u2032");
+	b.append("</mo>");
+	return b.toString();
     }
 
     protected Variable newinstance() {

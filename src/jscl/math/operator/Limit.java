@@ -2,7 +2,6 @@ package jscl.math.operator;
 
 import jscl.math.Generic;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 
 public class Limit extends Operator {
     public Limit(Generic expression, Generic variable, Generic limit, Generic direction) {
@@ -26,47 +25,42 @@ public class Limit extends Operator {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) bodyToMathML(element);
+        if(exponent==1) b.append(bodyToMathML());
         else {
-            MathML e1=element.element("msup");
-            MathML e2=element.element("mfenced");
-            bodyToMathML(e2);
-            e1.appendChild(e2);
-            e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append("<mfenced>" + bodyToMathML() + "</mfenced>");
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
+	return b.toString();
     }
 
-    void bodyToMathML(MathML element) {
+    String bodyToMathML() {
         int c=parameter[3].signum();
-        MathML e1=element.element("mrow");
-        MathML e2=element.element("munder");
-        MathML e3=element.element("mo");
-        e3.appendChild(element.text("lim"));
-        e2.appendChild(e3);
-        e3=element.element("mrow");
-        parameter[1].toMathML(e3,null);
-        MathML e4=element.element("mo");
-        e4.appendChild(element.text("\u2192"));
-        e3.appendChild(e4);
-        if(c==0) parameter[2].toMathML(e3,null);
+	StringBuffer b = new StringBuffer();
+	b.append("<mrow>");
+	b.append("<munder>");
+	b.append("<mo>" + "lim" + "</mo>");
+	b.append("<mrow>");
+        b.append(parameter[1].toMathML(null));
+	b.append("<mo>" + "\u2192" + "</mo>");
+        if(c==0) b.append(parameter[2].toMathML(null));
         else {
-            e4=element.element("msup");
-            parameter[2].toMathML(e4,null);
-            MathML e5=element.element("mo");
-            if(c<0) e5.appendChild(element.text("-"));
-            else if(c>0) e5.appendChild(element.text("+"));
-            e4.appendChild(e5);
-            e3.appendChild(e4);
+	    b.append("<msup>");
+            b.append(parameter[2].toMathML(null));
+	    b.append("<mo>");
+            b.append(c<0?"-":c>0?"+":"");
+	    b.append("</mo>");
+	    b.append("</msup>");
         }
-        e2.appendChild(e3);
-        e1.appendChild(e2);
-        parameter[0].toMathML(e1,null);
-        element.appendChild(e1);
+	b.append("</mrow>");
+	b.append("</munder>");
+        b.append(parameter[0].toMathML(null));
+	b.append("</mrow>");
+	return b.toString();
     }
 
     protected Variable newinstance() {

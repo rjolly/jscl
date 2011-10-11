@@ -1,7 +1,6 @@
 package jscl.math;
 
 import java.math.BigInteger;
-import jscl.mathml.MathML;
 
 public class ModularInteger extends Generic implements Field {
     public static final ModularInteger booleanFactory=new ModularInteger(0,2);
@@ -179,7 +178,7 @@ public class ModularInteger extends Generic implements Field {
         throw new UnsupportedOperationException();
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
         throw new UnsupportedOperationException();
     }
 

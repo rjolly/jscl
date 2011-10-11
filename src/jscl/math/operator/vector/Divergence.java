@@ -4,7 +4,6 @@ import jscl.math.Generic;
 import jscl.math.JSCLVector;
 import jscl.math.Variable;
 import jscl.math.operator.VectorOperator;
-import jscl.mathml.MathML;
 
 public class Divergence extends VectorOperator {
     public Divergence(Generic vector, Generic variable) {
@@ -20,9 +19,8 @@ public class Divergence extends VectorOperator {
         return expressionValue();
     }
 
-    protected void bodyToMathML(MathML element) {
-        operator(element,"nabla");
-        parameter[0].toMathML(element,null);
+    protected String bodyToMathML() {
+        return operator("nabla") + parameter[0].toMathML(null);
     }
 
     protected Variable newinstance() {

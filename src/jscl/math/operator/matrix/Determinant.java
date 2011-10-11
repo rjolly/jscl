@@ -5,7 +5,6 @@ import jscl.math.GenericVariable;
 import jscl.math.Matrix;
 import jscl.math.Variable;
 import jscl.math.operator.Operator;
-import jscl.mathml.MathML;
 
 public class Determinant extends Operator {
     public Determinant(Generic matrix) {
@@ -20,39 +19,39 @@ public class Determinant extends Operator {
         return expressionValue();
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) bodyToMathML(element);
+        if(exponent==1) b.append(bodyToMathML());
         else {
-            MathML e1=element.element("msup");
-            bodyToMathML(e1);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append(bodyToMathML());
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
+	return b.toString();
     }
 
-    void bodyToMathML(MathML e0) {
+    String bodyToMathML() {
         Generic m=GenericVariable.content(parameter[0]);
-        MathML e1=e0.element("mfenced");
-        e1.setAttribute("open","|");
-        e1.setAttribute("close","|");
+	StringBuffer b = new StringBuffer();
+	b.append("<mfenced open=\"|\" close=\"|\">");
         if(m instanceof Matrix) {
             Generic element[][]=((Matrix)m).elements();
-            MathML e2=e0.element("mtable");
+	    b.append("<mtable>");
             for(int i=0;i<element.length;i++) {
-                MathML e3=e0.element("mtr");
+		b.append("<mtr>");
                 for(int j=0;j<element.length;j++) {
-                    MathML e4=e0.element("mtd");
-                    element[i][j].toMathML(e4,null);
-                    e3.appendChild(e4);
+		    b.append("<mtd>");
+                    b.append(element[i][j].toMathML(null));
+		    b.append("</mtd>");
                 }
-                e2.appendChild(e3);
+		b.append("</mtr>");
             }
-            e1.appendChild(e2);
-        } else m.toMathML(e1,null);
-        e0.appendChild(e1);
+	    b.append("</mtable>");
+        } else b.append(m.toMathML(null));
+	b.append("</mfenced>");
+	return b.toString();
     }
 
     protected Variable newinstance() {

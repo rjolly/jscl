@@ -1,7 +1,5 @@
 package jscl.math;
 
-import jscl.mathml.MathML;
-
 public abstract class Generic implements Arithmetic, Comparable {
     public abstract Generic add(Generic generic);
 
@@ -128,11 +126,8 @@ public abstract class Generic implements Arithmetic, Comparable {
     public abstract String toJava();
 
     public String toMathML() {
-        MathML document=new MathML("math","-//W3C//DTD MathML 2.0//EN","http://www.w3.org/TR/MathML2/dtd/mathml2.dtd");
-        MathML e=document.element("math");
-        toMathML(e,null);
-        return e.toString();
+	return "<math>" + toMathML(null) + "</math>";
     }
 
-    public abstract void toMathML(MathML element, Object data);
+    public abstract String toMathML(Object data);
 }

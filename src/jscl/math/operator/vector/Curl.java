@@ -4,7 +4,6 @@ import jscl.math.Generic;
 import jscl.math.JSCLVector;
 import jscl.math.Variable;
 import jscl.math.operator.VectorOperator;
-import jscl.mathml.MathML;
 
 public class Curl extends VectorOperator {
     public Curl(Generic vector, Generic variable) {
@@ -20,12 +19,8 @@ public class Curl extends VectorOperator {
         return expressionValue();
     }
 
-    protected void bodyToMathML(MathML element) {
-        operator(element,"nabla");
-        MathML e1=element.element("mo");
-        e1.appendChild(element.text("\u2227"));
-        element.appendChild(e1);
-        parameter[0].toMathML(element,null);
+    protected String bodyToMathML() {
+        return operator("nabla") + "<mo>" + "\u2227" + "</mo>" + parameter[0].toMathML(null);
     }
 
     protected Variable newinstance() {

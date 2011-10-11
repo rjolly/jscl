@@ -10,7 +10,6 @@ import jscl.math.NotVariableException;
 import jscl.math.NumericWrapper;
 import jscl.math.Power;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 
 public class Conjugate extends Function {
     public Conjugate(Generic generic) {
@@ -102,28 +101,26 @@ public class Conjugate extends Function {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) bodyToMathML(element);
+        if(exponent==1) b.append(bodyToMathML());
         else {
-            MathML e1=element.element("msup");
-            MathML e2=element.element("mfenced");
-            bodyToMathML(e2);
-            e1.appendChild(e2);
-            e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append("<mfenced>" + bodyToMathML() + "</mfenced>");
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
+	return b.toString();
     }
 
-    void bodyToMathML(MathML element) {
-        MathML e1=element.element("mover");
-        parameter[0].toMathML(e1,null);
-        MathML e2=element.element("mo");
-        e2.appendChild(element.text("_"));
-        e1.appendChild(e2);
-        element.appendChild(e1);
+    String bodyToMathML() {
+	StringBuffer b = new StringBuffer();
+	b.append("<mover>");
+        b.append(parameter[0].toMathML(null));
+	b.append("<mo>" + "-" + "</mo>");
+	b.append("</mover>");
+	return b.toString();
     }
 
     protected Variable newinstance() {

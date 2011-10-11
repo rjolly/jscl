@@ -11,7 +11,6 @@ import jscl.math.polynomial.Basis;
 import jscl.math.polynomial.Monomial;
 import jscl.math.polynomial.Ordering;
 import jscl.math.polynomial.Polynomial;
-import jscl.mathml.MathML;
 
 public class Groebner extends Operator {
     public Groebner(Generic generic, Generic variable, Generic ordering, Generic modulo) {
@@ -67,28 +66,27 @@ public class Groebner extends Operator {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
-        MathML e1;
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
         int n=4;
         if(parameter[3].signum()==0) {
             n=3;
             if(ordering(parameter[2])==Monomial.lexicographic) n=2;
         }
-        if(exponent==1) nameToMathML(element);
+        if(exponent==1) b.append(nameToMathML());
         else {
-            e1=element.element("msup");
-            nameToMathML(e1);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+	    b.append("<msup>");
+            b.append(nameToMathML());
+	    b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+	    b.append("</msup>");
         }
-        e1=element.element("mfenced");
+	b.append("<mfenced>");
         for(int i=0;i<n;i++) {
-            parameter[i].toMathML(e1,null);
+            b.append(parameter[i].toMathML(null));
         }
-        element.appendChild(e1);
+	b.append("</mfenced>");
+	return b.toString();
     }
 
     protected Variable newinstance() {
@@ -118,18 +116,20 @@ class PolynomialVector extends JSCLVector {
         return buffer.toString();
     }
 
-    protected void bodyToMathML(MathML e0) {
-        MathML e1=e0.element("mfenced");
-        MathML e2=e0.element("mtable");
+    protected String bodyToMathML() {
+	StringBuffer b = new StringBuffer();
+	b.append("<mfenced>");
+	b.append("<mtable>");
         for(int i=0;i<n;i++) {
-            MathML e3=e0.element("mtr");
-            MathML e4=e0.element("mtd");
-            basis.polynomial(element[i]).toMathML(e4,null);
-            e3.appendChild(e4);
-            e2.appendChild(e3);
+	    b.append("<mtr>");
+	    b.append("<mtd>");
+            b.append(basis.polynomial(element[i]).toMathML(null));
+	    b.append("</mtd>");
+	    b.append("</mtr>");
         }
-        e1.appendChild(e2);
-        e0.appendChild(e1);
+	b.append("</mtable>");
+	b.append("</mfenced>");
+	return b.toString();
     }
 
     protected Generic newinstance(Generic element[]) {

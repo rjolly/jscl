@@ -14,7 +14,6 @@ import jscl.math.ModularInteger;
 import jscl.math.NotDivisibleException;
 import jscl.math.Rational;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 
 public abstract class Polynomial implements Arithmetic, Comparable {
     final Monomial monomialFactory;
@@ -446,12 +445,11 @@ public abstract class Polynomial implements Arithmetic, Comparable {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
-        MathML e1=element.element("mrow");
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
+	b.append("<mrow>");
         if(signum()==0) {
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text("0"));
-            e1.appendChild(e2);
+		b.append("<mn>" + "0" + "</mn>");
         }
         int i=0;
         for(Iterator it=iterator();it.hasNext();i++) {
@@ -460,22 +458,19 @@ public abstract class Polynomial implements Arithmetic, Comparable {
             Generic a=t.coef();
             if(a instanceof Expression) a=a.signum()>0?GenericVariable.valueOf(a).expressionValue():GenericVariable.valueOf(a.negate()).expressionValue().negate();
             if(a.signum()>0 && i>0) {
-                MathML e2=element.element("mo");
-                e2.appendChild(element.text("+"));
-                e1.appendChild(e2);
+		b.append("<mo>" + "+" + "</mo>");
             }
-            if(m.degree()==0) Expression.separateSign(e1,a);
+            if(m.degree()==0) b.append(Expression.separateSign(a));
             else {
                 if(a.abs().compareTo(JSCLInteger.valueOf(1))==0) {
                     if(a.signum()<0) {
-                        MathML e2=element.element("mo");
-                        e2.appendChild(element.text("-"));
-                        e1.appendChild(e2);
+			b.append("<mo>" + "-" + "</mo>");
                     }
-                } else Expression.separateSign(e1,a);
-                m.toMathML(e1,null);
+                } else b.append(Expression.separateSign(a));
+                b.append(m.toMathML(null));
             }
         }
-        element.appendChild(e1);
+	b.append("</mrow>");
+	return b.toString();
     }
 }

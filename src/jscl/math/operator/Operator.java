@@ -6,7 +6,6 @@ import jscl.math.JSCLVector;
 import jscl.math.NotIntegrableException;
 import jscl.math.NotVariableException;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 import jscl.util.ArrayComparator;
 
 public abstract class Operator extends Variable {
@@ -119,22 +118,21 @@ public abstract class Operator extends Variable {
         throw new ArithmeticException();
     }
 
-    public void toMathML(MathML element, Object data) {
-        MathML e1;
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) nameToMathML(element);
+        if(exponent==1) b.append(nameToMathML());
         else {
-            e1=element.element("msup");
-            nameToMathML(e1);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append(nameToMathML());
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
-        e1=element.element("mfenced");
+	b.append("<mfenced>");
         for(int i=0;i<parameter.length;i++) {
-            parameter[i].toMathML(e1,null);
+            b.append(parameter[i].toMathML(null));
         }
-        element.appendChild(e1);
+	b.append("</mfenced>");
+	return b.toString();
     }
 }

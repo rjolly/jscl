@@ -2,7 +2,6 @@ package jscl.math;
 
 import jscl.math.function.Conjugate;
 import jscl.math.function.Frac;
-import jscl.mathml.MathML;
 import jscl.util.ArrayComparator;
 
 public class JSCLVector extends Generic {
@@ -335,31 +334,33 @@ public class JSCLVector extends Generic {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) bodyToMathML(element);
+        if(exponent==1) b.append(bodyToMathML());
         else {
-            MathML e1=element.element("msup");
-            bodyToMathML(e1);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append(bodyToMathML());
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
+	return b.toString();
     }
 
-    protected void bodyToMathML(MathML e0) {
-        MathML e1=e0.element("mfenced");
-        MathML e2=e0.element("mtable");
+    protected String bodyToMathML() {
+	StringBuffer b = new StringBuffer();
+	b.append("<mfenced>");
+	b.append("<mtable>");
         for(int i=0;i<n;i++) {
-            MathML e3=e0.element("mtr");
-            MathML e4=e0.element("mtd");
-            element[i].toMathML(e4,null);
-            e3.appendChild(e4);
-            e2.appendChild(e3);
+		b.append("<mtr>");
+		b.append("<mtd>");
+		b.append(element[i].toMathML(null));
+		b.append("</mtd>");
+		b.append("</mtr>");
         }
-        e1.appendChild(e2);
-        e0.appendChild(e1);
+	b.append("</mtable>");
+	b.append("</mfenced>");
+	return b.toString();
     }
 
     protected Generic newinstance() {

@@ -1,7 +1,5 @@
 package jscl.math;
 
-import jscl.mathml.MathML;
-
 public abstract class GenericVariable extends Variable {
     Generic content;
 
@@ -99,7 +97,7 @@ public abstract class GenericVariable extends Variable {
         return content.toJava();
     }
 
-    public void toMathML(MathML element, Object data) {
-        content.toMathML(element,data);
+    public String toMathML(Object data) {
+        return content.toMathML(data);
     }
 }

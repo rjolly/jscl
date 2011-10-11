@@ -7,7 +7,6 @@ import jscl.math.NotIntegerException;
 import jscl.math.NotIntegrableException;
 import jscl.math.NumericWrapper;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 
 public class Cubic extends Algebraic {
     public Cubic(Generic generic) {
@@ -83,11 +82,13 @@ public class Cubic extends Algebraic {
         return buffer.toString();
     }
 
-    void bodyToMathML(MathML element, boolean fenced) {
-        MathML e1=element.element("mroot");
-        parameter[0].toMathML(e1,null);
-        JSCLInteger.valueOf(3).toMathML(e1,null);
-        element.appendChild(e1);
+    String bodyToMathML(boolean fenced) {
+	StringBuffer b = new StringBuffer();
+	b.append("<mroot>");
+        b.append(parameter[0].toMathML(null));
+        b.append(JSCLInteger.valueOf(3).toMathML(null));
+	b.append("</mroot>");
+	return b.toString();
     }
 
     protected Variable newinstance() {

@@ -4,7 +4,6 @@ import jscl.math.Expression;
 import jscl.math.Generic;
 import jscl.math.Variable;
 import jscl.math.operator.VectorOperator;
-import jscl.mathml.MathML;
 
 public class Laplacian extends VectorOperator {
     public Laplacian(Generic vector, Generic variable) {
@@ -17,9 +16,8 @@ public class Laplacian extends VectorOperator {
         return expression.laplacian(variable);
     }
 
-    protected void bodyToMathML(MathML element) {
-        operator(element,"Delta");
-        parameter[0].toMathML(element,null);
+    protected String bodyToMathML() {
+        return operator("Delta") + parameter[0].toMathML(null);
     }
 
     protected Variable newinstance() {

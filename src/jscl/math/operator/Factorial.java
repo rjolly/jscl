@@ -8,7 +8,6 @@ import jscl.math.NotVariableException;
 import jscl.math.Variable;
 import jscl.math.function.Frac;
 import jscl.math.function.Pow;
-import jscl.mathml.MathML;
 import jscl.util.ArrayComparator;
 
 public class Factorial extends Operator {
@@ -58,38 +57,38 @@ public class Factorial extends Operator {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) bodyToMathML(element);
+        if(exponent==1) b.append(bodyToMathML());
         else {
-            MathML e1=element.element("msup");
-            bodyToMathML(e1);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append(bodyToMathML());
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
+	return b.toString();
     }
 
-    void bodyToMathML(MathML element) {
-        MathML e1=element.element("mrow");
+    String bodyToMathML() {
+	StringBuffer b = new StringBuffer();
+	b.append("<mrow>");
         try {
             JSCLInteger en=parameter[0].integerValue();
-            en.toMathML(e1,null);
+            b.append(en.toMathML(null));
         } catch (NotIntegerException e) {
             try {
                 Variable v=parameter[0].variableValue();
                 if(v instanceof Pow) {
-                    GenericVariable.valueOf(parameter[0]).toMathML(e1,null);
-                } else v.toMathML(e1,null);
+                    b.append(GenericVariable.valueOf(parameter[0]).toMathML(null));
+                } else b.append(v.toMathML(null));
             } catch (NotVariableException e2) {
-                GenericVariable.valueOf(parameter[0]).toMathML(e1,null);
+                b.append(GenericVariable.valueOf(parameter[0]).toMathML(null));
             }
         }
-        MathML e2=element.element("mo");
-        e2.appendChild(element.text("!"));
-        e1.appendChild(e2);
-        element.appendChild(e1);
+	b.append("<mo>" + "!" + "</mo>");
+	b.append("</mrow>");
+	return b.toString();
     }
 
     protected Variable newinstance() {

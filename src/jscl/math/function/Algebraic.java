@@ -2,7 +2,6 @@ package jscl.math.function;
 
 import jscl.math.Generic;
 import jscl.math.NotIntegrableException;
-import jscl.mathml.MathML;
 
 public abstract class Algebraic extends Function {
     public Algebraic(String name, Generic parameter[]) {
@@ -15,18 +14,18 @@ public abstract class Algebraic extends Function {
         return null;
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) bodyToMathML(element,false);
+        if(exponent==1) b.append(bodyToMathML(false));
         else {
-            MathML e1=element.element("msup");
-            bodyToMathML(e1,true);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append(bodyToMathML(true));
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
+	return b.toString();
     }
 
-    abstract void bodyToMathML(MathML element, boolean fenced);
+    abstract String bodyToMathML(boolean fenced);
 }

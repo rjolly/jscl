@@ -6,7 +6,6 @@ import jscl.math.NotIntegerException;
 import jscl.math.NotIntegrableException;
 import jscl.math.NumericWrapper;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 
 public class Comparison extends Function {
     int operator;
@@ -78,12 +77,12 @@ public class Comparison extends Function {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
-        parameter[0].toMathML(element,null);
-        MathML e1=element.element("mo");
-        e1.appendChild(element.text(easm[operator]));
-        element.appendChild(e1);
-        parameter[1].toMathML(element,null);
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
+        b.append(parameter[0].toMathML(null));
+	b.append("<mo>" + easm[operator] + "</mo>");
+        b.append(parameter[1].toMathML(null));
+	return b.toString();
     }
 
     protected Variable newinstance() {

@@ -1,7 +1,5 @@
 package jscl.math;
 
-import jscl.mathml.MathML;
-
 public class ExpressionVariable extends GenericVariable {
         public ExpressionVariable(Generic generic) {
                 super(generic);
@@ -32,26 +30,24 @@ public class ExpressionVariable extends GenericVariable {
                 return buffer.toString();
         }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) bodyToMathML(element);
+        if(exponent==1) b.append(bodyToMathML());
         else {
-            MathML e1=element.element("msup");
-            bodyToMathML(e1);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append(bodyToMathML());
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
+	return b.toString();
     }
 
-    void bodyToMathML(MathML element) {
-        MathML e1=element.element("mfenced");
-        content.toMathML(e1,null);
-        element.appendChild(e1);
+    String bodyToMathML() {
+	return "<mfenced>" + content.toMathML(null) + "</mfenced>";
     }
 
-        protected Variable newinstance() {
-                return new ExpressionVariable(null);
-        }
+    protected Variable newinstance() {
+        return new ExpressionVariable(null);
+    }
 }

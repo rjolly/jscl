@@ -3,7 +3,6 @@ package jscl.math.polynomial;
 import java.util.Iterator;
 import jscl.math.Generic;
 import jscl.math.JSCLInteger;
-import jscl.mathml.MathML;
 
 final class GeoBucket extends Polynomial {
     final Polynomial factory;
@@ -334,21 +333,23 @@ final class GeoBucket extends Polynomial {
         }
     }
 
-    public void toMathML(MathML element, Object data) {
-        if(canonicalized) polynomial().toMathML(element,data);
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
+        if(canonicalized) b.append(polynomial().toMathML(data));
         else {
-            MathML e1=element.element("mfenced");
-            MathML e2=element.element("mtable");
+	    b.append("<mfenced>");
+	    b.append("<mtable>");
             for(int i=0;i<size;i++) {
-                MathML e3=element.element("mtr");
-                MathML e4=element.element("mtd");
+		b.append("<mtr>");
+		b.append("<mtd>");
                 Polynomial p=content[i];
-                (p==null?factory.valueof(JSCLInteger.valueOf(0)):p).toMathML(e4,null);
-                e3.appendChild(e4);
-                e2.appendChild(e3);
+                b.append((p==null?factory.valueof(JSCLInteger.valueOf(0)):p).toMathML(null));
+		b.append("</mtd>");
+		b.append("</mtr>");
             }
-            e1.appendChild(e2);
-            element.appendChild(e1);
+	    b.append("</mtable>");
+	    b.append("</mfenced>");
         }
+	return b.toString();
     }
 }

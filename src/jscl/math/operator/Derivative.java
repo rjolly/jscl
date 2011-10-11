@@ -4,7 +4,6 @@ import jscl.math.Generic;
 import jscl.math.JSCLInteger;
 import jscl.math.NotIntegerException;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 
 public class Derivative extends Operator {
     public Derivative(Generic expression, Generic variable, Generic value, Generic order) {
@@ -40,70 +39,58 @@ public class Derivative extends Operator {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) derivationToMathML(element,false);
+        if(exponent==1) b.append(derivationToMathML(false));
         else {
-            MathML e1=element.element("msup");
-            derivationToMathML(e1,true);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+	    b.append("<msup>");
+            b.append(derivationToMathML(true));
+	    b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+	    b.append("</msup>");
         }
-        MathML e1=element.element("mfenced");
-        parameter[0].toMathML(e1,null);
-        if(parameter[2].compareTo(parameter[1])!=0) parameter[2].toMathML(e1,null);
-        element.appendChild(e1);
+	b.append("<mfenced>");
+        b.append(parameter[0].toMathML(null));
+        if(parameter[2].compareTo(parameter[1])!=0) b.append(parameter[2].toMathML(null));
+	b.append("</mfenced>");
+	return b.toString();
+     }
+
+    String derivationToMathML(boolean fenced) {
+	return fenced?"<mfenced>" + derivationToMathML() + "</mfenced>":derivationToMathML();
     }
 
-    void derivationToMathML(MathML element, boolean fenced) {
-        if(fenced) {
-            MathML e1=element.element("mfenced");
-            derivationToMathML(e1);
-            element.appendChild(e1);
-        } else {
-            derivationToMathML(element);
-        }
-    }
-
-    void derivationToMathML(MathML element) {
+    String derivationToMathML() {
         Variable v=parameter[1].variableValue();
+	StringBuffer b = new StringBuffer();
         int n=0;
         try {
             n=parameter[3].integerValue().intValue();
         } catch (NotIntegerException e) {}
         if(n==1) {
-            MathML e1=element.element("mfrac");
-            MathML e2=element.element("mo");
-            e2.appendChild(element.text(/*"\u2146"*/"d"));
-            e1.appendChild(e2);
-            e2=element.element("mrow");
-            MathML e3=element.element("mo");
-            e3.appendChild(element.text(/*"\u2146"*/"d"));
-            e2.appendChild(e3);
-            v.toMathML(e2,null);
-            e1.appendChild(e2);
-            element.appendChild(e1);
+	    b.append("<mfrac>");
+	    b.append("<mo>" + /*"\u2146"*/"d" + "</mo>");
+	    b.append("<mrow>");
+	    b.append("<mo>" + /*"\u2146"*/"d" + "</mo>");
+            b.append(v.toMathML(null));
+	    b.append("</mrow>");
+	    b.append("</mfrac>");
         } else {
-            MathML e1=element.element("mfrac");
-            MathML e2=element.element("msup");
-            MathML e3=element.element("mo");
-            e3.appendChild(element.text(/*"\u2146"*/"d"));
-            e2.appendChild(e3);
-            parameter[3].toMathML(e2,null);
-            e1.appendChild(e2);
-            e2=element.element("mrow");
-            e3=element.element("mo");
-            e3.appendChild(element.text(/*"\u2146"*/"d"));
-            e2.appendChild(e3);
-            e3=element.element("msup");
-            parameter[1].toMathML(e3,null);
-            parameter[3].toMathML(e3,null);
-            e2.appendChild(e3);
-            e1.appendChild(e2);
-            element.appendChild(e1);
+	    b.append("<mfrac>");
+	    b.append("<msup>");
+	    b.append("<mo>" + /*"\u2146"*/"d" + "</mo>");
+            b.append(parameter[3].toMathML(null));
+	    b.append("</msup>");
+	    b.append("<mrow>");
+	    b.append("<mo>" + /*"\u2146"*/"d" + "</mo>");
+	    b.append("<msup>");
+            b.append(parameter[1].toMathML(null));
+            b.append(parameter[3].toMathML(null));
+	    b.append("</msup>");
+	    b.append("</mrow>");
+	    b.append("</mfrac>");
         }
+	return b.toString();
     }
 
     protected Variable newinstance() {

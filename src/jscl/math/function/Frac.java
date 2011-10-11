@@ -12,7 +12,6 @@ import jscl.math.NotPowerException;
 import jscl.math.NotVariableException;
 import jscl.math.NumericWrapper;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 
 public class Frac extends Algebraic {
     public Frac(Generic numerator, Generic denominator) {
@@ -139,21 +138,12 @@ public class Frac extends Algebraic {
         return buffer.toString();
     }
 
-    void bodyToMathML(MathML element, boolean fenced) {
-        if(fenced) {
-            MathML e1=element.element("mfenced");
-            bodyToMathML(e1);
-            element.appendChild(e1);
-        } else {
-            bodyToMathML(element);
-        }
-    }
+    String bodyToMathML(boolean fenced) {
+	return fenced?"<mfenced>" + bodyToMathML() + "</mfenced>":bodyToMathML();
+     }
 
-    void bodyToMathML(MathML element) {
-        MathML e1=element.element("mfrac");
-        parameter[0].toMathML(e1,null);
-        parameter[1].toMathML(e1,null);
-        element.appendChild(e1);
+    String bodyToMathML() {
+	return "<mfrac>" + parameter[0].toMathML(null) + parameter[1].toMathML(null) + "</mfrac>";
     }
 
     protected Variable newinstance() {

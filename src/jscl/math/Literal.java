@@ -6,7 +6,6 @@ import java.util.TreeMap;
 import jscl.math.function.Frac;
 import jscl.math.function.Pow;
 import jscl.math.polynomial.Monomial;
-import jscl.mathml.MathML;
 
 public class Literal implements Comparable {
     Variable variable[];
@@ -349,17 +348,17 @@ public class Literal implements Comparable {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         if(degree==0) {
-            MathML e1=element.element("mn");
-            e1.appendChild(element.text("1"));
-            element.appendChild(e1);
+		b.append("<mn>" + "1" + "</mn>");
         }
         for(int i=0;i<size;i++) {
             Variable v=variable[i];
             int c=power[i];
-            v.toMathML(element,new Integer(c));
+            b.append(v.toMathML(new Integer(c)));
         }
+	return b.toString();
     }
 
     protected Literal newinstance(int n) {

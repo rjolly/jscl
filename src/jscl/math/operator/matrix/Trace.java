@@ -4,7 +4,6 @@ import jscl.math.Generic;
 import jscl.math.Matrix;
 import jscl.math.Variable;
 import jscl.math.operator.Operator;
-import jscl.mathml.MathML;
 
 public class Trace extends Operator {
     public Trace(Generic matrix) {
@@ -19,24 +18,20 @@ public class Trace extends Operator {
         return expressionValue();
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
         if(exponent==1) {
-            MathML e1=element.element("mo");
-            e1.appendChild(element.text("tr"));
-            element.appendChild(e1);
+		b.append("<mo>" + "tr" + "</mo>");
         }
         else {
-            MathML e1=element.element("msup");
-            MathML e2=element.element("mo");
-            e2.appendChild(element.text("tr"));
-            e1.appendChild(e2);
-            e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append("<mo>" + "tr" + "</mo>");
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
-        parameter[0].toMathML(element,null);
+        b.append(parameter[0].toMathML(null));
+	return b.toString();
     }
 
     protected Variable newinstance() {

@@ -7,7 +7,6 @@ import jscl.math.NotIntegrableException;
 import jscl.math.NotVariableException;
 import jscl.math.NumericWrapper;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 
 public class Abs extends Function {
     public Abs(Generic generic) {
@@ -68,25 +67,25 @@ public class Abs extends Function {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) bodyToMathML(element);
+        if(exponent==1) b.append(bodyToMathML());
         else {
-            MathML e1=element.element("msup");
-            bodyToMathML(e1);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append(bodyToMathML());
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
+	return b.toString();
     }
 
-    void bodyToMathML(MathML element) {
-        MathML e1=element.element("mfenced");
-        e1.setAttribute("open","|");
-        e1.setAttribute("close","|");
-        parameter[0].toMathML(e1,null);
-        element.appendChild(e1);
+    String bodyToMathML() {
+	StringBuffer b = new StringBuffer();
+	b.append("<mfenced open=\"|\" close=\"|\">");
+        b.append(parameter[0].toMathML(null));
+	b.append("</mfenced>");
+	return b.toString();
     }
 
     protected Variable newinstance() {

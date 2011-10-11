@@ -6,7 +6,6 @@ import jscl.math.JSCLVector;
 import jscl.math.Variable;
 import jscl.math.function.ImplicitFunction;
 import jscl.math.operator.VectorOperator;
-import jscl.mathml.MathML;
 
 public class GeometricProduct extends VectorOperator {
     public GeometricProduct(Generic vector1, Generic vector2, Generic algebra) {
@@ -48,9 +47,8 @@ public class GeometricProduct extends VectorOperator {
         return buffer.toString();
     }
 
-    protected void bodyToMathML(MathML element) {
-        parameter[0].toMathML(element,null);
-        parameter[1].toMathML(element,null);
+    protected String bodyToMathML() {
+        return parameter[0].toMathML(null) + parameter[1].toMathML(null);
     }
 
     protected Variable newinstance() {

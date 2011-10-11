@@ -7,7 +7,6 @@ import jscl.math.NotVariableException;
 import jscl.math.NumericWrapper;
 import jscl.math.Variable;
 import jscl.math.polynomial.Polynomial;
-import jscl.mathml.MathML;
 
 public class Exp extends Function {
     public Exp(Generic generic) {
@@ -83,36 +82,30 @@ public class Exp extends Function {
         return ((NumericWrapper)parameter[0]).exp();
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) bodyToMathML(element,false);
+        if(exponent==1) b.append(bodyToMathML(false));
         else {
-            MathML e1=element.element("msup");
-            bodyToMathML(e1,true);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append(bodyToMathML(true));
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
+	return b.toString();
     }
 
-    void bodyToMathML(MathML element, boolean fenced) {
-        if(fenced) {
-            MathML e1=element.element("mfenced");
-            bodyToMathML(e1);
-            element.appendChild(e1);
-        } else {
-            bodyToMathML(element);
-        }
+    String bodyToMathML(boolean fenced) {
+	return fenced?"<mfenced>" + bodyToMathML() + "</mfenced>":bodyToMathML();
     }
 
-    void bodyToMathML(MathML element) {
-        MathML e1=element.element("msup");
-        MathML e2=element.element("mi");
-        e2.appendChild(element.text(/*"\u2147"*/"e"));
-        e1.appendChild(e2);
-        parameter[0].toMathML(e1,null);
-        element.appendChild(e1);
+    String bodyToMathML() {
+	StringBuffer b = new StringBuffer();
+	b.append("<msup>");
+	b.append("<mi>" + /*"\u2147"*/"e" + "</mi>");
+        b.append(parameter[0].toMathML(null));
+	b.append("</msup>");
+	return b.toString();
     }
     
     protected Variable newinstance() {

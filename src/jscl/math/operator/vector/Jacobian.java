@@ -6,7 +6,6 @@ import jscl.math.JSCLVector;
 import jscl.math.Variable;
 import jscl.math.function.Constant;
 import jscl.math.operator.VectorOperator;
-import jscl.mathml.MathML;
 
 public class Jacobian extends VectorOperator {
     public Jacobian(Generic vector, Generic variable) {
@@ -22,27 +21,27 @@ public class Jacobian extends VectorOperator {
         return expressionValue();
     }
 
-    protected void bodyToMathML(MathML element) {
-        operator(element,"nabla");
-        MathML e1=element.element("msup");
-        parameter[0].toMathML(e1,null);
-        MathML e2=element.element("mo");
-        e2.appendChild(element.text("T"));
-        e1.appendChild(e2);
-        element.appendChild(e1);
+    protected String bodyToMathML() {
+	StringBuffer b = new StringBuffer();
+        b.append(operator("nabla"));
+	b.append("<msup>");
+        b.append(parameter[0].toMathML(null));
+	b.append("<mo>" + "T" + "</mo>");
+	b.append("</msup>");
+	return b.toString();
     }
 
-    protected void operator(MathML element, String name) {
+    protected String operator(String name) {
         Variable variable[]=variables(GenericVariable.content(parameter[1]));
-        MathML e1=element.element("msubsup");
-        new Constant(name).toMathML(e1,null);
-        MathML e2=element.element("mrow");
-        for(int i=0;i<variable.length;i++) variable[i].expressionValue().toMathML(e2,null);
-        e1.appendChild(e2);
-        e2=element.element("mo");
-        e2.appendChild(element.text("T"));
-        e1.appendChild(e2);
-        element.appendChild(e1);
+	StringBuffer b = new StringBuffer();
+	b.append("<msubsup>");
+        b.append(new Constant(name).toMathML(null));
+	b.append("<mrow>");
+        for(int i=0;i<variable.length;i++) b.append(variable[i].expressionValue().toMathML(null));
+	b.append("</mrow>");
+	b.append("<mo>" + "T" + "</mo>");
+	b.append("</msubsup>");
+	return b.toString();
     }
 
     protected Variable newinstance() {

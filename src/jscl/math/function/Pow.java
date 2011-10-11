@@ -11,7 +11,6 @@ import jscl.math.NotVariableException;
 import jscl.math.NumericWrapper;
 import jscl.math.Power;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 
 public class Pow extends Algebraic {
     public Pow(Generic generic, Generic exponent) {
@@ -228,34 +227,30 @@ public class Pow extends Algebraic {
         return buffer.toString();
     }
 
-    void bodyToMathML(MathML element, boolean fenced) {
-        if(fenced) {
-            MathML e1=element.element("mfenced");
-            bodyToMathML(e1);
-            element.appendChild(e1);
-        } else {
-            bodyToMathML(element);
-        }
+    String bodyToMathML(boolean fenced) {
+	return fenced?"<mfenced>" + bodyToMathML() + "</mfenced>":bodyToMathML();
     }
 
-    void bodyToMathML(MathML element) {
-        MathML e1=element.element("msup");
+    String bodyToMathML() {
+	StringBuffer b = new StringBuffer();
+	b.append("<msup>");
         try {
             Variable v=parameter[0].variableValue();
             if(v instanceof Frac || v instanceof Pow || v instanceof Exp) {
-                GenericVariable.valueOf(parameter[0]).toMathML(e1,null);
-            } else parameter[0].toMathML(e1,null);
+                b.append(GenericVariable.valueOf(parameter[0]).toMathML(null));
+            } else b.append(parameter[0].toMathML(null));
         } catch (NotVariableException e2) {
             try {
                 Power o=parameter[0].powerValue();
-                if(o.exponent()==1) o.value(true).toMathML(e1,null);
-                else GenericVariable.valueOf(parameter[0]).toMathML(e1,null);
+                if(o.exponent()==1) b.append(o.value(true).toMathML(null));
+                else b.append(GenericVariable.valueOf(parameter[0]).toMathML(null));
             } catch (NotPowerException e3) {
-                GenericVariable.valueOf(parameter[0]).toMathML(e1,null);
+                b.append(GenericVariable.valueOf(parameter[0]).toMathML(null));
             }
         }
-        parameter[1].toMathML(e1,null);
-        element.appendChild(e1);
+        b.append(parameter[1].toMathML(null));
+	b.append("</msup>");
+	return b.toString();
     }
 
     protected Variable newinstance() {

@@ -5,7 +5,6 @@ import jscl.math.Variable;
 import jscl.math.function.Root;
 import jscl.math.polynomial.Polynomial;
 import jscl.math.polynomial.UnivariatePolynomial;
-import jscl.mathml.MathML;
 
 public class Solve extends Operator {
     public Solve(Generic expression, Generic variable, Generic subscript) {
@@ -34,25 +33,24 @@ public class Solve extends Operator {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
-        MathML e1;
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
         int n=3;
         if(parameter[2].signum()==0) n=2;
-        if(exponent==1) nameToMathML(element);
+        if(exponent==1) b.append(nameToMathML());
         else {
-            e1=element.element("msup");
-            nameToMathML(e1);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append(nameToMathML());
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
-        e1=element.element("mfenced");
+	b.append("<mfenced>");
         for(int i=0;i<n;i++) {
-            parameter[i].toMathML(e1,null);
+            b.append(parameter[i].toMathML(null));
         }
-        element.appendChild(e1);
+	b.append("</mfenced>");
+	return b.toString();
     }
 
     protected Variable newinstance() {

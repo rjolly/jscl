@@ -10,7 +10,6 @@ import jscl.math.TechnicalVariable;
 import jscl.math.Variable;
 import jscl.math.polynomial.Polynomial;
 import jscl.math.polynomial.UnivariatePolynomial;
-import jscl.mathml.MathML;
 import jscl.util.ArrayComparator;
 
 public class Root extends Algebraic {
@@ -333,31 +332,32 @@ public class Root extends Algebraic {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
-        MathML e1;
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
         if(exponent==1) {
-            e1=element.element("msub");
-            nameToMathML(e1);
-            subscript.toMathML(e1,null);
-            element.appendChild(e1);
+	    b.append("<msub>");
+            b.append(nameToMathML());
+            b.append(subscript.toMathML(null));
+	    b.append("</msub>");
         } else {
-            e1=element.element("msubsup");
-            nameToMathML(e1);
-            subscript.toMathML(e1,null);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+	    b.append("<msubsup>");
+            b.append(nameToMathML());
+            b.append(subscript.toMathML(null));
+	    b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+	    b.append("</msubsup>");
         }
-        e1=element.element("mfenced");
+	b.append("<mfenced>");
         for(int i=0;i<parameter.length;i++) {
-            parameter[i].toMathML(e1,null);
+            b.append(parameter[i].toMathML(null));
         }
-        element.appendChild(e1);
+	b.append("</mfenced>");
+	return b.toString();
     }
 
-    void bodyToMathML(MathML element, boolean fenced) {}
+    String bodyToMathML(boolean fenced) {
+	    return "";
+    }
 
     protected Variable newinstance() {
         return new Root(new Generic[parameter.length],null);

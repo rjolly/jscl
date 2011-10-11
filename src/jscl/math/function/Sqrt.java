@@ -8,7 +8,6 @@ import jscl.math.NotIntegrableException;
 import jscl.math.NumericWrapper;
 import jscl.math.Power;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 
 public class Sqrt extends Algebraic {
     public Sqrt(Generic generic) {
@@ -105,15 +104,11 @@ public class Sqrt extends Algebraic {
         return buffer.toString();
     }
 
-    void bodyToMathML(MathML element, boolean fenced) {
+    String bodyToMathML(boolean fenced) {
         if(parameter[0].compareTo(JSCLInteger.valueOf(-1))==0) {
-            MathML e1=element.element("mi");
-            e1.appendChild(element.text(/*"\u2148"*/"i"));
-            element.appendChild(e1);
+		return "<mi>" + /*"\u2148"*/"i" + "</mi>";
         } else {
-            MathML e1=element.element("msqrt");
-            parameter[0].toMathML(e1,null);
-            element.appendChild(e1);
+		return "<msqrt>" + parameter[0].toMathML(null) + "</msqrt>";
         }
     }
 

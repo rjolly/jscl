@@ -4,7 +4,6 @@ import jscl.math.Generic;
 import jscl.math.Matrix;
 import jscl.math.Variable;
 import jscl.math.operator.VectorOperator;
-import jscl.mathml.MathML;
 
 public class TensorProduct extends VectorOperator {
     public TensorProduct(Generic matrix1, Generic matrix2) {
@@ -20,12 +19,12 @@ public class TensorProduct extends VectorOperator {
         return expressionValue();
     }
 
-    protected void bodyToMathML(MathML element) {
-        parameter[0].toMathML(element,null);
-        MathML e1=element.element("mo");
-        e1.appendChild(element.text(/*"\u2A2F"*/"*"));
-        element.appendChild(e1);
-        parameter[1].toMathML(element,null);
+    protected String bodyToMathML() {
+	StringBuffer b = new StringBuffer();
+        b.append(parameter[0].toMathML(null));
+	b.append("<mo>" + /*"\u2A2F"*/"*" + "</mo>");
+        b.append(parameter[1].toMathML(null));
+	return b.toString();
     }
 
     protected Variable newinstance() {

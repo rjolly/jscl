@@ -5,7 +5,6 @@ import jscl.math.JSCLVector;
 import jscl.math.Variable;
 import jscl.math.operator.VectorOperator;
 import jscl.math.operator.product.GeometricProduct;
-import jscl.mathml.MathML;
 
 public class Del extends VectorOperator {
     public Del(Generic vector, Generic variable, Generic algebra) {
@@ -35,9 +34,8 @@ public class Del extends VectorOperator {
         return buffer.toString();
     }
 
-    protected void bodyToMathML(MathML element) {
-        operator(element,"nabla");
-        parameter[0].toMathML(element,null);
+    protected String bodyToMathML() {
+        return operator("nabla") + parameter[0].toMathML(null);
     }
 
     protected Variable newinstance() {

@@ -6,7 +6,6 @@ import jscl.math.NotDivisibleException;
 import jscl.math.Variable;
 import jscl.math.function.Frac;
 import jscl.math.function.Pow;
-import jscl.mathml.MathML;
 
 public class Monomial implements Comparable {
     public static final Ordering lexicographic=Lexicographic.ordering;
@@ -213,18 +212,18 @@ public class Monomial implements Comparable {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         if(degree==0) {
-            MathML e1=element.element("mn");
-            e1.appendChild(element.text("1"));
-            element.appendChild(e1);
+		b.append("<mn>" + "1" + "</mn>");
         }
         for(int i=0;i<unknown.length;i++) {
             int c=element(i);
             if(c>0) {
-                unknown[i].toMathML(element,new Integer(c));
+                b.append(unknown[i].toMathML(new Integer(c)));
             }
         }
+	return b.toString();
     }
 
     protected Monomial newinstance() {

@@ -12,7 +12,6 @@ import jscl.math.function.Root;
 import jscl.math.function.Sqrt;
 import jscl.math.operator.Factorial;
 import jscl.math.operator.Operator;
-import jscl.mathml.MathML;
 import jscl.text.ParseException;
 
 public abstract class Variable implements Comparable {
@@ -77,23 +76,21 @@ public abstract class Variable implements Comparable {
         return name;
     }
 
-    public void toMathML(MathML element, Object data) {
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) nameToMathML(element);
+        if(exponent==1) b.append(nameToMathML());
         else {
-            MathML e1=element.element("msup");
-            nameToMathML(e1);
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text(String.valueOf(exponent)));
-            e1.appendChild(e2);
-            element.appendChild(e1);
+		b.append("<msup>");
+		b.append(nameToMathML());
+		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
+		b.append("</msup>");
         }
+	return b.toString();
     }
 
-    protected void nameToMathML(MathML element) {
-        MathML e1=element.element("mi");
-        e1.appendChild(element.text(special.containsKey(name)?(String)special.get(name):name));
-        element.appendChild(e1);
+    protected String nameToMathML() {
+	    return "<mi>" + (special.containsKey(name)?(String)special.get(name):name) + "</mi>";
     }
 
     protected abstract Variable newinstance();

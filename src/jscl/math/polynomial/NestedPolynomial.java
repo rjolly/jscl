@@ -11,7 +11,6 @@ import jscl.math.NotProductException;
 import jscl.math.NotVariableException;
 import jscl.math.Power;
 import jscl.math.Variable;
-import jscl.mathml.MathML;
 
 class NestedPolynomial extends UnivariatePolynomial {
     NestedPolynomial(Variable variable[]) {
@@ -221,5 +220,7 @@ final class PolynomialWrapper extends Generic {
         return null;
     }
 
-    public void toMathML(MathML element, Object data) {}
+    public String toMathML(Object data) {
+	    return "";
+    }
 }

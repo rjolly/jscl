@@ -8,7 +8,6 @@ import jscl.math.function.Frac;
 import jscl.math.function.Inv;
 import jscl.math.polynomial.Polynomial;
 import jscl.math.polynomial.UnivariatePolynomial;
-import jscl.mathml.MathML;
 import jscl.text.ExpressionParser;
 import jscl.text.ParseException;
 import jscl.text.Parser;
@@ -664,43 +663,39 @@ public class Expression extends Generic {
         return buffer.toString();
     }
 
-    public void toMathML(MathML element, Object data) {
-        MathML e1=element.element("mrow");
+    public String toMathML(Object data) {
+	StringBuffer b = new StringBuffer();
+	b.append("<mrow>");
         if(signum()==0) {
-            MathML e2=element.element("mn");
-            e2.appendChild(element.text("0"));
-            e1.appendChild(e2);
+		b.append("<mn>" + "0" + "</mn>");
         }
         for(int i=0;i<size;i++) {
             Literal l=literal[i];
             JSCLInteger en=coef[i];
             if(en.signum()>0 && i>0) {
-                MathML e2=element.element("mo");
-                e2.appendChild(element.text("+"));
-                e1.appendChild(e2);
+		b.append("<mo>" + "+" + "</mo>");
             }
-            if(l.degree()==0) separateSign(e1,en);
+            if(l.degree()==0) b.append(separateSign(en));
             else {
                 if(en.abs().compareTo(JSCLInteger.valueOf(1))==0) {
                     if(en.signum()<0) {
-                        MathML e2=element.element("mo");
-                        e2.appendChild(element.text("-"));
-                        e1.appendChild(e2);
+			b.append("<mo>" + "-" + "</mo>");
                     }
-                } else separateSign(e1,en);
-                l.toMathML(e1,null);
+                } else b.append(separateSign(en));
+                b.append(l.toMathML(null));
             }
         }
-        element.appendChild(e1);
+	b.append("</mrow>");
+	return b.toString();
     }
 
-    public static void separateSign(MathML element, Generic generic) {
+    public static String separateSign(Generic generic) {
+	StringBuffer b = new StringBuffer();
         if(generic.signum()<0) {
-            MathML e1=element.element("mo");
-            e1.appendChild(element.text("-"));
-            element.appendChild(e1);
-            generic.negate().toMathML(element,null);
-        } else generic.toMathML(element,null);
+		b.append("<mo>" + "-" + "</mo>");
+		b.append(generic.negate().toMathML(null));
+        } else b.append(generic.toMathML(null));
+	return b.toString();
     }
 
     protected Expression newinstance(int n) {
