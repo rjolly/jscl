@@ -30,23 +30,6 @@ class IntegerVariable extends GenericVariable {
         return buffer.toString();
     }
 
-    public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML());
-        else {
-		b.append("<msup>");
-		b.append(bodyToMathML());
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
-    }
-
-    String bodyToMathML() {
-	return "<mfenced>" + content.toMathML(null) + "</mfenced>";
-    }
-
     protected Variable newinstance() {
         return new IntegerVariable(null);
     }

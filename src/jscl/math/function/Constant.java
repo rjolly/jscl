@@ -15,7 +15,7 @@ public class Constant extends Variable {
     public static final Generic third=new Inv(JSCLInteger.valueOf(3)).expressionValue();
     public static final Generic j=half.negate().multiply(JSCLInteger.valueOf(1).subtract(i.multiply(new Sqrt(JSCLInteger.valueOf(3)).expressionValue())));
     public static final Generic jbar=half.negate().multiply(JSCLInteger.valueOf(1).add(i.multiply(new Sqrt(JSCLInteger.valueOf(3)).expressionValue())));
-    public static final Generic infinity=new Constant("infin").expressionValue();
+    public static final Generic infinity=new Constant("oo").expressionValue();
     static final int PRIMECHARS=3;
     protected int prime;
     protected Generic subscript[];
@@ -138,8 +138,6 @@ public class Constant extends Variable {
     }
 
     public String toJava() {
-        if(compareTo(new Constant("pi"))==0) return "JSCLDouble.valueOf(Math.PI)";
-        else if(compareTo(new Constant("infin"))==0) return "JSCLDouble.valueOf(Double.POSITIVE_INFINITY)";
         StringBuffer buffer=new StringBuffer();
         buffer.append(name);
         if(prime==0);
@@ -158,16 +156,9 @@ public class Constant extends Variable {
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML());
-        else {
-		b.append("<msup>");
-		b.append(bodyToMathML());
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
+	if("pi".equals(name)) return "<pi/>";
+	else if("oo".equals(name)) return "<infinity/>";
+	else return "<ci>" + bodyToMathML() + "</ci>";
     }
 
     public String bodyToMathML() {
@@ -177,14 +168,14 @@ public class Constant extends Variable {
                 b.append(nameToMathML());
             } else {
 		b.append("<msup>");
-                b.append(nameToMathML());
+                b.append("<mi>" + nameToMathML() + "</mi>");
                 b.append(primeToMathML());
 		b.append("</msup>");
             }
         } else {
             if(prime==0) {
 		b.append("<msub>");
-                b.append(nameToMathML());
+                b.append("<mi>" + nameToMathML() + "</mi>");
 		b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
                     b.append(subscript[i].toMathML(null));
@@ -193,7 +184,7 @@ public class Constant extends Variable {
 		b.append("</msub>");
             } else {
 		b.append("<msubsup>");
-                b.append(nameToMathML());
+                b.append("<mi>" + nameToMathML() + "</mi>");
 		b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
                     b.append(subscript[i].toMathML(null));

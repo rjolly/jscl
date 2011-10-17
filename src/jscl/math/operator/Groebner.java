@@ -68,24 +68,17 @@ public class Groebner extends Operator {
 
     public String toMathML(Object data) {
 	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
         int n=4;
         if(parameter[3].signum()==0) {
             n=3;
             if(ordering(parameter[2])==Monomial.lexicographic) n=2;
         }
-        if(exponent==1) b.append(nameToMathML());
-        else {
-	    b.append("<msup>");
-            b.append(nameToMathML());
-	    b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-	    b.append("</msup>");
-        }
-	b.append("<mfenced>");
+	b.append("<apply>");
+	b.append("<ci>" + nameToMathML() + "</ci>");
         for(int i=0;i<n;i++) {
             b.append(parameter[i].toMathML(null));
         }
-	b.append("</mfenced>");
+	b.append("</apply>");
 	return b.toString();
     }
 

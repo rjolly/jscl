@@ -446,31 +446,18 @@ public abstract class Polynomial implements Arithmetic, Comparable {
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-	b.append("<mrow>");
-        if(signum()==0) {
-		b.append("<mn>" + "0" + "</mn>");
-        }
-        int i=0;
-        for(Iterator it=iterator();it.hasNext();i++) {
-            Term t=(Term)it.next();
-            Monomial m=t.monomial();
-            Generic a=t.coef();
+	String s = "<cn>" + "0" + "</cn>";
+        int n=0;
+        for(Iterator it=iterator();it.hasNext();) {
+            Term te=(Term)it.next();
+            Monomial m=te.monomial();
+            Generic a=te.coef();
             if(a instanceof Expression) a=a.signum()>0?GenericVariable.valueOf(a).expressionValue():GenericVariable.valueOf(a.negate()).expressionValue().negate();
-            if(a.signum()>0 && i>0) {
-		b.append("<mo>" + "+" + "</mo>");
-            }
-            if(m.degree()==0) b.append(Expression.separateSign(a));
-            else {
-                if(a.abs().compareTo(JSCLInteger.valueOf(1))==0) {
-                    if(a.signum()<0) {
-			b.append("<mo>" + "-" + "</mo>");
-                    }
-                } else b.append(Expression.separateSign(a));
-                b.append(m.toMathML(null));
-            }
-        }
-	b.append("</mrow>");
-	return b.toString();
+	    Generic c = a.abs();
+	    String t = m.degree() == 0?c.toMathML(null):c.compareTo(JSCLInteger.valueOf(1)) == 0?m.toMathML(null):"<apply><times/>" + c.toMathML(null) + m.toMathML(null) + "</apply>";
+	    s = n == 0?a.signum() < 0?"<apply><minus/>" + t + "</apply>":t:a.signum() < 0?"<apply><minus/>" + s + t + "</apply>":"<apply><plus/>" + s + t + "</apply>";
+	    n++;
+	}
+	return s;
     }
 }

@@ -315,24 +315,11 @@ public final class NumericWrapper extends Generic {
     }
 
     public String toJava() {
-        return "JSCLDouble.valueOf("+new Double(((JSCLDouble)content).doubleValue())+")";
+        return "JSCLDouble.valueOf("+((JSCLDouble)content).doubleValue()+")";
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML());
-        else {
-		b.append("<msup>");
-		b.append(bodyToMathML());
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
-    }
-
-    String bodyToMathML() {
-	return "<mn>" + String.valueOf(new Double(((JSCLDouble)content).doubleValue())) + "</mn>";
+	return "<cn>" + String.valueOf(((JSCLDouble)content).doubleValue()) + "</cn>";
     }
 
     protected Generic newinstance() {

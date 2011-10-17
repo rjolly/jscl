@@ -76,21 +76,10 @@ public abstract class Variable implements Comparable {
         return name;
     }
 
-    public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(nameToMathML());
-        else {
-		b.append("<msup>");
-		b.append(nameToMathML());
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
-    }
+    public abstract String toMathML(Object data);
 
     protected String nameToMathML() {
-	    return "<mi>" + (special.containsKey(name)?(String)special.get(name):name) + "</mi>";
+	return special.containsKey(name)?(String)special.get(name):name;
     }
 
     protected abstract Variable newinstance();
@@ -143,7 +132,6 @@ public abstract class Variable implements Comparable {
             special.put("chi","\u03C7");
             special.put("psi","\u03C8");
             special.put("omega","\u03C9");
-            special.put("infin","\u221E");
             special.put("nabla","\u2207");
             special.put("aleph","\u2135");
             special.put("hbar","\u210F");

@@ -305,23 +305,10 @@ public final class JSCLInteger extends Generic {
     }
 
     public String toJava() {
-        return "JSCLDouble.valueOf("+content+")";
+        return "JSCLInteger.valueOf(\"" + content + "\")";
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML());
-        else {
-		b.append("<msup>");
-		b.append(bodyToMathML());
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
-    }
-
-    String bodyToMathML() {
-	return "<mn>" + String.valueOf(content) + "</mn>";
+	return "<cn>" + String.valueOf(content) + "</cn>";
     }
 }

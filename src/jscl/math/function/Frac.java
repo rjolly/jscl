@@ -138,12 +138,8 @@ public class Frac extends Algebraic {
         return buffer.toString();
     }
 
-    String bodyToMathML(boolean fenced) {
-	return fenced?"<mfenced>" + bodyToMathML() + "</mfenced>":bodyToMathML();
-     }
-
-    String bodyToMathML() {
-	return "<mfrac>" + parameter[0].toMathML(null) + parameter[1].toMathML(null) + "</mfrac>";
+    public String toMathML(Object data) {
+	return "<apply><divide/>" + parameter[0].toMathML(null) + parameter[1].toMathML(null) + "</apply>";
     }
 
     protected Variable newinstance() {

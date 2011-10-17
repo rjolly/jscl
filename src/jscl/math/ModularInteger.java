@@ -166,20 +166,24 @@ public class ModularInteger extends Generic implements Field {
         }
     }
 
+    public static ModularInteger valueOf(int content, int modulo) {
+        return new ModularInteger(content, modulo);
+    }
+
     public static ModularInteger factory(int modulo) {
         return new ModularInteger(0,modulo);
     }
 
     public String toString() {
-        return ""+content;
+        return String.valueOf(content);
     }
 
     public String toJava() {
-        throw new UnsupportedOperationException();
+        return "ModularInteger.valueOf(" + content + ", " + modulo + ")";
     }
 
     public String toMathML(Object data) {
-        throw new UnsupportedOperationException();
+	return "<cn type=\"integer\" base=\"" + modulo + "\">" + content + "</cn>";
     }
 
     protected ModularInteger newinstance(long content) {

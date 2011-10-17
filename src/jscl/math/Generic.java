@@ -126,7 +126,7 @@ public abstract class Generic implements Arithmetic, Comparable {
     public abstract String toJava();
 
     public String toMathML() {
-	return "<math>" + toMathML(null) + "</math>";
+	return toMathML(null);
     }
 
     public abstract String toMathML(Object data);

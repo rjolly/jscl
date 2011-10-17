@@ -349,16 +349,16 @@ public class Literal implements Comparable {
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        if(degree==0) {
-		b.append("<mn>" + "1" + "</mn>");
-        }
+	String s = "<cn>" + "1" + "</cn>";
+	boolean first = true;
         for(int i=0;i<size;i++) {
             Variable v=variable[i];
             int c=power[i];
-            b.append(v.toMathML(new Integer(c)));
-        }
-	return b.toString();
+	    String t = c == 1?v.toMathML(null):"<apply><power/>" + v.toMathML(null) + "<cn>" + c + "</cn></apply>";
+	    s = first?t:"<apply><times/>" + s + t + "</apply>";
+	    first = false;
+	}
+	return s;
     }
 
     protected Literal newinstance(int n) {

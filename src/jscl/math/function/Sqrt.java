@@ -104,11 +104,11 @@ public class Sqrt extends Algebraic {
         return buffer.toString();
     }
 
-    String bodyToMathML(boolean fenced) {
+    public String toMathML(Object data) {
         if(parameter[0].compareTo(JSCLInteger.valueOf(-1))==0) {
-		return "<mi>" + /*"\u2148"*/"i" + "</mi>";
+		return "<imaginaryi/>";
         } else {
-		return "<msqrt>" + parameter[0].toMathML(null) + "</msqrt>";
+		return "<apply><root/>" + parameter[0].toMathML(null) + "</apply>";
         }
     }
 

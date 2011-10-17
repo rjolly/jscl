@@ -232,6 +232,14 @@ public final class Rational extends Generic implements Field {
         }
     }
 
+    public static Rational valueOf(long n, long d) {
+	return new Rational(BigInteger.valueOf(n), BigInteger.valueOf(d));
+    }
+
+    public static Rational valueOf(String n, String d) {
+        return new Rational(new BigInteger(n), new BigInteger(d));
+    }
+
     public String toString() {
         StringBuffer buffer=new StringBuffer();
         try {
@@ -245,32 +253,10 @@ public final class Rational extends Generic implements Field {
     }
 
     public String toJava() {
-        return "JSCLDouble.valueOf("+numerator+"/"+denominator+")";
+        return "Rational.valueOf(\"" + numerator + "\", \"" + denominator + "\")";
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML());
-        else {
-		b.append("<msup>");
-		b.append(bodyToMathML());
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
-    }
-
-    String bodyToMathML() {
-	StringBuffer b = new StringBuffer();
-        try {
-		b.append("<mn>" + String.valueOf(integerValue()) + "</mn>");
-        } catch (NotIntegerException e) {
-		b.append("<mfrac>");
-		b.append("<mn>" + String.valueOf(numerator) + "</mn>");
-		b.append("<mn>" + String.valueOf(denominator) + "</mn>");
-		b.append("</mfrac>");
-        }
-	return b.toString();
+	return "<cn type=\"rational\">" + String.valueOf(numerator) + "<sep/>" + String.valueOf(denominator) + "</cn>";
     }
 }

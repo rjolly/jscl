@@ -35,21 +35,14 @@ public class Solve extends Operator {
 
     public String toMathML(Object data) {
 	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
         int n=3;
         if(parameter[2].signum()==0) n=2;
-        if(exponent==1) b.append(nameToMathML());
-        else {
-		b.append("<msup>");
-		b.append(nameToMathML());
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	b.append("<mfenced>");
+	b.append("<apply>");
+	b.append("<ci>" + nameToMathML() + "</ci>");
         for(int i=0;i<n;i++) {
             b.append(parameter[i].toMathML(null));
         }
-	b.append("</mfenced>");
+	b.append("</apply>");
 	return b.toString();
     }
 

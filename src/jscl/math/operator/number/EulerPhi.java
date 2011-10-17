@@ -20,7 +20,7 @@ public class EulerPhi extends Operator {
     }
 
     protected String nameToMathML() {
-	return "<mi>" + "\u03C6" + "</mi>";
+	return "\u03C6";
     }
 
     protected Variable newinstance() {

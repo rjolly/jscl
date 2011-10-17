@@ -664,38 +664,17 @@ public class Expression extends Generic {
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-	b.append("<mrow>");
-        if(signum()==0) {
-		b.append("<mn>" + "0" + "</mn>");
-        }
-        for(int i=0;i<size;i++) {
-            Literal l=literal[i];
-            JSCLInteger en=coef[i];
-            if(en.signum()>0 && i>0) {
-		b.append("<mo>" + "+" + "</mo>");
-            }
-            if(l.degree()==0) b.append(separateSign(en));
-            else {
-                if(en.abs().compareTo(JSCLInteger.valueOf(1))==0) {
-                    if(en.signum()<0) {
-			b.append("<mo>" + "-" + "</mo>");
-                    }
-                } else b.append(separateSign(en));
-                b.append(l.toMathML(null));
-            }
-        }
-	b.append("</mrow>");
-	return b.toString();
-    }
-
-    public static String separateSign(Generic generic) {
-	StringBuffer b = new StringBuffer();
-        if(generic.signum()<0) {
-		b.append("<mo>" + "-" + "</mo>");
-		b.append(generic.negate().toMathML(null));
-        } else b.append(generic.toMathML(null));
-	return b.toString();
+	String s = "<cn>" + "0" + "</cn>";
+	int n = 0;
+	for(int i=0;i<size;i++) {
+	    Literal l=literal[i];
+	    JSCLInteger en=coef[i];
+	    Generic c = en.abs();
+	    String t = l.degree() == 0?c.toMathML(null):c.compareTo(JSCLInteger.valueOf(1)) == 0?l.toMathML(null):"<apply><times/>" + c.toMathML(null) + l.toMathML(null) + "</apply>";
+	    s = n == 0?en.signum() < 0?"<apply><minus/>" + t + "</apply>":t:en.signum() < 0?"<apply><minus/>" + s + t + "</apply>":"<apply><plus/>" + s + t + "</apply>";
+	    n++;
+	}
+	return s;
     }
 
     protected Expression newinstance(int n) {

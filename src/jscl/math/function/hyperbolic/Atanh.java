@@ -11,7 +11,7 @@ import jscl.math.function.Root;
 
 public class Atanh extends ArcTrigonometric {
     public Atanh(Generic generic) {
-        super("atanh",new Generic[] {generic});
+        super("arctanh",new Generic[] {generic});
     }
 
     public Generic derivative(int n) {

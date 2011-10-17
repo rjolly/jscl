@@ -83,31 +83,13 @@ public class Exp extends Function {
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML(false));
-        else {
-		b.append("<msup>");
-		b.append(bodyToMathML(true));
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
+        if(parameter[0].compareTo(JSCLInteger.valueOf(1))==0) {
+		return "<exponentiale/>";
+        } else {
+		return "<apply><exp/>" + parameter[0].toMathML(null) + "</apply>";
         }
-	return b.toString();
     }
 
-    String bodyToMathML(boolean fenced) {
-	return fenced?"<mfenced>" + bodyToMathML() + "</mfenced>":bodyToMathML();
-    }
-
-    String bodyToMathML() {
-	StringBuffer b = new StringBuffer();
-	b.append("<msup>");
-	b.append("<mi>" + /*"\u2147"*/"e" + "</mi>");
-        b.append(parameter[0].toMathML(null));
-	b.append("</msup>");
-	return b.toString();
-    }
-    
     protected Variable newinstance() {
         return new Exp(null);
     }

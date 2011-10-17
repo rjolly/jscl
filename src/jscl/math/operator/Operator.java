@@ -115,24 +115,23 @@ public abstract class Operator extends Variable {
     }
 
     public String toJava() {
-        throw new ArithmeticException();
+        StringBuffer buffer=new StringBuffer();
+        buffer.append(name).append("(");
+        for(int i=0;i<parameter.length;i++) {
+            buffer.append(parameter[i].toJava()).append(i<parameter.length-1?", ":"");
+        }
+        buffer.append(")");
+        return buffer.toString();
     }
 
     public String toMathML(Object data) {
 	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(nameToMathML());
-        else {
-		b.append("<msup>");
-		b.append(nameToMathML());
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	b.append("<mfenced>");
+	b.append("<apply>");
+	b.append("<ci>" + nameToMathML() + "</ci>");
         for(int i=0;i<parameter.length;i++) {
             b.append(parameter[i].toMathML(null));
         }
-	b.append("</mfenced>");
+	b.append("</apply>");
 	return b.toString();
     }
 }

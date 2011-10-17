@@ -14,7 +14,7 @@ import jscl.math.Variable;
 
 public class Pow extends Algebraic {
     public Pow(Generic generic, Generic exponent) {
-        super("pow",new Generic[] {generic,exponent});
+        super("power",new Generic[] {generic,exponent});
     }
 
     public Root rootValue() throws NotRootException {
@@ -220,37 +220,20 @@ public class Pow extends Algebraic {
 
     public String toJava() {
         StringBuffer buffer=new StringBuffer();
-        buffer.append(parameter[0].toJava());
-        buffer.append(".pow(");
-        buffer.append(parameter[1].toJava());
-        buffer.append(")");
-        return buffer.toString();
-    }
-
-    String bodyToMathML(boolean fenced) {
-	return fenced?"<mfenced>" + bodyToMathML() + "</mfenced>":bodyToMathML();
-    }
-
-    String bodyToMathML() {
-	StringBuffer b = new StringBuffer();
-	b.append("<msup>");
         try {
-            Variable v=parameter[0].variableValue();
-            if(v instanceof Frac || v instanceof Pow || v instanceof Exp) {
-                b.append(GenericVariable.valueOf(parameter[0]).toMathML(null));
-            } else b.append(parameter[0].toMathML(null));
-        } catch (NotVariableException e2) {
-            try {
-                Power o=parameter[0].powerValue();
-                if(o.exponent()==1) b.append(o.value(true).toMathML(null));
-                else b.append(GenericVariable.valueOf(parameter[0]).toMathML(null));
-            } catch (NotPowerException e3) {
-                b.append(GenericVariable.valueOf(parameter[0]).toMathML(null));
-            }
-        }
-        b.append(parameter[1].toMathML(null));
-	b.append("</msup>");
-	return b.toString();
+            JSCLInteger en=parameter[1].integerValue();
+	    buffer.append(parameter[0].toJava());
+            buffer.append(".pow(");
+            buffer.append(en.intValue());
+            buffer.append(")");
+        } catch (NotIntegerException e) {
+            buffer.append(name).append("(");
+            buffer.append(parameter[0].toJava());
+            buffer.append(", ");
+            buffer.append(parameter[1].toJava());
+            buffer.append(")");
+	}
+        return buffer.toString();
     }
 
     protected Variable newinstance() {

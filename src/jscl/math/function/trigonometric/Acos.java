@@ -13,7 +13,7 @@ import jscl.math.function.Sqrt;
 
 public class Acos extends ArcTrigonometric {
     public Acos(Generic generic) {
-        super("acos",new Generic[] {generic});
+        super("arccos",new Generic[] {generic});
     }
 
     public Generic derivative(int n) {

@@ -12,7 +12,7 @@ import jscl.math.function.Sqrt;
 
 public class Acosh extends ArcTrigonometric {
     public Acosh(Generic generic) {
-        super("acosh",new Generic[] {generic});
+        super("arccosh",new Generic[] {generic});
     }
 
     public Generic derivative(int n) {

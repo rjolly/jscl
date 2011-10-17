@@ -82,12 +82,13 @@ public class Cubic extends Algebraic {
         return buffer.toString();
     }
 
-    String bodyToMathML(boolean fenced) {
+    public String toMathML(Object data) {
 	StringBuffer b = new StringBuffer();
-	b.append("<mroot>");
-        b.append(parameter[0].toMathML(null));
+	b.append("<apply><root/><degree>");
         b.append(JSCLInteger.valueOf(3).toMathML(null));
-	b.append("</mroot>");
+	b.append("</degree>");
+        b.append(parameter[0].toMathML(null));
+	b.append("</apply>");
 	return b.toString();
     }
 

@@ -445,7 +445,7 @@ public class Matrix extends Generic {
 
     public String toJava() {
         StringBuffer buffer=new StringBuffer();
-        buffer.append("new NumericMatrix(new Numeric[][] {");
+        buffer.append("new Matrix(new Generic[][] {");
         for(int i=0;i<n;i++) {
             buffer.append("{");
             for(int j=0;j<p;j++) {
@@ -459,32 +459,15 @@ public class Matrix extends Generic {
 
     public String toMathML(Object data) {
 	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML());
-        else {
-		b.append("<msup>");
-		b.append(bodyToMathML());
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
-    }
-
-    protected String bodyToMathML() {
-	StringBuffer b = new StringBuffer();
-	b.append("<mfenced>");
-	b.append("<mtable>");
+	b.append("<matrix>");
         for(int i=0;i<n;i++) {
-	    b.append("<mtr>");
+	    b.append("<matrixrow>");
             for(int j=0;j<p;j++) {
-		b.append("<mtd>");
                 b.append(element[i][j].toMathML(null));
-		b.append("</mtd>");
             }
-	    b.append("</mtr>");
+	    b.append("</matrixrow>");
         }
-	b.append("</mtable>");
-	b.append("</mfenced>");
+	b.append("</matrix>");
 	return b.toString();
     }
 
