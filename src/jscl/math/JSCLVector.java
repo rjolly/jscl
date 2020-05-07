@@ -144,6 +144,12 @@ public class JSCLVector extends Generic {
         return v;
     }
 
+    public Generic function(Variable variable) {
+        JSCLVector v=(JSCLVector)newinstance();
+        for(int i=0;i<n;i++) v.element[i]=element[i].function(variable);
+        return v;
+    }
+
     public Generic numeric() {
         return new NumericWrapper(this);
     }

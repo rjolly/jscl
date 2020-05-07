@@ -29,6 +29,7 @@ public abstract class Variable implements Comparable {
     public abstract Generic antiderivative(Variable variable) throws NotIntegrableException;
     public abstract Generic derivative(Variable variable);
     public abstract Generic substitute(Variable variable, Generic generic);
+    public abstract Generic function(Variable variable);
     public abstract Generic expand();
     public abstract Generic factorize();
     public abstract Generic elementary();

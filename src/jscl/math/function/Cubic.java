@@ -69,6 +69,10 @@ public class Cubic extends Algebraic {
         return expressionValue();
     }
 
+    public Generic evalfunc() {
+        return ((jscl.math.Function)parameter[0]).nthrt(3);
+    }
+
     public Generic evalnum() {
         return ((NumericWrapper)parameter[0]).nthrt(3);
     }

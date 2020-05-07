@@ -42,6 +42,10 @@ public class Acoth extends ArcTrigonometric {
         ).evalelem();
     }
 
+    public Generic evalfunc() {
+        return ((jscl.math.Function)parameter[0]).acoth();
+    }
+
     public Generic evalnum() {
         return ((NumericWrapper)parameter[0]).acoth();
     }

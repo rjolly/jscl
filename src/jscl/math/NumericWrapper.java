@@ -147,6 +147,11 @@ public final class NumericWrapper extends Generic {
         return null;
     }
 
+    public Generic function(Variable variable) {
+        if(content instanceof JSCLDouble) return Function.valueOf(((JSCLDouble)content).doubleValue());
+        else throw new ArithmeticException();
+    }
+
     public Generic numeric() {
         return this;
     }

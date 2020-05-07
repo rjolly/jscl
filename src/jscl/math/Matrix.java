@@ -222,6 +222,16 @@ public class Matrix extends Generic {
         return m;
     }
 
+    public Generic function(Variable variable) {
+        Matrix m=(Matrix)newinstance();
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<p;j++) {
+                m.element[i][j]=element[i][j].function(variable);
+            }
+        }
+        return m;
+    }
+
     public Generic numeric() {
         return new NumericWrapper(this);
     }

@@ -170,6 +170,10 @@ public class Pow extends Algebraic {
         }
     }
 
+    public Generic evalfunc() {
+        return ((jscl.math.Function)parameter[0]).pow((jscl.math.Function)parameter[1]);
+    }
+
     public Generic evalnum() {
         return ((NumericWrapper)parameter[0]).pow((NumericWrapper)parameter[1]);
     }

@@ -125,6 +125,10 @@ final class PolynomialWrapper extends Generic {
         return null;
     }
 
+    public Generic function(Variable variable) {
+        return null;
+    }
+
     public Generic expand() {
         return null;
     }

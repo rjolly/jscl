@@ -47,6 +47,10 @@ public class Asinh extends ArcTrigonometric {
         ).evalelem();
     }
 
+    public Generic evalfunc() {
+        return ((jscl.math.Function)parameter[0]).asinh();
+    }
+
     public Generic evalnum() {
         return ((NumericWrapper)parameter[0]).asinh();
     }

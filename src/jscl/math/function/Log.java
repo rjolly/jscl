@@ -65,6 +65,10 @@ public class Log extends Function {
         return expressionValue();
     }
 
+    public Generic evalfunc() {
+        return ((jscl.math.Function)parameter[0]).log();
+    }
+
     public Generic evalnum() {
         return ((NumericWrapper)parameter[0]).log();
     }

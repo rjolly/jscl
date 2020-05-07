@@ -61,6 +61,11 @@ public abstract class GenericVariable extends Variable {
         return v.expressionValue();
     }
 
+    public Generic function(Variable variable) {
+        if(isIdentity(variable)) return Function.identity;
+        else return content.function(variable);
+    }
+
     public Generic numeric() {
         return content.numeric();
     }

@@ -44,6 +44,10 @@ public class Atanh extends ArcTrigonometric {
         ).evalelem();
     }
 
+    public Generic evalfunc() {
+        return ((jscl.math.Function)parameter[0]).atanh();
+    }
+
     public Generic evalnum() {
         return ((NumericWrapper)parameter[0]).atanh();
     }

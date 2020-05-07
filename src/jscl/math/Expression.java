@@ -381,6 +381,17 @@ public class Expression extends Generic {
         return Simplification.compute(this);
     }
 
+    public Generic function(Variable variable) {
+        Map m=literalScm().content();
+        Iterator it=m.entrySet().iterator();
+        while(it.hasNext()) {
+            Map.Entry e=(Map.Entry)it.next();
+            Variable v=(Variable)e.getKey();
+            e.setValue(v.function(variable));
+        }
+        return substitute(m);
+    }
+
     public Generic numeric() {
         try {
             return integerValue().numeric();

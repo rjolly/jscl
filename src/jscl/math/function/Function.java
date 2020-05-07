@@ -24,6 +24,8 @@ public abstract class Function extends Variable {
 
     public abstract Generic evalsimp();
 
+    public abstract Generic evalfunc();
+
     public abstract Generic evalnum();
 
     public Generic antiderivative(Variable variable) throws NotIntegrableException {
@@ -94,6 +96,14 @@ public abstract class Function extends Variable {
             v.parameter[i]=parameter[i].simplify();
         }
         return v.evalsimp();
+    }
+
+    public Generic function(Variable variable) {
+        Function v=(Function)newinstance();
+        for(int i=0;i<parameter.length;i++) {
+            v.parameter[i]=parameter[i].function(variable);
+        }
+        return v.evalfunc();
     }
 
     public Generic numeric() {

@@ -43,6 +43,10 @@ public class Acot extends ArcTrigonometric {
         );
     }
 
+    public Generic evalfunc() {
+        return ((jscl.math.Function)parameter[0]).acot();
+    }
+
     public Generic evalnum() {
         return ((NumericWrapper)parameter[0]).acot();
     }

@@ -7,13 +7,19 @@ import jscl.math.function.Constant;
 import jscl.math.operator.Coefficient;
 import jscl.math.operator.Derivative;
 import jscl.math.operator.Division;
+import jscl.math.operator.Elementary;
+import jscl.math.operator.Factorize;
+import jscl.math.operator.Graph;
 import jscl.math.operator.Groebner;
 import jscl.math.operator.IndefiniteIntegral;
 import jscl.math.operator.Integral;
 import jscl.math.operator.Limit;
 import jscl.math.operator.Modulo;
+import jscl.math.operator.Numeric;
 import jscl.math.operator.Operator;
 import jscl.math.operator.Product;
+import jscl.math.operator.Quote;
+import jscl.math.operator.Simplify;
 import jscl.math.operator.Solve;
 import jscl.math.operator.Substitute;
 import jscl.math.operator.Sum;
@@ -84,6 +90,12 @@ public class OperatorParser extends Parser {
         else if(name.compareTo("coef")==0) v=new Coefficient(a[0],a[1]);
         else if(name.compareTo("solve")==0) v=new Solve(a[0],a[1],a.length>2?a[2]:JSCLInteger.valueOf(0));
         else if(name.compareTo("subst")==0) v=new Substitute(a[0],a[1],a[2]).transmute();
+        else if(name.compareTo("graph")==0) v=new Graph(a[0],a[1]);
+        else if(name.compareTo("elementary")==0) v=new Elementary(a[0]);
+        else if(name.compareTo("factorize")==0) v=new Factorize(a[0]);
+        else if(name.compareTo("simplify")==0) v=new Simplify(a[0]);
+        else if(name.compareTo("numeric")==0) v=new Numeric(a[0]);
+        else if(name.compareTo("quote")==0) v=new Quote(a[0]);
         else if(name.compareTo("lim")==0) v=new Limit(a[0],a[1],a[2],a.length>3 && (a[2].compareTo(Constant.infinity)!=0 && a[2].compareTo(Constant.infinity.negate())!=0)?JSCLInteger.valueOf(a[3].signum()):JSCLInteger.valueOf(0));
         else if(name.compareTo("sum")==0) v=new Sum(a[0],a[1],a[2],a[3]);
         else if(name.compareTo("prod")==0) v=new Product(a[0],a[1],a[2],a[3]);
@@ -103,5 +115,5 @@ public class OperatorParser extends Parser {
         return false;
     }
 
-    private static String na[]={"d","grad","diverg","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","tran","trace","det","coef","solve","subst","lim","sum","prod","integral","groebner","div","mod","modpow","modinv","eulerphi","primitiveroots"};
+    private static String na[]={"d","grad","diverg","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","tran","trace","det","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","lim","sum","prod","integral","groebner","div","mod","modpow","modinv","eulerphi","primitiveroots"};
 }

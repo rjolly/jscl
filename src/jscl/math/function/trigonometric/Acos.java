@@ -48,6 +48,10 @@ public class Acos extends ArcTrigonometric {
         );
     }
 
+    public Generic evalfunc() {
+        return ((jscl.math.Function)parameter[0]).acos();
+    }
+
     public Generic evalnum() {
         return ((NumericWrapper)parameter[0]).acos();
     }

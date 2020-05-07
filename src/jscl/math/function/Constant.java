@@ -88,6 +88,11 @@ public class Constant extends Variable {
         return v.expressionValue();
     }
 
+    public Generic function(Variable variable) {
+        if(isIdentity(variable)) return jscl.math.Function.identity;
+	else return numeric().function(variable);
+    }
+
     public Generic numeric() {
         return new NumericWrapper(this);
     }

@@ -75,6 +75,10 @@ public class Frac extends Algebraic {
         return evaluate();
     }
 
+    public Generic evalfunc() {
+        return ((jscl.math.Function)parameter[0]).divide((jscl.math.Function)parameter[1]);
+    }
+
     public Generic evalnum() {
         return ((NumericWrapper)parameter[0]).divide((NumericWrapper)parameter[1]);
     }

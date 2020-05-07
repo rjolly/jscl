@@ -284,6 +284,10 @@ public class Root extends Algebraic {
         return parameter.length-1;
     }
 
+    public Generic evalfunc() {
+        return jscl.math.Function.root(subscript.integerValue().intValue(),parameter);
+    }
+
     public Generic evalnum() {
         return NumericWrapper.root(subscript.integerValue().intValue(),parameter);
     }

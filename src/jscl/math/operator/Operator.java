@@ -72,6 +72,10 @@ public abstract class Operator extends Variable {
         return v.expressionValue();
     }
 
+    public Generic function(Variable variable) {
+        throw new ArithmeticException();
+    }
+
     public Generic numeric() {
         throw new ArithmeticException();
     }

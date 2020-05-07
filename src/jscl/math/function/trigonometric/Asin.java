@@ -48,6 +48,10 @@ public class Asin extends ArcTrigonometric {
         );
     }
 
+    public Generic evalfunc() {
+        return ((jscl.math.Function)parameter[0]).asin();
+    }
+
     public Generic evalnum() {
         return ((NumericWrapper)parameter[0]).asin();
     }

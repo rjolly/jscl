@@ -55,6 +55,10 @@ public class ImplicitFunction extends Function {
         return expressionValue();
     }
 
+    public Generic evalfunc() {
+        throw new ArithmeticException();
+    }
+
     public Generic evalnum() {
         throw new ArithmeticException();
     }

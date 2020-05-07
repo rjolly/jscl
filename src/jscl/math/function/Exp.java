@@ -78,6 +78,10 @@ public class Exp extends Function {
         return expressionValue();
     }
 
+    public Generic evalfunc() {
+        return ((jscl.math.Function)parameter[0]).exp();
+    }
+
     public Generic evalnum() {
         return ((NumericWrapper)parameter[0]).exp();
     }

@@ -38,12 +38,20 @@ public class Comparison extends Function {
         return expressionValue();
     }
 
+    public Generic evalfunc() {
+        return compare((jscl.math.Function)parameter[0],(jscl.math.Function)parameter[1]);
+    }
+
     public Generic evalnum() {
         return compare((NumericWrapper)parameter[0],(NumericWrapper)parameter[1]);
     }
 
     JSCLInteger compare(JSCLInteger a1, JSCLInteger a2) {
         return JSCLInteger.valueOf(compare((Generic)a1,(Generic)a2)?1:0);
+    }
+
+    jscl.math.Function compare(jscl.math.Function a1, jscl.math.Function a2) {
+        return jscl.math.Function.valueOf(0);
     }
 
     NumericWrapper compare(NumericWrapper a1, NumericWrapper a2) {

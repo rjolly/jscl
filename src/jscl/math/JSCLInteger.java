@@ -219,6 +219,10 @@ public final class JSCLInteger extends Generic {
         return this;
     }
 
+    public Generic function(Variable variable) {
+        return Function.valueOf(this);
+    }
+
     public Generic numeric() {
         return new NumericWrapper(this);
     }
