@@ -206,7 +206,7 @@ public class Expression extends Generic {
             for(int i=0;i<size;i++) {
                 if(coef[i].multiple(d)) {
                     ex.literal[i]=literal[i];
-                    ex.coef[i]=coef[i].divide(d);
+                    ex.coef[i]=coef[i].integerDivide(d);
                 } else flag=false;
             }
             if(flag) {

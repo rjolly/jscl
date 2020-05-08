@@ -54,7 +54,7 @@ public final class JSCLInteger extends Generic {
         return remainder(generic).signum()==0;
     }
 
-    public JSCLInteger divide(JSCLInteger integer) throws ArithmeticException {
+    public JSCLInteger integerDivide(JSCLInteger integer) throws ArithmeticException {
         JSCLInteger e[]=divideAndRemainder(integer);
         if(e[1].signum()==0) return e[0];
         else throw new NotDivisibleException();
@@ -62,7 +62,9 @@ public final class JSCLInteger extends Generic {
 
     public Generic divide(Generic generic) throws ArithmeticException {
         if(generic instanceof JSCLInteger) {
-            return divide((JSCLInteger)generic);
+            JSCLInteger integer=(JSCLInteger)generic;
+            if(multiple(integer)) return integerDivide(integer);
+            else return new Rational(content(),integer.content());
         } else {
             return generic.valueof(this).divide(generic);
         }
@@ -157,7 +159,7 @@ public final class JSCLInteger extends Generic {
         Generic p[]=a.productValue();
         JSCLInteger d[]=new JSCLInteger[p.length];
         for(int i=0;i<p.length;i++) {
-            d[i]=phi.divide(p[i].powerValue().value(true).integerValue());
+            d[i]=phi.integerDivide(p[i].powerValue().value(true).integerValue());
         }
         int k=0;
         JSCLInteger n=this;
