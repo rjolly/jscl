@@ -164,9 +164,9 @@ public abstract class Function extends Generic {
     public Generic valueof(Generic generic) {
         if(generic instanceof Function) {
             return generic;
-        } else if(generic instanceof JSCLInteger) {
-            return valueOf((JSCLInteger)generic);
-        } else throw new ArithmeticException();
+        } else {
+            return generic.function(new TechnicalVariable("t"));
+        }
     }
 
     public Generic[] sumValue() {
