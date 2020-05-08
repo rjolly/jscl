@@ -108,11 +108,7 @@ public class Matrix extends Generic {
             Matrix m=(Matrix)newinstance();
             for(int i=0;i<n;i++) {
                 for(int j=0;j<p;j++) {
-                    try {
-                        m.element[i][j]=element[i][j].divide(generic);
-                    } catch (NotDivisibleException e) {
-                        m.element[i][j]=new Frac(element[i][j],generic).evaluate();
-                    }
+                    m.element[i][j]=element[i][j].divide(generic);
                 }
             }
             return m;

@@ -50,6 +50,10 @@ public final class JSCLInteger extends Generic {
         }
     }
 
+    public boolean multiple(Generic generic) throws ArithmeticException {
+        return remainder(generic).signum()==0;
+    }
+
     public JSCLInteger divide(JSCLInteger integer) throws ArithmeticException {
         JSCLInteger e[]=divideAndRemainder(integer);
         if(e[1].signum()==0) return e[0];

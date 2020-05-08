@@ -65,11 +65,7 @@ public class JSCLVector extends Generic {
         } else {
             JSCLVector v=(JSCLVector)newinstance();
             for(int i=0;i<n;i++) {
-                try {
-                    v.element[i]=element[i].divide(generic);
-                } catch (NotDivisibleException e) {
-                    v.element[i]=new Frac(element[i],generic).evaluate();
-                }
+                v.element[i]=element[i].divide(generic);
             }
             return v;
         }

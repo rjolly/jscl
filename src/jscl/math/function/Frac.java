@@ -55,9 +55,9 @@ public class Frac extends Algebraic {
         if(parameter[0].compareTo(JSCLInteger.valueOf(1))==0) {
             return new Inv(parameter[1]).evaluate();
         }
-        try {
+        if(parameter[0].multiple(parameter[1])) {
             return parameter[0].divide(parameter[1]);
-        } catch (NotDivisibleException e) {}
+        }
         return expressionValue();
     }
 

@@ -170,10 +170,14 @@ public class Expression extends Generic {
         }
     }
 
+    public boolean multiple(Generic generic) throws ArithmeticException {
+        return remainder(generic).signum()==0;
+    }
+
     public Generic divide(Generic generic) throws ArithmeticException {
         Generic a[]=divideAndRemainder(generic);
         if(a[1].signum()==0) return a[0];
-        else throw new NotDivisibleException();
+        else return new Frac(this,generic).evaluate();
     }
 
     public Generic[] divideAndRemainder(Generic generic) throws ArithmeticException {
@@ -196,14 +200,18 @@ public class Expression extends Generic {
                 return new Generic[] {p[0].genericValue(),p[1].genericValue()};
             }
         } else if(generic instanceof JSCLInteger) {
-            try {
-                Expression ex=newinstance(size);
-                for(int i=0;i<size;i++) {
+            JSCLInteger d=(JSCLInteger)generic;
+            boolean flag=true;
+            Expression ex=newinstance(size);
+            for(int i=0;i<size;i++) {
+                if(coef[i].multiple(d)) {
                     ex.literal[i]=literal[i];
-                    ex.coef[i]=coef[i].divide((JSCLInteger)generic);
-                }
+                    ex.coef[i]=coef[i].divide(d);
+                } else flag=false;
+            }
+            if(flag) {
                 return new Generic[] {ex,JSCLInteger.valueOf(0)};
-            } catch (NotDivisibleException e) {
+            } else {
                 return new Generic[] {JSCLInteger.valueOf(0),this};
             }
         } else if(generic instanceof Rational) {

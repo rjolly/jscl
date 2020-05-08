@@ -10,7 +10,7 @@ public abstract class Generic implements Arithmetic, Comparable {
     public abstract Generic multiply(Generic generic);
 
     public boolean multiple(Generic generic) throws ArithmeticException {
-        return remainder(generic).signum()==0;
+        return true;
     }
 
     public abstract Generic divide(Generic generic) throws ArithmeticException;
@@ -32,11 +32,7 @@ public abstract class Generic implements Arithmetic, Comparable {
     }
 
     public Generic[] divideAndRemainder(Generic generic) throws ArithmeticException {
-        try {
-            return new Generic[] {divide(generic),JSCLInteger.valueOf(0)};
-        } catch (NotDivisibleException e) {
-            return new Generic[] {JSCLInteger.valueOf(0),this};
-        }
+        return new Generic[] {divide(generic),JSCLInteger.valueOf(0)};
     }
 
     public Generic remainder(Generic generic) throws ArithmeticException {
