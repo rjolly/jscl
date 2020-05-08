@@ -278,7 +278,7 @@
 <xsl:template match="m:vector | m:matrix | m:matrixrow">
 	<xsl:text>{</xsl:text>
 	<xsl:for-each select="*">
-		<xsl:apply-templates/>
+		<xsl:apply-templates select="."/>
 		<xsl:if test="position() &lt; last()"><xsl:text>, </xsl:text></xsl:if>
 	</xsl:for-each>
 	<xsl:text>}</xsl:text>
