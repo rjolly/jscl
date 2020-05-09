@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns:m="http://www.w3.org/1998/Math/MathML"
 		xmlns:x="http://www.w3.org/1999/xhtml"
-                version='1.0'>
+		version='1.0'>
 
 <xsl:output method="text" indent="no" encoding="UTF-8"/>
 
@@ -107,7 +107,7 @@
 	<xsl:text>+</xsl:text>
 	<xsl:value-of select="text()[2]"/>
 	<xsl:text>*sqrt(-1)</xsl:text>
-	<xsl:if test="0 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
+	<xsl:if test="0 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
 </xsl:template>
 
 <xsl:template match="m:ci | m:mi">
