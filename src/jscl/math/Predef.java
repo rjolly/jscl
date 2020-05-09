@@ -8,6 +8,10 @@ public class Predef {
 	public static final Generic pi=Constant.pi;
 	public static final Generic oo=Constant.infinity;
 
+	public static Generic root(Generic[] a, Generic b) {
+		return new Root(a, b).expressionValue();
+	}
+
 	public static Generic cubic(Generic a) {
 		return new Cubic(a).expressionValue();
 	}

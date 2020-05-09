@@ -107,6 +107,18 @@
 	<xsl:text>)</xsl:text>
 </xsl:template>
 
+<xsl:template match="m:apply[*[1][self::m:ci[*[1][self::m:msub[*[1][self::m:mi] and *[2][self::m:cn]]]]]]">
+	<xsl:apply-templates select="*[1]/*[1]/*[1]"/>
+	<xsl:text>(new Generic[] {</xsl:text>
+	<xsl:for-each select="*[position() &gt; 1]">
+		<xsl:apply-templates select="."/>
+		<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+	</xsl:for-each>
+	<xsl:text>}, </xsl:text>
+	<xsl:apply-templates select="*[1]/*[1]/*[2]"/>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
 <xsl:template match="m:ci | m:mi">
 	<xsl:choose>
 		<xsl:when test="text() = '&#x003B1;'"><xsl:text>alpha</xsl:text></xsl:when>
