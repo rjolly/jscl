@@ -100,7 +100,8 @@
  self::m:arccosh or
  self::m:arctanh or
  self::m:arccoth or
- self::m:exp]]">
+ self::m:exp or
+ self::m:ln]]">
 	<xsl:value-of select="local-name(*[1])"/>
 	<xsl:text>(</xsl:text>
 	<xsl:apply-templates select="*[2]"/>

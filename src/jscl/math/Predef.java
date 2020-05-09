@@ -88,6 +88,10 @@ public class Predef {
 		return new Exp(a).expressionValue();
 	}
 
+	public static Generic ln(Generic a) {
+		return new Log(a).expressionValue();
+	}
+
 	public static Generic power(Generic a, Generic b) {
 		return new Pow(a, b).expressionValue();
 	}

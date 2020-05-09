@@ -240,6 +240,10 @@ public class Pow extends Algebraic {
         return buffer.toString();
     }
 
+    public String toMathML(Object data) {
+        return "<apply><power/>" + parameter[0].toMathML(null) + parameter[1].toMathML(null) + "</apply>";
+    }
+
     protected Variable newinstance() {
         return new Pow(null,null);
     }
