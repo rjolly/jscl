@@ -64,9 +64,23 @@
 </xsl:template>
 
 <xsl:template match="m:apply[*[1][self::m:root]]">
-	<xsl:text>sqrt(</xsl:text>
-	<xsl:apply-templates select="*[2]"/>
-	<xsl:text>)</xsl:text>
+	<xsl:choose>
+		<xsl:when test="m:degree">
+			<xsl:choose>
+				<xsl:when test="m:degree/m:cn/text()='3'">
+					<xsl:text>cubic(</xsl:text>
+					<xsl:apply-templates select="*[3]"/>
+					<xsl:text>)</xsl:text>
+				</xsl:when>
+				<xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+			</xsl:choose>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:text>sqrt(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>)</xsl:text>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <xsl:template match="m:apply[*[1][
