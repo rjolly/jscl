@@ -8,6 +8,10 @@ public class Predef {
 	public static final Generic pi=Constant.pi;
 	public static final Generic oo=Constant.infinity;
 
+	public static Generic sqrt(Generic a) {
+		return new Sqrt(a).expressionValue();
+	}
+
 	public static Generic sin(Generic a) {
 		return new Sin(a).expressionValue();
 	}

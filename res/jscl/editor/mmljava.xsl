@@ -63,6 +63,12 @@
 	<xsl:text>oo</xsl:text>
 </xsl:template>
 
+<xsl:template match="m:apply[*[1][self::m:root]]">
+	<xsl:text>sqrt(</xsl:text>
+	<xsl:apply-templates select="*[2]"/>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
 <xsl:template match="m:apply[*[1][
  self::m:sin or
  self::m:cos or
