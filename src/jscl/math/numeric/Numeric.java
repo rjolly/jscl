@@ -153,4 +153,6 @@ public abstract class Numeric implements Arithmetic, Comparable {
             return compareTo((Numeric)obj)==0;
         } else return false;
     }
+
+    public abstract String toMathML();
 }

@@ -320,11 +320,11 @@ public final class NumericWrapper extends Generic {
     }
 
     public String toJava() {
-        return "JSCLDouble.valueOf("+((JSCLDouble)content).doubleValue()+")";
+        return "JSCLDouble.valueOf(0)";
     }
 
     public String toMathML(Object data) {
-	return "<cn>" + String.valueOf(((JSCLDouble)content).doubleValue()) + "</cn>";
+        return content.toMathML();
     }
 
     protected Generic newinstance() {

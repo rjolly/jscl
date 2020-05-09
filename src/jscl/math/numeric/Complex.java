@@ -179,4 +179,8 @@ public final class Complex extends Numeric {
         }
         return buffer.toString();
     }
+
+    public String toMathML() {
+	return "<cn type=\"complex\">" + String.valueOf(real) + "<sep/>" + String.valueOf(imag) + "</cn>";
+    }
 }

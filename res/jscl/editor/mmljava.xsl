@@ -33,6 +33,20 @@
 	<xsl:text>&#x00022;)</xsl:text>
 </xsl:template>
 
+<xsl:template match="m:cn[@type='real']">
+	<xsl:text>JSCLDouble.valueOf(</xsl:text>
+	<xsl:apply-templates/>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:cn[@type='complex']">
+	<xsl:text>Complex.valueOf(</xsl:text>
+	<xsl:apply-templates select="text()[1]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="text()[2]"/>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
 <xsl:template match="m:exponentiale">
 	<xsl:text>exp(JSCLInteger.valueOf(1))</xsl:text>
 </xsl:template>
