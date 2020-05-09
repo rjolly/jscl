@@ -34,9 +34,7 @@ public final class NumericWrapper extends Generic {
     }
 
     public NumericWrapper(Constant constant) {
-        if(constant.compareTo(new Constant("pi"))==0) content=JSCLDouble.valueOf(Math.PI);
-        else if(constant.compareTo(new Constant("infin"))==0) content=JSCLDouble.valueOf(Double.POSITIVE_INFINITY);
-        else throw new ArithmeticException();
+        content = constant.numericValue();
     }
 
     public NumericWrapper(Numeric numeric) {

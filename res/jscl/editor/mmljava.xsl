@@ -136,6 +136,25 @@
 	</xsl:for-each>
 </xsl:template>
 
+<xsl:template match="m:ci[*[1][self::m:msubsup[*[1][self::m:mi] and *[2][self::m:mrow] and *[3][self::m:mrow]]]]">
+	<xsl:apply-templates select="*[1]/*[1]"/>
+	<xsl:for-each select="*[1]/*[3]/*">
+		<xsl:text>_</xsl:text>
+	</xsl:for-each>
+	<xsl:for-each select="*[1]/*[2]/*">
+		<xsl:text>[</xsl:text>
+		<xsl:apply-templates select="text()"/>
+		<xsl:text>]</xsl:text>
+	</xsl:for-each>
+</xsl:template>
+
+<xsl:template match="m:ci[*[1][self::m:msup[*[1][self::m:mi] and *[2][self::m:mrow]]]]">
+	<xsl:apply-templates select="*[1]/*[1]"/>
+	<xsl:for-each select="*[1]/*[2]/*">
+		<xsl:text>_</xsl:text>
+	</xsl:for-each>
+</xsl:template>
+
 <xsl:template match="m:apply[*[1][self::m:minus] and count(*) = 2]">
 	<xsl:apply-templates select="*[2]"/>
 	<xsl:text>.negate()</xsl:text>

@@ -1,9 +1,12 @@
 package jscl.math.function;
 
 import jscl.math.Generic;
+import jscl.math.Expression;
 import jscl.math.JSCLInteger;
 import jscl.math.NotIntegrableException;
 import jscl.math.NumericWrapper;
+import jscl.math.numeric.Numeric;
+import jscl.math.numeric.JSCLDouble;
 import jscl.math.Variable;
 import jscl.util.ArrayComparator;
 
@@ -95,6 +98,13 @@ public class Constant extends Variable {
 
     public Generic numeric() {
         return new NumericWrapper(this);
+    }
+
+    public Numeric numericValue() {
+        Expression expr = expressionValue();
+        if(expr.compareTo(pi)==0) return JSCLDouble.valueOf(Math.PI);
+        else if(expr.compareTo(infinity)==0) return JSCLDouble.valueOf(Double.POSITIVE_INFINITY);
+        else throw new ArithmeticException();
     }
 
     public boolean isConstant(Variable variable) {
