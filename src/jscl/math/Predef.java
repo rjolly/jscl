@@ -1,17 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package jscl.math;
 
 import jscl.math.function.*;
 import jscl.math.function.trigonometric.*;
 import jscl.math.function.hyperbolic.*;
 
-/**
- *
- * @author raphael
- */
 public class Predef {
 	public static final Generic pi=Constant.pi;
 	public static final Generic oo=Constant.infinity;
@@ -94,25 +86,5 @@ public class Predef {
 
 	public static Generic variable(String name, Generic subscript[]) {
 		return new Constant(name, 0, subscript).expressionValue();
-	}
-
-	public static Generic elementary(Generic a) {
-		return a.elementary();
-	}
-
-	public static Generic expand(Generic a) {
-		return a.expand();
-	}
-
-	public static Generic factorize(Generic a) {
-		return a.factorize();
-	}
-
-	public static Generic numeric(Generic a) {
-		return a.numeric();
-	}
-
-	public static Generic simplify(Generic a) {
-		return a.simplify();
 	}
 }
