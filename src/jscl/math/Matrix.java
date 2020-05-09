@@ -1,6 +1,7 @@
 package jscl.math;
 
 import jscl.math.function.Conjugate;
+import jscl.math.function.Constant;
 import jscl.math.function.Frac;
 import jscl.math.function.trigonometric.Cos;
 import jscl.math.function.trigonometric.Sin;
@@ -9,6 +10,15 @@ import jscl.util.ArrayComparator;
 public class Matrix extends Generic {
     protected final Generic element[][];
     protected final int n,p;
+
+    public Matrix(String name, int n, int p) {
+        this(new Generic[n][p]);
+        for(int i=0;i<n;i++) {
+            for(int j=0;j<p;j++) {
+                element[i][j]=new Constant(name, 0, new Generic[] {JSCLInteger.valueOf(i), JSCLInteger.valueOf(j)}).expressionValue();
+            }
+        }
+    }
 
     public Matrix(Generic element[][]) {
         this.element=element;

@@ -92,6 +92,18 @@ public class Predef {
 		return new Pow(a, b).expressionValue();
 	}
 
+	public static Generic vector(String name, int n) {
+		return new JSCLVector(name, n);
+	}
+
+	public static Generic matrix(String name, int n, int p) {
+		return new Matrix(name, n, p);
+	}
+
+	public static Generic matrix(String name, int n) {
+		return new Matrix(name, n, n);
+	}
+
 	public static Generic variable(String name) {
 		return new Constant(name).expressionValue();
 	}
