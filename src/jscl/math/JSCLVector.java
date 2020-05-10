@@ -9,9 +9,9 @@ public class JSCLVector extends Generic {
     protected final Generic element[];
     protected final int n;
 
-    public JSCLVector(String name, int n) {
+    public JSCLVector(String name, int prime, int n) {
         this(new Generic[n]);
-        for(int i=0;i<n;i++) element[i]=new Constant(name, 0, new Generic[] {JSCLInteger.valueOf(i)}).expressionValue();
+        for(int i=0;i<n;i++) element[i]=new Constant(name, prime, new Generic[] {JSCLInteger.valueOf(i)}).expressionValue();
     }
 
     public JSCLVector(Generic element[]) {

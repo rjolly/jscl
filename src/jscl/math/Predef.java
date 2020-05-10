@@ -100,23 +100,27 @@ public class Predef {
 		return new Pow(a, b).expressionValue();
 	}
 
+	public static Generic vector(String name, int prime, int n) {
+		return new JSCLVector(name, prime, n);
+	}
+
 	public static Generic vector(String name, int n) {
-		return new JSCLVector(name, n);
+		return new JSCLVector(name, 0, n);
 	}
 
 	public static Generic matrix(String name, int n, int p) {
-		return new Matrix(name, n, p);
+		return new Matrix(name, 0, n, p);
 	}
 
 	public static Generic matrix(String name, int n) {
-		return new Matrix(name, n, n);
+		return new Matrix(name, 0, n, n);
 	}
 
 	public static Generic variable(String name) {
 		return new Constant(name).expressionValue();
 	}
 
-	public static Generic variable(String name, Generic subscript[]) {
-		return new Constant(name, 0, subscript).expressionValue();
+	public static Generic variable(String name, int prime) {
+		return new Constant(name, prime, new Generic[] {}).expressionValue();
 	}
 }
