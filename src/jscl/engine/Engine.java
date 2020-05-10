@@ -32,20 +32,20 @@ public class Engine extends AbstractScriptEngine {
 		try {
 			final Generic expr = Expression.valueOf(script).expand();
 			if (expr instanceof Function) {
-				return new Graph((Function)expr);
+				return Graph.apply((Function) expr);
 			} else if (expr instanceof JSCLVector) {
-				Generic a[] = ((JSCLVector)expr).elements();
+				Generic a[] = ((JSCLVector) expr).elements();
 				Function s[] = new Function[a.length];
 				boolean flag = true;
 				for(int i=0;i<a.length;i++) {
 					if (a[i] instanceof Function) {
-						s[i]=(Function)a[i];
+						s[i] = (Function) a[i];
 					} else {
 						flag = false;
 					}
 				}
 				if (flag) {
-					return new Graph(s);
+					return Graph.apply(s);
 				}
 			}
 			return expr;

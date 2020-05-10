@@ -11,4 +11,7 @@
         <conf name="compile-test"/>
         <conf name="runtime-test"/>
     </configurations>
+    <dependencies>
+        <dependency org="org.swinglabs" name="swingx-core" rev="1.6.2-2" conf="compile->master;runtime->default"/>
+    </dependencies>
 </ivy-module>
