@@ -217,18 +217,18 @@ public class Constant extends Variable {
         if(prime<=PRIMECHARS) {
             b.append(primecharsToMathML(prime));
         } else {
-		b.append("<mfenced>");
-		b.append("<mn>" + String.valueOf(prime) + "</mn>");
-		b.append("</mfenced>");
+            b.append("<mfenced>");
+            b.append("<mn>" + String.valueOf(prime) + "</mn>");
+            b.append("</mfenced>");
         }
 	return b.toString();
     }
 
     static String primecharsToMathML(int n) {
 	StringBuffer b = new StringBuffer();
-	b.append("<mo>");
-        for(int i=0;i<n;i++) b.append("\u2032");
-	b.append("</mo>");
+        b.append("<mrow>");
+        for(int i=0;i<n;i++) b.append("<mo>\u2032</mo>");
+        b.append("</mrow>");
 	return b.toString();
     }
 

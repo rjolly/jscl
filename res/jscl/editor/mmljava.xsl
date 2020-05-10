@@ -72,7 +72,9 @@
 					<xsl:apply-templates select="*[3]"/>
 					<xsl:text>)</xsl:text>
 				</xsl:when>
-				<xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
+				<xsl:otherwise>
+					<xsl:apply-templates/>
+				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:when>
 		<xsl:otherwise>
@@ -108,16 +110,29 @@
 	<xsl:text>)</xsl:text>
 </xsl:template>
 
-<xsl:template match="m:apply[*[1][self::m:ci[*[1][self::m:msub[*[1][self::m:mi] and *[2][self::m:cn]]]]]]">
-	<xsl:apply-templates select="*[1]/*[1]/*[1]"/>
-	<xsl:text>(new Generic[] {</xsl:text>
-	<xsl:for-each select="*[position() &gt; 1]">
-		<xsl:apply-templates select="."/>
-		<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
-	</xsl:for-each>
-	<xsl:text>}, </xsl:text>
-	<xsl:apply-templates select="*[1]/*[1]/*[2]"/>
-	<xsl:text>)</xsl:text>
+<xsl:template match="m:apply[*[1][self::m:ci]]">
+	<xsl:choose>
+		<xsl:when test="*[1]/*[1]/*[1]/text() = 'root'">
+			<xsl:apply-templates select="*[1]/*[1]/*[1]"/>
+			<xsl:text>(new Generic[] {</xsl:text>
+			<xsl:for-each select="*[position() &gt; 1]">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>}, </xsl:text>
+			<xsl:apply-templates select="*[1]/*[1]/*[2]"/>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates select="*[1]"/>
+			<xsl:text>(</xsl:text>
+			<xsl:for-each select="*[position() &gt; 1]">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>)</xsl:text>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <xsl:template match="m:ci | m:mi">
