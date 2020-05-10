@@ -239,7 +239,9 @@ public class Constant extends Variable {
 
     static String primecharsToMathML(int n) {
         StringBuffer b = new StringBuffer();
-        for(int i=0;i<n;i++) b.append("<mo>\u2032</mo>");
+        b.append("<mo>");
+        for(int i=0;i<n;i++) b.append("\u2032");
+        b.append("</mo>");
         return b.toString();
     }
 

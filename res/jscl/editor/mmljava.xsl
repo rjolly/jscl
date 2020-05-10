@@ -151,11 +151,9 @@
 	</xsl:for-each>
 </xsl:template>
 
-<xsl:template match="m:ci[*[1][self::m:msub[*[1][self::m:mrow[*[1][self::m:mi]]] and *[2][self::m:mrow]]]]">
+<xsl:template match="m:ci[*[1][self::m:msub[*[1][self::m:mrow[*[1][self::m:mi] and *[2][self::m:mo]]] and *[2][self::m:mrow]]]]">
 	<xsl:apply-templates select="*[1]/*[1]/*[1]"/>
-	<xsl:for-each select="*[1]/*[1]/*[position() &gt; 1]">
-		<xsl:text>_</xsl:text>
-	</xsl:for-each>
+	<xsl:value-of select="translate(*[1]/*[1]/*[2]/text(),'&#x02032;','_')"/>
 	<xsl:for-each select="*[1]/*[2]/*">
 		<xsl:text>[</xsl:text>
 		<xsl:apply-templates select="text()"/>
@@ -163,11 +161,9 @@
 	</xsl:for-each>
 </xsl:template>
 
-<xsl:template match="m:ci[*[1][self::m:mrow[*[1][self::m:mi]]]]">
+<xsl:template match="m:ci[*[1][self::m:mrow[*[1][self::m:mi] and *[2][self::m:mo]]]]">
 	<xsl:apply-templates select="*[1]/*[1]"/>
-	<xsl:for-each select="*[1]/*[position() &gt; 1]">
-		<xsl:text>_</xsl:text>
-	</xsl:for-each>
+	<xsl:value-of select="translate(*[1]/*[2]/text(),'&#x02032;','_')"/>
 </xsl:template>
 
 <xsl:template match="m:apply[*[1][self::m:minus] and count(*) = 2]">
