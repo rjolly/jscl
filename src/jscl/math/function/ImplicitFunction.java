@@ -153,66 +153,79 @@ public class ImplicitFunction extends Function {
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-	b.append("<apply>");
-	b.append("<ci>" + bodyToMathML() + "</ci>");
+        StringBuffer b = new StringBuffer();
+        b.append("<apply>");
+        b.append("<ci>" + bodyToMathML() + "</ci>");
         for(int i=0;i<parameter.length;i++) {
             b.append(parameter[i].toMathML(null));
         }
-	b.append("</apply>");
-	return b.toString();
+        b.append("</apply>");
+        return b.toString();
     }
 
     String bodyToMathML() {
-	StringBuffer b = new StringBuffer();
+        StringBuffer b = new StringBuffer();
         int n=0;
         for(int i=0;i<derivation.length;i++) n+=derivation[i];
         if(subscript.length==0) {
             if(n==0) {
                 b.append(nameToMathML());
+            } else if(parameter.length==1?n<=Constant.PRIMECHARS:false) {
+                b.append("<mrow>");
+                b.append("<mi>" + nameToMathML() + "</mi>");
+                b.append(Constant.primecharsToMathML(n));
+                b.append("</mrow>");
             } else {
-		b.append("<msup>");
+                b.append("<msup>");
                 b.append("<mi>" + nameToMathML() + "</mi>");
                 b.append(derivationToMathML(n));
-		b.append("</msup>");
+                b.append("</msup>");
             }
         } else {
             if(n==0) {
-		b.append("<msub>");
+                b.append("<msub>");
                 b.append("<mi>" + nameToMathML() + "</mi>");
-		b.append("<mrow>");
+                b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
                     b.append(subscript[i].toMathML(null));
                 }
-		b.append("</mrow>");
-		b.append("</msub>");
+                b.append("</mrow>");
+                b.append("</msub>");
+            } else if(parameter.length==1?n<=Constant.PRIMECHARS:false) {
+                b.append("<msub>");
+                b.append("<mrow>");
+                b.append("<mi>" + nameToMathML() + "</mi>");
+                b.append(Constant.primecharsToMathML(n));
+                b.append("</mrow>");
+                b.append("<mrow>");
+                for(int i=0;i<subscript.length;i++) {
+                    b.append(subscript[i].toMathML(null));
+                }
+                b.append("</mrow>");
+                b.append("</msub>");
             } else {
-		b.append("<msubsup>");
+                b.append("<msubsup>");
                 b.append("<mi>" + nameToMathML() + "</mi>");
-		b.append("<mrow>");
+                b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
                     b.append(subscript[i].toMathML(null));
                 }
-		b.append("</mrow>");
+                b.append("</mrow>");
                 b.append(derivationToMathML(n));
-		b.append("</msubsup>");
+                b.append("</msubsup>");
             }
         }
-	return b.toString();
+        return b.toString();
     }
 
     String derivationToMathML(int n) {
-	StringBuffer b = new StringBuffer();
-        if(parameter.length==1?n<=Constant.PRIMECHARS:false) {
-		b.append(Constant.primecharsToMathML(n));
-	} else {
-	    b.append("<mfenced>");
-            for(int i=0;i<derivation.length;i++) {
-		b.append("<mn>" + String.valueOf(derivation[i]) + "</mn>");
-            }
-	    b.append("</mfenced>");
+        StringBuffer b = new StringBuffer();
+        b.append("<mfenced>");
+        for(int i=0;i<derivation.length;i++) {
+            b.append("<mn>" + String.valueOf(derivation[i]) + "</mn>");
         }
-	return b.toString();
+        b.append("</mfenced>");
+        return b.toString();
     }
 
     protected Variable newinstance() {

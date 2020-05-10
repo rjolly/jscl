@@ -151,9 +151,9 @@
 	</xsl:for-each>
 </xsl:template>
 
-<xsl:template match="m:ci[*[1][self::m:msubsup[*[1][self::m:mi] and *[2][self::m:mrow] and *[3][self::m:mrow]]]]">
-	<xsl:apply-templates select="*[1]/*[1]"/>
-	<xsl:for-each select="*[1]/*[3]/*">
+<xsl:template match="m:ci[*[1][self::m:msub[*[1][self::m:mrow[*[1][self::m:mi]]] and *[2][self::m:mrow]]]]">
+	<xsl:apply-templates select="*[1]/*[1]/*[1]"/>
+	<xsl:for-each select="*[1]/*[1]/*[position() &gt; 1]">
 		<xsl:text>_</xsl:text>
 	</xsl:for-each>
 	<xsl:for-each select="*[1]/*[2]/*">
@@ -163,9 +163,9 @@
 	</xsl:for-each>
 </xsl:template>
 
-<xsl:template match="m:ci[*[1][self::m:msup[*[1][self::m:mi] and *[2][self::m:mrow]]]]">
+<xsl:template match="m:ci[*[1][self::m:mrow[*[1][self::m:mi]]]]">
 	<xsl:apply-templates select="*[1]/*[1]"/>
-	<xsl:for-each select="*[1]/*[2]/*">
+	<xsl:for-each select="*[1]/*[position() &gt; 1]">
 		<xsl:text>_</xsl:text>
 	</xsl:for-each>
 </xsl:template>
