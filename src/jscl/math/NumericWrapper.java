@@ -163,6 +163,12 @@ public final class NumericWrapper extends Generic {
             return valueof((NumericWrapper)generic);
         } else if(generic instanceof JSCLInteger) {
             return new NumericWrapper((JSCLInteger)generic);
+        } else if(generic instanceof Rational) {
+            return new NumericWrapper((Rational)generic);
+        } else if(generic instanceof JSCLVector) {
+            return new NumericWrapper((JSCLVector)generic);
+        } else if(generic instanceof Matrix) {
+            return new NumericWrapper((Matrix)generic);
         } else throw new ArithmeticException();
     }
 

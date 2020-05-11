@@ -7,6 +7,10 @@ public class JSCLBoolean extends ModularInteger {
         super(content,2);
     }
 
+    public static JSCLBoolean valueOf(boolean value) {
+        return new JSCLBoolean(value?1:0);
+    }
+
     protected ModularInteger newinstance(long content) {
         return content%2==0?zero:one;
     }

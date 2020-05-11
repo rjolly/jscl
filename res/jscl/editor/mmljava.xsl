@@ -12,13 +12,13 @@
 </xsl:template>
 
 <xsl:template match="m:cn">
-	<xsl:text>JSCLInteger.valueOf(&#x00022;</xsl:text>
+	<xsl:text>integer(&#x00022;</xsl:text>
 	<xsl:apply-templates/>
 	<xsl:text>&#x00022;)</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:cn[@type='integer' and @base!=10]">
-	<xsl:text>ModularInteger.valueOf(</xsl:text>
+	<xsl:text>modint(</xsl:text>
 	<xsl:apply-templates/>
 	<xsl:text>, </xsl:text>
 	<xsl:value-of select="@base"/>
@@ -26,7 +26,7 @@
 </xsl:template>
 
 <xsl:template match="m:cn[@type='rational']">
-	<xsl:text>Rational.valueOf(&#x00022;</xsl:text>
+	<xsl:text>rational(&#x00022;</xsl:text>
 	<xsl:apply-templates select="text()[1]"/>
 	<xsl:text>&#x00022;, &#x00022;</xsl:text>
 	<xsl:apply-templates select="text()[2]"/>
@@ -34,25 +34,31 @@
 </xsl:template>
 
 <xsl:template match="m:cn[@type='real']">
-	<xsl:text>JSCLDouble.valueOf(</xsl:text>
+	<xsl:text>real(</xsl:text>
 	<xsl:apply-templates/>
 	<xsl:text>)</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:cn[@type='complex']">
-	<xsl:text>Complex.valueOf(</xsl:text>
+	<xsl:text>complex(</xsl:text>
 	<xsl:apply-templates select="text()[1]"/>
 	<xsl:text>, </xsl:text>
 	<xsl:apply-templates select="text()[2]"/>
 	<xsl:text>)</xsl:text>
 </xsl:template>
 
+<xsl:template match="m:true | m:false">
+	<xsl:text>bool(</xsl:text>
+	<xsl:value-of select="local-name(*[1])"/>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
 <xsl:template match="m:exponentiale">
-	<xsl:text>exp(JSCLInteger.valueOf(1))</xsl:text>
+	<xsl:text>exp(integer(&#x00022;1&#x00022;))</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:imaginaryi">
-	<xsl:text>sqrt(JSCLInteger.valueOf(-1))</xsl:text>
+	<xsl:text>sqrt(integer(&#x00022;-1&#x00022;))</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:pi">
@@ -249,7 +255,7 @@
 </xsl:template>
 
 <xsl:template match="m:vector">
-	<xsl:text>new JSCLVector(new Generic[] {</xsl:text>
+	<xsl:text>vector(new Generic[] {</xsl:text>
 	<xsl:for-each select="*">
 		<xsl:apply-templates select="."/>
 		<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
@@ -258,7 +264,7 @@
 </xsl:template>
 
 <xsl:template match="m:matrix">
-	<xsl:text>new Matrix(new Generic[][] {</xsl:text>
+	<xsl:text>matrix(new Generic[][] {</xsl:text>
 	<xsl:apply-templates/>
 	<xsl:text>})</xsl:text>
 </xsl:template>

@@ -4,6 +4,7 @@ import jscl.math.function.*;
 import jscl.math.function.trigonometric.*;
 import jscl.math.function.hyperbolic.*;
 import jscl.math.operator.*;
+import jscl.math.numeric.*;
 
 public class Predef {
 	public static final Generic pi=Constant.pi;
@@ -143,5 +144,37 @@ public class Predef {
 
 	public static Generic integral(Generic expression, Generic variable, Generic n1, Generic n2) {
 		return new Integral(expression, variable, n1, n2).expressionValue();
+	}
+
+	public static Generic modint(int content, int modulo) {
+		return ModularInteger.valueOf(content, modulo);
+	}
+
+	public static Generic integer(String str) {
+		return JSCLInteger.valueOf(str);
+	}
+
+	public static Generic rational(String n, String d) {
+		return Rational.valueOf(n, d);
+	}
+
+	public static Generic real(double val) {
+		return new NumericWrapper(JSCLDouble.valueOf(val));
+	}
+
+	public static Generic complex(double real, double imag) {
+		return new NumericWrapper(Complex.valueOf(real, imag));
+	}
+
+	public static Generic bool(boolean value) {
+		return JSCLBoolean.valueOf(value);
+	}
+
+	public static Generic vector(Generic element[]) {
+		return new JSCLVector(element);
+	}
+
+	public static Generic matrix(Generic element[][]) {
+		return new Matrix(element);
 	}
 }
