@@ -29,7 +29,7 @@ public class GeometricProduct extends VectorOperator {
             Generic g[]=((ImplicitFunction)v).parameters();
             int p=g[0].integerValue().intValue();
             int q=g[1].integerValue().intValue();
-            if(v.compareTo(new ImplicitFunction("cl",new Generic[] {JSCLInteger.valueOf(p),JSCLInteger.valueOf(q)},new int[] {0,0},new Generic[] {}))==0) return new int[] {p,q};
+            if(v.compareTo(new ImplicitFunction("cl",new Generic[] {JSCLInteger.valueOf(p),JSCLInteger.valueOf(q)}))==0) return new int[] {p,q};
         }
         throw new ArithmeticException();
     }

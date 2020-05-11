@@ -45,7 +45,7 @@ public class Groebner extends Operator {
         else if(v instanceof ImplicitFunction) {
             Generic g[]=((ImplicitFunction)v).parameters();
             int k=g[0].integerValue().intValue();
-            if(v.compareTo(new ImplicitFunction("elim",new Generic[] {JSCLInteger.valueOf(k)},new int[] {0},new Generic[] {}))==0) return Monomial.kthElimination(k);
+            if(v.compareTo(new ImplicitFunction("elim",new Generic[] {JSCLInteger.valueOf(k)}))==0) return Monomial.kthElimination(k);
         }
         throw new ArithmeticException();
     }

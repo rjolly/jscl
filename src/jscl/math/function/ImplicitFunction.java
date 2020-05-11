@@ -42,6 +42,10 @@ public class ImplicitFunction extends Function {
         this.subscript=subscript;
     }
 
+    public ImplicitFunction(String name, Generic parameter[]) {
+        this(name, parameter, new int[parameter.length], new Generic[0]);
+    }
+
     public int[] derivation() {
         return derivation;
     }
