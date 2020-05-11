@@ -110,6 +110,30 @@
 	<xsl:text>)</xsl:text>
 </xsl:template>
 
+<xsl:template match="m:apply[*[1][self::m:int]]">
+	<xsl:text>integral(</xsl:text>
+	<xsl:choose>
+		<xsl:when test="*[2][self::m:lowlimit] and *[3][self::m:uplimit] and *[4][self::m:bvar]">
+			<xsl:apply-templates select="*[5]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[4]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[3]"/>
+		</xsl:when>
+		<xsl:when test="*[2][self::m:bvar]">
+			<xsl:apply-templates select="*[3]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates/>
+		</xsl:otherwise>
+	</xsl:choose>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
 <xsl:template match="m:apply[*[1][self::m:ci]]">
 	<xsl:choose>
 		<xsl:when test="*[1]/*[1]/*[1]/text() = 'root'">

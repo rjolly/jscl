@@ -3,6 +3,7 @@ package jscl.math;
 import jscl.math.function.*;
 import jscl.math.function.trigonometric.*;
 import jscl.math.function.hyperbolic.*;
+import jscl.math.operator.*;
 
 public class Predef {
 	public static final Generic pi=Constant.pi;
@@ -134,5 +135,13 @@ public class Predef {
 
 	public static Generic variable(String name, int prime) {
 		return new Constant(name, prime).expressionValue();
+	}
+
+	public static Generic integral(Generic expression, Generic variable) {
+		return new IndefiniteIntegral(expression, variable).expressionValue();
+	}
+
+	public static Generic integral(Generic expression, Generic variable, Generic n1, Generic n2) {
+		return new Integral(expression, variable, n1, n2).expressionValue();
 	}
 }

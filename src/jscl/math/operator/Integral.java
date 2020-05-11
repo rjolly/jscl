@@ -19,31 +19,17 @@ public class Integral extends Operator {
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML());
-        else {
-		b.append("<msup>");
-		b.append("<mfenced>" + bodyToMathML() + "</mfenced>");
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
-    }
-
-    String bodyToMathML() {
         Variable v=parameter[1].variableValue();
 	StringBuffer b = new StringBuffer();
-	b.append("<mrow>");
-	b.append("<msubsup>");
-	b.append("<mo>" + "\u222B" + "</mo>");
+	b.append("<apply><int/><lowlimit>");
         b.append(parameter[2].toMathML(null));
+        b.append("</lowlimit><uplimit>");
         b.append(parameter[3].toMathML(null));
-	b.append("</msubsup>");
-        b.append(parameter[0].toMathML(null));
-	b.append("<mo>" + /*"\u2146"*/"d" + "</mo>");
+        b.append("</uplimit><bvar>");
         b.append(v.toMathML(null));
-	b.append("</mrow>");
+        b.append("</bvar>");
+        b.append(parameter[0].toMathML(null));
+	b.append("</apply>");
 	return b.toString();
     }
 
