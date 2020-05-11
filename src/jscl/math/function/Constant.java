@@ -24,7 +24,11 @@ public class Constant extends Variable {
     protected Generic subscript[];
 
     public Constant(String name) {
-        this(name,0,new Generic[0]);
+        this(name,0);
+    }
+
+    public Constant(String name, int prime) {
+        this(name,prime,new Generic[0]);
     }
 
     public Constant(String name, int prime, Generic subscript[]) {

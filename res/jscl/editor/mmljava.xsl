@@ -119,18 +119,17 @@
 				<xsl:apply-templates select="."/>
 				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
 			</xsl:for-each>
-			<xsl:text>}, </xsl:text>
+			<xsl:text>})</xsl:text>
 			<xsl:apply-templates select="*[1]/*[1]/*[2]"/>
-			<xsl:text>)</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:apply-templates select="*[1]"/>
-			<xsl:text>(</xsl:text>
+			<xsl:text>.apply(new Generic[] {</xsl:text>
 			<xsl:for-each select="*[position() &gt; 1]">
 				<xsl:apply-templates select="."/>
 				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
 			</xsl:for-each>
-			<xsl:text>)</xsl:text>
+			<xsl:text>})</xsl:text>
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
@@ -142,28 +141,36 @@
 	</xsl:choose>
 </xsl:template>
 
-<xsl:template match="m:ci[*[1][self::m:msub[*[1][self::m:mi] and *[2][self::m:mrow]]]]">
-	<xsl:apply-templates select="*[1]/*[1]"/>
-	<xsl:for-each select="*[1]/*[2]/*">
-		<xsl:text>[</xsl:text>
+<xsl:template match="m:mo">
+	<xsl:value-of select="translate(text(),'&#x02032;','_')"/>
+</xsl:template>
+
+<xsl:template match="m:mrow">
+	<xsl:choose>
+		<xsl:when test="*[1][self::m:mi] and *[2][self::m:mo]">
+			<xsl:apply-templates/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:for-each select="*">
+				<xsl:text>[</xsl:text>
+				<xsl:apply-templates/>
+				<xsl:text>]</xsl:text>
+			</xsl:for-each>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+<xsl:template match="m:mfenced">
+	<xsl:for-each select="*">
+		<xsl:text>_</xsl:text>
 		<xsl:apply-templates select="text()"/>
-		<xsl:text>]</xsl:text>
 	</xsl:for-each>
 </xsl:template>
 
-<xsl:template match="m:ci[*[1][self::m:msub[*[1][self::m:mrow[*[1][self::m:mi] and *[2][self::m:mo]]] and *[2][self::m:mrow]]]]">
-	<xsl:apply-templates select="*[1]/*[1]/*[1]"/>
-	<xsl:value-of select="translate(*[1]/*[1]/*[2]/text(),'&#x02032;','_')"/>
-	<xsl:for-each select="*[1]/*[2]/*">
-		<xsl:text>[</xsl:text>
-		<xsl:apply-templates select="text()"/>
-		<xsl:text>]</xsl:text>
-	</xsl:for-each>
-</xsl:template>
-
-<xsl:template match="m:ci[*[1][self::m:mrow[*[1][self::m:mi] and *[2][self::m:mo]]]]">
+<xsl:template match="m:ci[*[1][self::m:msubsup[*[1][self::m:mi] and *[2][self::m:mrow] and *[3][self::m:mfenced]]]]">
 	<xsl:apply-templates select="*[1]/*[1]"/>
-	<xsl:value-of select="translate(*[1]/*[2]/text(),'&#x02032;','_')"/>
+	<xsl:apply-templates select="*[1]/*[3]"/>
+	<xsl:apply-templates select="*[1]/*[2]"/>
 </xsl:template>
 
 <xsl:template match="m:apply[*[1][self::m:minus] and count(*) = 2]">

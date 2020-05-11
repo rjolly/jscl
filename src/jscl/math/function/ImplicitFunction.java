@@ -1,6 +1,7 @@
 package jscl.math.function;
 
 import jscl.math.Generic;
+import jscl.math.JSCLInteger;
 import jscl.math.NotIntegrableException;
 import jscl.math.Variable;
 import jscl.util.ArrayComparator;
@@ -8,6 +9,32 @@ import jscl.util.ArrayComparator;
 public class ImplicitFunction extends Function {
     protected int derivation[];
     protected Generic subscript[];
+
+    public static Curried apply(String name, int derivation[]) {
+        return new Curried(name, derivation, new Generic[0]);
+    }
+
+    public static Curried[] apply(String name, int derivation[], int n) {
+        Curried element[]=new Curried[n];
+        for(int i=0;i<n;i++) element[i]=new Curried(name, derivation, new Generic[] {JSCLInteger.valueOf(i)});
+        return element;
+    }
+
+    public static class Curried {
+        final String name;
+        final int derivation[];
+        final Generic subscript[];
+
+        public Curried(String name, int derivation[], Generic subscript[]) {
+            this.name=name;
+            this.derivation=derivation;
+            this.subscript=subscript;
+        }
+
+        public Generic apply(Generic parameter[]) {
+            return new ImplicitFunction(name, parameter, derivation, subscript).expressionValue();
+        }
+    }
 
     public ImplicitFunction(String name, Generic parameter[], int derivation[], Generic subscript[]) {
         super(name,parameter);

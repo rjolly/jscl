@@ -15,6 +15,12 @@ import jscl.util.ArrayComparator;
 public class Root extends Algebraic {
     protected Generic subscript;
 
+    public static Generic[] apply(Generic parameter[]) {
+        Generic element[]=new Generic[parameter.length-1];
+        for(int i=0;i<element.length;i++) element[i]=new Root(parameter, i).expressionValue();
+        return element;
+    }
+
     public Root(Generic parameter[], Generic subscript) {
         super("root",parameter);
         this.subscript=subscript;
@@ -341,7 +347,9 @@ public class Root extends Algebraic {
         int exponent=data instanceof Integer?((Integer)data).intValue():1;
 	b.append("<apply><ci><msub>");
         b.append("<mi>" + nameToMathML() + "</mi>");
+        b.append("<mrow>");
         b.append(subscript.toMathML(null));
+        b.append("</mrow>");
 	b.append("</msub></ci>");
         for(int i=0;i<parameter.length;i++) {
             b.append(parameter[i].toMathML(null));

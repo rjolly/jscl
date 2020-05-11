@@ -8,12 +8,24 @@ public class Predef {
 	public static final Generic pi=Constant.pi;
 	public static final Generic oo=Constant.infinity;
 
-	public static Generic root(Generic a[], Generic b) {
-		return new Root(a, b).expressionValue();
+	public static ImplicitFunction.Curried function(String name, int derivation) {
+		return ImplicitFunction.apply(name, new int[] {derivation});
 	}
 
-	public static Generic function(String name, int derivation, Generic a) {
-		return new ImplicitFunction(name, new Generic[] {a}, new int[] {derivation}, new Generic[] {}).expressionValue();
+	public static ImplicitFunction.Curried[] function(String name, int derivation, int n) {
+		return ImplicitFunction.apply(name, new int[] {derivation}, n);
+	}
+
+	public static ImplicitFunction.Curried function(String name, int derivation[]) {
+		return ImplicitFunction.apply(name, derivation);
+	}
+
+	public static ImplicitFunction.Curried[] function(String name, int derivation[], int n) {
+		return ImplicitFunction.apply(name, derivation, n);
+	}
+
+	public static Generic[] root(Generic parameter[]) {
+		return Root.apply(parameter);
 	}
 
 	public static Generic cubic(Generic a) {
@@ -100,20 +112,20 @@ public class Predef {
 		return new Pow(a, b).expressionValue();
 	}
 
-	public static Generic vector(String name, int prime, int n) {
-		return new JSCLVector(name, prime, n);
+	public static Generic[] vector(String name, int prime, int n) {
+		return new JSCLVector(name, prime, n).elements();
 	}
 
-	public static Generic vector(String name, int n) {
-		return new JSCLVector(name, 0, n);
+	public static Generic[] vector(String name, int n) {
+		return new JSCLVector(name, 0, n).elements();
 	}
 
-	public static Generic matrix(String name, int n, int p) {
-		return new Matrix(name, 0, n, p);
+	public static Generic[][] matrix(String name, int n, int p) {
+		return new Matrix(name, 0, n, p).elements();
 	}
 
-	public static Generic matrix(String name, int n) {
-		return new Matrix(name, 0, n, n);
+	public static Generic[][] matrix(String name, int n) {
+		return new Matrix(name, 0, n, n).elements();
 	}
 
 	public static Generic variable(String name) {
@@ -121,6 +133,6 @@ public class Predef {
 	}
 
 	public static Generic variable(String name, int prime) {
-		return new Constant(name, prime, new Generic[] {}).expressionValue();
+		return new Constant(name, prime).expressionValue();
 	}
 }
