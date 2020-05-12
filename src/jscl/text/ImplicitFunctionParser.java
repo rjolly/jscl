@@ -23,6 +23,11 @@ public class ImplicitFunctionParser extends Parser {
             pos[0]=pos0;
             throw e;
         }
+        try {
+            b=(int [])Derivation.parser.parse(str,pos);
+        } catch (ParseException e) {
+            b=new int[0];
+        }
         while(true) {
             try {
                 Generic s=(Generic)Subscript.parser.parse(str,pos);
@@ -31,11 +36,6 @@ public class ImplicitFunctionParser extends Parser {
                 break;
             }
         }
-        try {
-            b=(int [])Derivation.parser.parse(str,pos);
-        } catch (ParseException e) {
-            b=new int[0];
-                }
         try {
             a=(Generic[])ParameterList.parser.parse(str,pos);
         } catch (ParseException e) {
