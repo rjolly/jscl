@@ -177,4 +177,16 @@ public class Predef {
 	public static Generic matrix(Generic element[][]) {
 		return new Matrix(element);
 	}
+
+	public static Object graph(Generic a) {
+		return Graph.apply(a.expand());
+	}
+
+	public static Object graph(Generic a[]) {
+		return Graph.apply(new JSCLVector(a).expand());
+	}
+
+	public static Generic function(Generic expression, Generic variable) {
+		return new jscl.math.operator.Graph(expression, variable).expressionValue();
+	}
 }

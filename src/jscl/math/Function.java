@@ -138,19 +138,19 @@ public abstract class Function extends Generic {
     }
 
     public Generic expand() {
-        return null;
+        return this;
     }
 
     public Generic factorize() {
-        return null;
+        return this;
     }
 
     public Generic elementary() {
-        return null;
+        return this;
     }
 
     public Generic simplify() {
-        return null;
+        return this;
     }
 
     public Generic function(Variable variable) {
