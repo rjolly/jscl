@@ -116,6 +116,34 @@
 	<xsl:text>)</xsl:text>
 </xsl:template>
 
+<xsl:template match="m:apply[*[1][self::m:diff] and *[2][self::m:bvar[*[1][self::m:degree]]]]">
+	<xsl:text>d(</xsl:text>
+	<xsl:apply-templates select="*[3]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[2]/*[2]"/>
+	<xsl:if test="not(*[2]/*[1]/m:cn) or *[2]/*[1]/m:cn/text() != '1'">
+		<xsl:text>, </xsl:text>
+		<xsl:apply-templates select="*[2]/*[2]"/>
+		<xsl:text>, </xsl:text>
+		<xsl:apply-templates select="*[2]/*[1]"/>
+	</xsl:if>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:apply[*[1][self::m:diff] and *[2][self::m:bvar[*[1][self::m:degree]]]]]]">
+	<xsl:text>d(</xsl:text>
+	<xsl:apply-templates select="*[1]/*[3]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[1]/*[2]/*[2]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[2]"/>
+	<xsl:if test="not(*[1]/*[2]/*[1]/m:cn) or *[1]/*[2]/*[1]/m:cn/text() != '1'">
+		<xsl:text>, </xsl:text>
+		<xsl:apply-templates select="*[1]/*[2]/*[1]"/>
+	</xsl:if>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
 <xsl:template match="m:apply[*[1][self::m:int]]">
 	<xsl:text>integral(</xsl:text>
 	<xsl:choose>

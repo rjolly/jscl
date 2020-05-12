@@ -146,6 +146,18 @@ public class Predef {
 		return new Integral(expression, variable, n1, n2).expressionValue();
 	}
 
+	public static Generic d(Generic expression, Generic variable) {
+		return new Derivative(expression, variable, variable, JSCLInteger.valueOf(1)).expressionValue();
+	}
+
+	public static Generic d(Generic expression, Generic variable, Generic value) {
+		return new Derivative(expression, variable, value, JSCLInteger.valueOf(1)).expressionValue();
+	}
+
+	public static Generic d(Generic expression, Generic variable, Generic value, Generic order) {
+		return new Derivative(expression, variable, value, order).expressionValue();
+	}
+
 	public static Generic modint(int content, int modulo) {
 		return ModularInteger.valueOf(content, modulo);
 	}

@@ -41,55 +41,27 @@ public class Derivative extends Operator {
 
     public String toMathML(Object data) {
 	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(derivationToMathML(false));
-        else {
-	    b.append("<msup>");
-            b.append(derivationToMathML(true));
-	    b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-	    b.append("</msup>");
+        if(parameter[2].compareTo(parameter[1])!=0) {
+	    b.append("<apply>");
+            b.append(derivationToMathML());
+	    b.append(parameter[2].toMathML(null));
+	    b.append("</apply>");
+        } else {
+            b.append(derivationToMathML());
         }
-	b.append("<mfenced>");
-        b.append(parameter[0].toMathML(null));
-        if(parameter[2].compareTo(parameter[1])!=0) b.append(parameter[2].toMathML(null));
-	b.append("</mfenced>");
 	return b.toString();
      }
-
-    String derivationToMathML(boolean fenced) {
-	return fenced?"<mfenced>" + derivationToMathML() + "</mfenced>":derivationToMathML();
-    }
 
     String derivationToMathML() {
         Variable v=parameter[1].variableValue();
 	StringBuffer b = new StringBuffer();
-        int n=0;
-        try {
-            n=parameter[3].integerValue().intValue();
-        } catch (NotIntegerException e) {}
-        if(n==1) {
-	    b.append("<mfrac>");
-	    b.append("<mo>" + /*"\u2146"*/"d" + "</mo>");
-	    b.append("<mrow>");
-	    b.append("<mo>" + /*"\u2146"*/"d" + "</mo>");
-            b.append(v.toMathML(null));
-	    b.append("</mrow>");
-	    b.append("</mfrac>");
-        } else {
-	    b.append("<mfrac>");
-	    b.append("<msup>");
-	    b.append("<mo>" + /*"\u2146"*/"d" + "</mo>");
-            b.append(parameter[3].toMathML(null));
-	    b.append("</msup>");
-	    b.append("<mrow>");
-	    b.append("<mo>" + /*"\u2146"*/"d" + "</mo>");
-	    b.append("<msup>");
-            b.append(parameter[1].toMathML(null));
-            b.append(parameter[3].toMathML(null));
-	    b.append("</msup>");
-	    b.append("</mrow>");
-	    b.append("</mfrac>");
-        }
+	b.append("<apply><diff/><bvar><degree>");
+        b.append(parameter[3].toMathML(null));
+        b.append("</degree>");
+        b.append(v.toMathML(null));
+        b.append("</bvar>");
+        b.append(parameter[0].toMathML(null));
+	b.append("</apply>");
 	return b.toString();
     }
 
