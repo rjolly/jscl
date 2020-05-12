@@ -58,17 +58,6 @@ public abstract class Variable implements Comparable {
         } else return false;
     }
 
-    public static Variable valueOf(String str) throws ParseException, NotVariableException {
-        return Expression.valueOf(str).variableValue();
-    }
-
-    public static Variable[] valueOf(String str[]) throws ParseException, NotVariableException {
-            int n=str.length;
-            Variable var[]=new Variable[n];
-            for(int i=0;i<n;i++) var[i]=valueOf(str[i]);
-            return var;
-    }
-
     public String toString() {
         return name;
     }
