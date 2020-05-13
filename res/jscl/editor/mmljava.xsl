@@ -12,9 +12,11 @@
 </xsl:template>
 
 <xsl:template match="m:cn">
-	<xsl:text>integer(&#x00022;</xsl:text>
-	<xsl:apply-templates/>
-	<xsl:text>&#x00022;)</xsl:text>
+	<xsl:text>integer(</xsl:text>
+	<xsl:call-template name="integer">
+		<xsl:with-param name="value" select="text()"/>
+	</xsl:call-template>
+	<xsl:text>)</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:cn[@type='integer' and @base!=10]">
@@ -26,11 +28,15 @@
 </xsl:template>
 
 <xsl:template match="m:cn[@type='rational']">
-	<xsl:text>rational(&#x00022;</xsl:text>
-	<xsl:apply-templates select="text()[1]"/>
-	<xsl:text>&#x00022;, &#x00022;</xsl:text>
-	<xsl:apply-templates select="text()[2]"/>
-	<xsl:text>&#x00022;)</xsl:text>
+	<xsl:text>rational(</xsl:text>
+	<xsl:call-template name="integer">
+		<xsl:with-param name="value" select="text()[1]"/>
+	</xsl:call-template>
+	<xsl:text>, </xsl:text>
+	<xsl:call-template name="integer">
+		<xsl:with-param name="value" select="text()[2]"/>
+	</xsl:call-template>
+	<xsl:text>)</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:cn[@type='real']">
@@ -54,11 +60,19 @@
 </xsl:template>
 
 <xsl:template match="m:exponentiale">
-	<xsl:text>exp(integer(&#x00022;1&#x00022;))</xsl:text>
+	<xsl:text>exp(integer(</xsl:text>
+	<xsl:call-template name="integer">
+		<xsl:with-param name="value">1</xsl:with-param>
+	</xsl:call-template>
+	<xsl:text>))</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:imaginaryi">
-	<xsl:text>sqrt(integer(&#x00022;-1&#x00022;))</xsl:text>
+	<xsl:text>sqrt(integer(</xsl:text>
+	<xsl:call-template name="integer">
+		<xsl:with-param name="value">-1</xsl:with-param>
+	</xsl:call-template>
+	<xsl:text>))</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:pi">
@@ -305,6 +319,13 @@
 	</xsl:for-each>
 	<xsl:text>}</xsl:text>
 	<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+</xsl:template>
+
+<xsl:template name="integer">
+	<xsl:param name="value"/>
+	<xsl:text>&#x00022;</xsl:text>
+	<xsl:value-of select="$value"/>
+	<xsl:text>&#x00022;</xsl:text>
 </xsl:template>
 
 </xsl:stylesheet>
