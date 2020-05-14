@@ -100,7 +100,7 @@
 	<xsl:if test="1 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
 </xsl:template>
 
-<xsl:template match="m:cn[@type='complex']">
+<xsl:template match="m:cn[@type='complex-cartesian']">
 	<xsl:param name="p" select="0"/>
 	<xsl:if test="0 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
 	<xsl:value-of select="text()[1]"/>

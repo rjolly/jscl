@@ -45,7 +45,7 @@
 	<xsl:text>)</xsl:text>
 </xsl:template>
 
-<xsl:template match="m:cn[@type='complex']">
+<xsl:template match="m:cn[@type='complex-cartesian']">
 	<xsl:text>complex(</xsl:text>
 	<xsl:apply-templates select="text()[1]"/>
 	<xsl:text>, </xsl:text>
