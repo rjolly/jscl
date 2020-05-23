@@ -1,6 +1,8 @@
 package jscl.math;
 
-public abstract class Generic implements Arithmetic, Comparable {
+import jscl.editor.rendering.MathObject;
+
+public abstract class Generic implements Arithmetic, Comparable, MathObject {
     public abstract Generic add(Generic generic);
 
     public Generic subtract(Generic generic) {
