@@ -319,7 +319,10 @@
 
 <xsl:template match="m:matrix">
 	<xsl:text>matrix(new Generic[][] {</xsl:text>
-	<xsl:apply-templates/>
+	<xsl:for-each select="*">
+		<xsl:apply-templates select="."/>
+		<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+	</xsl:for-each>
 	<xsl:text>})</xsl:text>
 </xsl:template>
 
@@ -330,7 +333,6 @@
 		<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
 	</xsl:for-each>
 	<xsl:text>}</xsl:text>
-	<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
 </xsl:template>
 
 <xsl:template name="integer">
