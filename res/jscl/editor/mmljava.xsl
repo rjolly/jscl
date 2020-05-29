@@ -24,11 +24,9 @@
 </xsl:template>
 
 <xsl:template match="m:cn">
-	<xsl:text>integer(</xsl:text>
 	<xsl:call-template name="integer">
 		<xsl:with-param name="value" select="text()"/>
 	</xsl:call-template>
-	<xsl:text>)</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:cn[@type='integer' and @base!=10]">
@@ -43,10 +41,12 @@
 	<xsl:text>rational(</xsl:text>
 	<xsl:call-template name="integer">
 		<xsl:with-param name="value" select="text()[1]"/>
+		<xsl:with-param name="p" select="0"/>
 	</xsl:call-template>
 	<xsl:text>, </xsl:text>
 	<xsl:call-template name="integer">
 		<xsl:with-param name="value" select="text()[2]"/>
+		<xsl:with-param name="p" select="0"/>
 	</xsl:call-template>
 	<xsl:text>)</xsl:text>
 </xsl:template>
@@ -72,19 +72,19 @@
 </xsl:template>
 
 <xsl:template match="m:exponentiale">
-	<xsl:text>exp(integer(</xsl:text>
+	<xsl:text>exp(</xsl:text>
 	<xsl:call-template name="integer">
 		<xsl:with-param name="value">1</xsl:with-param>
 	</xsl:call-template>
-	<xsl:text>))</xsl:text>
+	<xsl:text>)</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:imaginaryi">
-	<xsl:text>sqrt(integer(</xsl:text>
+	<xsl:text>sqrt(</xsl:text>
 	<xsl:call-template name="integer">
 		<xsl:with-param name="value">-1</xsl:with-param>
 	</xsl:call-template>
-	<xsl:text>))</xsl:text>
+	<xsl:text>)</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:pi">
@@ -337,9 +337,12 @@
 
 <xsl:template name="integer">
 	<xsl:param name="value"/>
+	<xsl:param name="p" select="1"/>
+	<xsl:if test="0 &lt; $p"><xsl:text>integer(</xsl:text></xsl:if>
 	<xsl:text>&#x00022;</xsl:text>
 	<xsl:value-of select="$value"/>
 	<xsl:text>&#x00022;</xsl:text>
+	<xsl:if test="0 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
 </xsl:template>
 
 </xsl:stylesheet>
