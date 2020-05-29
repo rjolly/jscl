@@ -1,7 +1,7 @@
 package jscl.math;
 
 public class TechnicalVariable extends Variable {
-        public int subscript[];
+        private final int subscript[];
 
         public TechnicalVariable(String name) {
                 this(name,new int[0]);

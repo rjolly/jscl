@@ -205,14 +205,6 @@ public abstract class Function extends Generic {
         return true;
     }
 
-    public Generic sgn() {
-        return new Function() {
-            public double apply(double value) {
-                return Math.signum(Function.this.apply(value));
-            }
-        };
-    }
-
     public Generic log() {
         return new Function() {
             public double apply(double value) {

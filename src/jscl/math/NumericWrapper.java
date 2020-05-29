@@ -209,10 +209,6 @@ public final class NumericWrapper extends Generic {
         return true;
     }
 
-    public Generic sgn() {
-        return new NumericWrapper(content.sgn());
-    }
-
     public Generic log() {
         return new NumericWrapper(content.log());
     }

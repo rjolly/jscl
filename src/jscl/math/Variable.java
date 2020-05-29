@@ -16,14 +16,10 @@ import jscl.text.ParseException;
 
 public abstract class Variable implements Comparable {
     public static final Comparator comparator=VariableComparator.comparator;
-    protected String name;
+    protected final String name;
 
-    public Variable(String name) {
-        this.name=name;
-    }
-
-    public String name() {
-        return name;
+    public Variable(final String name) {
+        this.name = name;
     }
 
     public abstract Generic antiderivative(Variable variable) throws NotIntegrableException;

@@ -18,7 +18,10 @@ public class Abs extends Function {
     }
 
     public Generic derivative(int n) {
-        return new Sgn(parameter[0]).evaluate();
+        return new Frac(
+            parameter[0],
+            expressionValue()
+        ).evaluate();
     }
 
     public Generic evaluate() {
@@ -49,8 +52,6 @@ public class Abs extends Function {
             if(v instanceof Abs) {
                 Function f=(Function)v;
                 return f.evalsimp();
-            } else if(v instanceof Sgn) {
-                return JSCLInteger.valueOf(1);
             }
         } catch (NotVariableException e) {}
         return expressionValue();

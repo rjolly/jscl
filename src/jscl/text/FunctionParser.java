@@ -8,7 +8,6 @@ import jscl.math.function.Cubic;
 import jscl.math.function.Exp;
 import jscl.math.function.Function;
 import jscl.math.function.Log;
-import jscl.math.function.Sgn;
 import jscl.math.function.Sqrt;
 import jscl.math.function.hyperbolic.Acosh;
 import jscl.math.function.hyperbolic.Acoth;
@@ -98,7 +97,6 @@ class UsualFunctionParser extends Parser {
         else if(name.compareTo("atanh")==0) v=new Atanh(a[0]);
         else if(name.compareTo("acoth")==0) v=new Acoth(a[0]);
         else if(name.compareTo("abs")==0) v=new Abs(a[0]);
-        else if(name.compareTo("sgn")==0) v=new Sgn(a[0]);
         else if(name.compareTo("conjugate")==0) v=new Conjugate(a[0]);
         else if(name.compareTo("eq")==0 || name.compareTo("le")==0 || name.compareTo("ge")==0 || name.compareTo("ne")==0 || name.compareTo("lt")==0 || name.compareTo("gt")==0 || name.compareTo("ap")==0) v=new Comparison(name,a[0],a[1]);
         return v;
@@ -109,5 +107,5 @@ class UsualFunctionParser extends Parser {
         return false;
     }
 
-    private static String na[]={"sin","cos","tan","cot","asin","acos","atan","acot","log","exp","sqrt","cubic","sinh","cosh","tanh","coth","asinh","acosh","atanh","acoth","abs","sgn","conjugate","eq","le","ge","ne","lt","gt","ap"};
+    private static String na[]={"sin","cos","tan","cot","asin","acos","atan","acot","log","exp","sqrt","cubic","sinh","cosh","tanh","coth","asinh","acosh","atanh","acoth","abs","conjugate","eq","le","ge","ne","lt","gt","ap"};
 }

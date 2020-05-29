@@ -90,7 +90,7 @@ public class Exp extends Function {
         if(parameter[0].compareTo(JSCLInteger.valueOf(1))==0) {
 		return "<exponentiale/>";
         } else {
-		return "<apply><exp/>" + parameter[0].toMathML(null) + "</apply>";
+		return super.toMathML(data);
         }
     }
 

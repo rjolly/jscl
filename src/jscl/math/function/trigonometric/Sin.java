@@ -80,10 +80,6 @@ public class Sin extends Trigonometric {
         return ((NumericWrapper)parameter[0]).sin();
     }
 
-    public String toMathML(Object data) {
-	return "<apply><sin/>" + parameter[0].toMathML(null) + "</apply>";
-    }
-
     protected Variable newinstance() {
         return new Sin(null);
     }

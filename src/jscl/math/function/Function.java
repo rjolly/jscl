@@ -7,7 +7,7 @@ import jscl.math.Variable;
 import jscl.util.ArrayComparator;
 
 public abstract class Function extends Variable {
-    protected Generic parameter[];
+    protected final Generic parameter[];
 
     public Function(String name, Generic parameter[]) {
         super(name);
