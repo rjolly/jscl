@@ -135,7 +135,9 @@
  self::m:arctanh or
  self::m:arccoth or
  self::m:exp or
- self::m:ln]]">
+ self::m:ln or
+ self::m:abs or
+ self::m:conjugate]]">
 	<xsl:value-of select="local-name(*[1])"/>
 	<xsl:text>(</xsl:text>
 	<xsl:apply-templates select="*[2]"/>
