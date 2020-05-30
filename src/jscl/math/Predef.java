@@ -201,4 +201,24 @@ public class Predef {
 	public static Generic function(Generic expression, Generic variable) {
 		return new jscl.math.operator.Graph(expression, variable).expressionValue();
 	}
+
+	public static Generic elementary(Generic expression) {
+		return new Elementary(expression).expressionValue();
+	}
+
+	public static Generic factorize(Generic expression) {
+		return new Factorize(expression).expressionValue();
+	}
+
+	public static Generic simplify(Generic expression) {
+		return new Simplify(expression).expressionValue();
+	}
+
+	public static Generic numeric(Generic expression) {
+		return new jscl.math.operator.Numeric(expression).expressionValue();
+	}
+
+	public static Generic quote(Generic expression) {
+		return new Quote(expression).expressionValue();
+	}
 }

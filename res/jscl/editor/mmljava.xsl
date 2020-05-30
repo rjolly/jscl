@@ -208,6 +208,16 @@
 			<xsl:text>})</xsl:text>
 			<xsl:apply-templates select="*[1]/*[1]/*[2]"/>
 		</xsl:when>
+		<xsl:when test="*[1]/text() = 'elementary' or
+				*[1]/text() = 'factorize' or
+				*[1]/text() = 'simplify' or
+				*[1]/text() = 'numeric' or
+				*[1]/text() = 'quote'">
+			<xsl:apply-templates select="*[1]"/>
+			<xsl:text>(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
 		<xsl:otherwise>
 			<xsl:apply-templates select="*[1]"/>
 			<xsl:text>.apply(new Generic[] {</xsl:text>
