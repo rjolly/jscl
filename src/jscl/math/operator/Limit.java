@@ -5,7 +5,7 @@ import jscl.math.Variable;
 
 public class Limit extends Operator {
     public Limit(Generic expression, Generic variable, Generic limit, Generic direction) {
-        super("lim",new Generic[] {expression,variable,limit,direction});
+        super("limit",new Generic[] {expression,variable,limit,direction});
     }
 
     public Generic compute() {
@@ -26,41 +26,25 @@ public class Limit extends Operator {
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML());
-        else {
-		b.append("<msup>");
-		b.append("<mfenced>" + bodyToMathML() + "</mfenced>");
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
-    }
-
-    String bodyToMathML() {
         int c=parameter[3].signum();
-	StringBuffer b = new StringBuffer();
-	b.append("<mrow>");
-	b.append("<munder>");
-	b.append("<mo>" + "lim" + "</mo>");
-	b.append("<mrow>");
-        b.append(parameter[1].toMathML(null));
-	b.append("<mo>" + "\u2192" + "</mo>");
+        Variable v=parameter[1].variableValue();
+        StringBuffer b = new StringBuffer();
+        b.append("<apply><limit/><lowlimit>");
         if(c==0) b.append(parameter[2].toMathML(null));
         else {
-	    b.append("<msup>");
+            b.append("<msup>");
             b.append(parameter[2].toMathML(null));
-	    b.append("<mo>");
-            b.append(c<0?"-":c>0?"+":"");
-	    b.append("</mo>");
-	    b.append("</msup>");
+            b.append("<mo>");
+            b.append(c<0?"-":"+");
+            b.append("</mo>");
+            b.append("</msup>");
         }
-	b.append("</mrow>");
-	b.append("</munder>");
+        b.append("</lowlimit><bvar>");
+        b.append(v.toMathML(null));
+        b.append("</bvar>");
         b.append(parameter[0].toMathML(null));
-	b.append("</mrow>");
-	return b.toString();
+        b.append("</apply>");
+        return b.toString();
     }
 
     protected Variable newinstance() {

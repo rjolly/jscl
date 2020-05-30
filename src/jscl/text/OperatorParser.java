@@ -96,9 +96,9 @@ public class OperatorParser extends Parser {
         else if(name.compareTo("simplify")==0) v=new Simplify(a[0]);
         else if(name.compareTo("numeric")==0) v=new Numeric(a[0]);
         else if(name.compareTo("quote")==0) v=new Quote(a[0]);
-        else if(name.compareTo("lim")==0) v=new Limit(a[0],a[1],a[2],a.length>3 && (a[2].compareTo(Constant.infinity)!=0 && a[2].compareTo(Constant.infinity.negate())!=0)?JSCLInteger.valueOf(a[3].signum()):JSCLInteger.valueOf(0));
+        else if(name.compareTo("limit")==0) v=new Limit(a[0],a[1],a[2],a.length>3 && (a[2].compareTo(Constant.infinity)!=0 && a[2].compareTo(Constant.infinity.negate())!=0)?JSCLInteger.valueOf(a[3].signum()):JSCLInteger.valueOf(0));
         else if(name.compareTo("sum")==0) v=new Sum(a[0],a[1],a[2],a[3]);
-        else if(name.compareTo("prod")==0) v=new Product(a[0],a[1],a[2],a[3]);
+        else if(name.compareTo("product")==0) v=new Product(a[0],a[1],a[2],a[3]);
         else if(name.compareTo("integral")==0) v=a.length>2?(Operator)new Integral(a[0],a[1],a[2],a[3]):new IndefiniteIntegral(a[0],a[1]);
         else if(name.compareTo("groebner")==0) v=new Groebner(a[0],a[1],a.length>2?a[2]:Expression.valueOf("lex"),a.length>3?a[3]:JSCLInteger.valueOf(0)).transmute();
         else if(name.compareTo("div")==0) v=new Division(a[0],a[1]);
@@ -115,5 +115,5 @@ public class OperatorParser extends Parser {
         return false;
     }
 
-    private static String na[]={"d","grad","diverg","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","tran","trace","det","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","lim","sum","prod","integral","groebner","div","mod","modpow","modinv","eulerphi","primitiveroots"};
+    private static String na[]={"d","grad","diverg","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","tran","trace","det","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","limit","sum","product","integral","groebner","div","mod","modpow","modinv","eulerphi","primitiveroots"};
 }

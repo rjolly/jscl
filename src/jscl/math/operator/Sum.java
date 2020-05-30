@@ -25,34 +25,19 @@ public class Sum extends Operator {
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML());
-        else {
-		b.append("<msup>");
-		b.append("<mfenced>" + bodyToMathML() + "</mfenced>");
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
-     }
-
-    String bodyToMathML() {
-	StringBuffer b = new StringBuffer();
-	b.append("<mrow>");
-	b.append("<munderover>");
-	b.append("<mo>" + "\u2211" + "</mo>");
-	b.append("<mrow>");
-        b.append(parameter[1].toMathML(null));
-	b.append("<mo>" + "=" + "</mo>");
+        Variable v=parameter[1].variableValue();
+        StringBuffer b = new StringBuffer();
+        b.append("<apply><sum/><lowlimit>");
         b.append(parameter[2].toMathML(null));
-	b.append("</mrow>");
+        b.append("</lowlimit><uplimit>");
         b.append(parameter[3].toMathML(null));
-	b.append("</munderover>");
+        b.append("</uplimit><bvar>");
+        b.append(v.toMathML(null));
+        b.append("</bvar>");
         b.append(parameter[0].toMathML(null));
-	b.append("</mrow>");
-	return b.toString();
-    }
+        b.append("</apply>");
+        return b.toString();
+     }
 
     protected Variable newinstance() {
         return new Sum(null,null,null,null);

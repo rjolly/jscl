@@ -221,4 +221,20 @@ public class Predef {
 	public static Generic quote(Generic expression) {
 		return new Quote(expression).expressionValue();
 	}
+
+	public static Generic sum(Generic expression, Generic variable, Generic n1, Generic n2) {
+		return new Sum(expression, variable, n1, n2).expressionValue();
+	}
+
+	public static Generic product(Generic expression, Generic variable, Generic n1, Generic n2) {
+		return new Product(expression, variable, n1, n2).expressionValue();
+	}
+
+	public static Generic limit(Generic expression, Generic variable, Generic limit) {
+		return new Limit(expression, variable, limit, JSCLInteger.valueOf(0)).expressionValue();
+	}
+
+	public static Generic limit(Generic expression, Generic variable, Generic limit, Generic direction) {
+		return new Limit(expression, variable, limit, direction).expressionValue();
+	}
 }

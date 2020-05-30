@@ -196,6 +196,50 @@
 	<xsl:text>)</xsl:text>
 </xsl:template>
 
+<xsl:template match="m:apply[*[1][self::m:sum or self::m:product]]">
+	<xsl:value-of select="local-name(*[1])"/>
+	<xsl:text>(</xsl:text>
+	<xsl:apply-templates select="*[5]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[4]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[2]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[3]"/>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:limit]]">
+	<xsl:value-of select="local-name(*[1])"/>
+	<xsl:text>(</xsl:text>
+	<xsl:apply-templates select="*[4]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[3]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:choose>
+		<xsl:when test="*[2]/m:msup">
+			<xsl:apply-templates select="*[2]/*[1]/*[1]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:choose>
+				<xsl:when test="*[2]/*[1]/*[2]/text() = '-'">
+					<xsl:call-template name="integer">
+						<xsl:with-param name="value">-1</xsl:with-param>
+					</xsl:call-template>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:call-template name="integer">
+						<xsl:with-param name="value">1</xsl:with-param>
+					</xsl:call-template>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates select="*[2]"/>
+		</xsl:otherwise>
+	</xsl:choose>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
 <xsl:template match="m:apply[*[1][self::m:ci]]">
 	<xsl:choose>
 		<xsl:when test="*[1]/*[1]/*[1]/text() = 'root'">
