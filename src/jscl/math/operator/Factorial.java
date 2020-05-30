@@ -58,37 +58,11 @@ public class Factorial extends Operator {
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML());
-        else {
-		b.append("<msup>");
-		b.append(bodyToMathML());
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
-    }
-
-    String bodyToMathML() {
-	StringBuffer b = new StringBuffer();
-	b.append("<mrow>");
-        try {
-            JSCLInteger en=parameter[0].integerValue();
-            b.append(en.toMathML(null));
-        } catch (NotIntegerException e) {
-            try {
-                Variable v=parameter[0].variableValue();
-                if(v instanceof Pow) {
-                    b.append(GenericVariable.valueOf(parameter[0]).toMathML(null));
-                } else b.append(v.toMathML(null));
-            } catch (NotVariableException e2) {
-                b.append(GenericVariable.valueOf(parameter[0]).toMathML(null));
-            }
-        }
-	b.append("<mo>" + "!" + "</mo>");
-	b.append("</mrow>");
-	return b.toString();
+        StringBuffer b = new StringBuffer();
+        b.append("<apply><factorial/>");
+        b.append(parameter[0].toMathML(null));
+        b.append("</apply>");
+        return b.toString();
     }
 
     protected Variable newinstance() {

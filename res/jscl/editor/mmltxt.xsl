@@ -23,12 +23,24 @@
 	<xsl:apply-templates/>
 </xsl:template>
 
-<xsl:template match="m:true">
-	<xsl:text>true</xsl:text>
+<xsl:template match="m:true | m:false">
+	<xsl:value-of select="local-name(*[1])"/>
 </xsl:template>
 
-<xsl:template match="m:false">
-	<xsl:text>false</xsl:text>
+<xsl:template match="m:exponentiale">
+	<xsl:text>exp(1)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:imaginaryi">
+	<xsl:text>sqrt(-1)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:pi">
+	<xsl:text>pi</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:infinity">
+	<xsl:text>oo</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:apply[*[1][self::m:and]]">
@@ -259,6 +271,8 @@
 </xsl:template>
 
 <xsl:template match="m:apply[*[1][self::m:power]]">
+	<xsl:param name="p" select="0"/>
+	<xsl:if test="2 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
 	<xsl:apply-templates select="*[2]">
 	    	<xsl:with-param name="p" select="2"/>
 	</xsl:apply-templates>
@@ -266,12 +280,20 @@
 	<xsl:apply-templates select="*[3]">
 	    	<xsl:with-param name="p" select="2"/>
 	</xsl:apply-templates>
+	<xsl:if test="2 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
 </xsl:template>
 
 <xsl:template match="m:apply[*[1][self::m:root]]">
 	<xsl:text>sqrt(</xsl:text>
 	<xsl:apply-templates select="*[2]"/>
 	<xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:factorial]]">
+	<xsl:apply-templates select="*[2]">
+	    	<xsl:with-param name="p" select="3"/>
+	</xsl:apply-templates>
+	<xsl:text>!</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:apply[*[1][self::m:ci]]">

@@ -237,4 +237,8 @@ public class Predef {
 	public static Generic limit(Generic expression, Generic variable, Generic limit, Generic direction) {
 		return new Limit(expression, variable, limit, direction).expressionValue();
 	}
+
+	public static Generic factorial(Generic expression) {
+		return new Factorial(expression).expressionValue();
+	}
 }
