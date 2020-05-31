@@ -19,8 +19,14 @@ public class Curl extends VectorOperator {
         return expressionValue();
     }
 
-    protected String bodyToMathML() {
-        return operator("nabla") + "<mo>" + "\u2227" + "</mo>" + parameter[0].toMathML(null);
+    @Override
+    public String toMathML(Object data) {
+        StringBuffer b = new StringBuffer();
+        b.append("<apply><curl/>");
+        b.append(parameter[0].toMathML(null));
+        b.append(parameter[1].toMathML(null));
+        b.append("</apply>");
+        return b.toString();
     }
 
     protected Variable newinstance() {

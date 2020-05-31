@@ -7,7 +7,7 @@ import jscl.math.operator.Operator;
 
 public class Transpose extends Operator {
     public Transpose(Generic matrix) {
-        super("tran",new Generic[] {matrix});
+        super("transpose",new Generic[] {matrix});
     }
 
     public Generic compute() {
@@ -18,27 +18,14 @@ public class Transpose extends Operator {
         return expressionValue();
     }
 
+    @Override
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML());
-        else {
-		b.append("<msup>");
-		b.append(bodyToMathML());
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
-    }
-
-    String bodyToMathML() {
-	StringBuffer b = new StringBuffer();
-	b.append("<msup>");
+        StringBuffer b = new StringBuffer();
+        b.append("<apply><transpose/>");
         b.append(parameter[0].toMathML(null));
-	b.append("<mo>" + "T" + "</mo>");
-	b.append("</msup>");
-    	return b.toString();
-}
+        b.append("</apply>");
+        return b.toString();
+    }
 
     protected Variable newinstance() {
         return new Transpose(null);

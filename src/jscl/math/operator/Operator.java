@@ -129,13 +129,13 @@ public abstract class Operator extends Variable {
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-	b.append("<apply>");
-	b.append("<ci>" + nameToMathML() + "</ci>");
+        StringBuffer b = new StringBuffer();
+        b.append("<apply>");
+        b.append("<ci>" + nameToMathML() + "</ci>");
         for(int i=0;i<parameter.length;i++) {
             b.append(parameter[i].toMathML(null));
         }
-	b.append("</apply>");
-	return b.toString();
+        b.append("</apply>");
+        return b.toString();
     }
 }

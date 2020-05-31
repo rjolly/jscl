@@ -16,8 +16,14 @@ public class Grad extends VectorOperator {
         return expression.grad(variable);
     }
 
-    protected String bodyToMathML() {
-        return operator("nabla") + parameter[0].toMathML(null);
+    @Override
+    public String toMathML(Object data) {
+        StringBuffer b = new StringBuffer();
+        b.append("<apply><grad/>");
+        b.append(parameter[0].toMathML(null));
+        b.append(parameter[1].toMathML(null));
+        b.append("</apply>");
+        return b.toString();
     }
 
     protected Variable newinstance() {

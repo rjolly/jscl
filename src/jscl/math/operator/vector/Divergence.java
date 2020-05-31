@@ -7,7 +7,7 @@ import jscl.math.operator.VectorOperator;
 
 public class Divergence extends VectorOperator {
     public Divergence(Generic vector, Generic variable) {
-        super("diverg",new Generic[] {vector,variable});
+        super("divergence",new Generic[] {vector,variable});
     }
 
     public Generic compute() {
@@ -19,8 +19,14 @@ public class Divergence extends VectorOperator {
         return expressionValue();
     }
 
-    protected String bodyToMathML() {
-        return operator("nabla") + parameter[0].toMathML(null);
+    @Override
+    public String toMathML(Object data) {
+        StringBuffer b = new StringBuffer();
+        b.append("<apply><divergence/>");
+        b.append(parameter[0].toMathML(null));
+        b.append(parameter[1].toMathML(null));
+        b.append("</apply>");
+        return b.toString();
     }
 
     protected Variable newinstance() {

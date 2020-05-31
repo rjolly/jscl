@@ -72,7 +72,7 @@ public class OperatorParser extends Parser {
         Operator v=null;
         if(name.compareTo("d")==0) v=new Derivative(a[0],a[1],a.length>2?a[2]:a[1],a.length>3?a[3]:JSCLInteger.valueOf(1));
         else if(name.compareTo("grad")==0) v=new Grad(a[0],a[1]);
-        else if(name.compareTo("diverg")==0) v=new Divergence(a[0],a[1]);
+        else if(name.compareTo("divergence")==0) v=new Divergence(a[0],a[1]);
         else if(name.compareTo("curl")==0) v=new Curl(a[0],a[1]);
         else if(name.compareTo("jacobian")==0) v=new Jacobian(a[0],a[1]);
         else if(name.compareTo("laplacian")==0) v=new Laplacian(a[0],a[1]);
@@ -84,7 +84,7 @@ public class OperatorParser extends Parser {
         else if(name.compareTo("geometric")==0) v=new GeometricProduct(a[0],a[1],a.length>2?a[2]:JSCLInteger.valueOf(0));
         else if(name.compareTo("matrix")==0) v=new MatrixProduct(a[0],a[1]);
         else if(name.compareTo("tensor")==0) v=new TensorProduct(a[0],a[1]);
-        else if(name.compareTo("tran")==0) v=new Transpose(a[0]);
+        else if(name.compareTo("transpose")==0) v=new Transpose(a[0]);
         else if(name.compareTo("trace")==0) v=new Trace(a[0]);
         else if(name.compareTo("det")==0) v=new Determinant(a[0]);
         else if(name.compareTo("coef")==0) v=new Coefficient(a[0],a[1]);
@@ -115,5 +115,5 @@ public class OperatorParser extends Parser {
         return false;
     }
 
-    private static String na[]={"d","grad","diverg","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","tran","trace","det","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","limit","sum","product","integral","groebner","div","mod","modpow","modinv","eulerphi","primitiveroots"};
+    private static String na[]={"d","grad","divergence","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","transpose","trace","det","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","limit","sum","product","integral","groebner","div","mod","modpow","modinv","eulerphi","primitiveroots"};
 }

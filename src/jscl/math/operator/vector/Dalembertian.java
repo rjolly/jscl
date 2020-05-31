@@ -16,8 +16,14 @@ public class Dalembertian extends VectorOperator {
         return expression.dalembertian(variable);
     }
 
-    protected String bodyToMathML() {
-        return operator("square") + parameter[0].toMathML(null);
+    @Override
+    public String toMathML(Object data) {
+        StringBuffer b = new StringBuffer();
+        b.append("<apply>");
+        b.append(operator("square").toMathML(null));
+        b.append(parameter[0].toMathML(null));
+        b.append("</apply>");
+        return b.toString();
     }
 
     protected Variable newinstance() {

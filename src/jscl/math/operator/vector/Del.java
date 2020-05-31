@@ -34,8 +34,16 @@ public class Del extends VectorOperator {
         return buffer.toString();
     }
 
-    protected String bodyToMathML() {
-        return operator("nabla") + parameter[0].toMathML(null);
+    @Override
+    public String toMathML(Object data) {
+        StringBuffer b = new StringBuffer();
+        b.append("<apply>");
+        b.append(operator("nabla").toMathML(null));
+        b.append(parameter[0].toMathML(null));
+        if(parameter[2].signum()==0);
+        else b.append(parameter[2].toMathML(null));
+        b.append("</apply>");
+        return b.toString();
     }
 
     protected Variable newinstance() {
