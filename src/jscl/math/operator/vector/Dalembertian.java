@@ -6,8 +6,8 @@ import jscl.math.Variable;
 import jscl.math.operator.VectorOperator;
 
 public class Dalembertian extends VectorOperator {
-    public Dalembertian(Generic vector, Generic variable) {
-        super("dalembertian",new Generic[] {vector,variable});
+    public Dalembertian(Generic expression, Generic variable) {
+        super("dalembertian",new Generic[] {expression,variable});
     }
 
     public Generic compute() {

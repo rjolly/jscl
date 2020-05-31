@@ -4,6 +4,8 @@ import jscl.math.function.*;
 import jscl.math.function.trigonometric.*;
 import jscl.math.function.hyperbolic.*;
 import jscl.math.operator.*;
+import jscl.math.operator.vector.*;
+import jscl.math.operator.matrix.*;
 import jscl.math.numeric.*;
 
 public class Predef {
@@ -240,5 +242,61 @@ public class Predef {
 
 	public static Generic factorial(Generic expression) {
 		return new Factorial(expression).expressionValue();
+	}
+
+	public static Generic transpose(Generic matrix) {
+		return new Transpose(matrix).expressionValue();
+	}
+
+	public static Generic trace(Generic matrix) {
+		return new Trace(matrix).expressionValue();
+	}
+
+	public static Generic determinant(Generic matrix) {
+		return new Determinant(matrix).expressionValue();
+	}
+
+	public static Generic grad(Generic expression, Generic variable[]) {
+		return new Grad(expression, new JSCLVector(variable)).expressionValue();
+	}
+
+	public static Generic divergence(Generic vector, Generic variable[]) {
+		return new Divergence(vector, new JSCLVector(variable)).expressionValue();
+	}
+
+	public static Generic curl(Generic vector, Generic variable[]) {
+		return new Curl(vector, new JSCLVector(variable)).expressionValue();
+	}
+
+	public static Generic laplacian(Generic expression, Generic variable[]) {
+		return new Laplacian(expression, new JSCLVector(variable)).expressionValue();
+	}
+
+	public static Generic dalembertian(Generic expression, Generic variable[]) {
+		return new Dalembertian(expression, new JSCLVector(variable)).expressionValue();
+	}
+
+	public static Generic jacobian(Generic vector, Generic variable[]) {
+		return new Jacobian(vector, new JSCLVector(variable)).expressionValue();
+	}
+
+	public static Generic del(Generic vector, Generic variable[]) {
+		return new Del(vector, new JSCLVector(variable), JSCLInteger.valueOf(0)).expressionValue();
+	}
+
+	public static Generic del(Generic vector, Generic variable[], Generic algebra) {
+		return new Del(vector, new JSCLVector(variable), algebra).expressionValue();
+	}
+
+	public static Generic groebner(Generic generic, Generic variable[]) {
+		return new Groebner(generic, new JSCLVector(variable), new Constant("lex").expressionValue(), JSCLInteger.valueOf(0)).expressionValue();
+	}
+
+	public static Generic groebner(Generic generic, Generic variable[], Generic ordering) {
+		return new Groebner(generic, new JSCLVector(variable), ordering, JSCLInteger.valueOf(0)).expressionValue();
+	}
+
+	public static Generic groebner(Generic generic, Generic variable[], Generic ordering, Generic modulo) {
+		return new Groebner(generic, new JSCLVector(variable), ordering, modulo).expressionValue();
 	}
 }

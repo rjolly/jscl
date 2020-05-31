@@ -6,8 +6,8 @@ import jscl.math.Variable;
 import jscl.math.operator.VectorOperator;
 
 public class Laplacian extends VectorOperator {
-    public Laplacian(Generic vector, Generic variable) {
-        super("laplacian",new Generic[] {vector,variable});
+    public Laplacian(Generic expression, Generic variable) {
+        super("laplacian",new Generic[] {expression,variable});
     }
 
     public Generic compute() {
