@@ -244,6 +244,14 @@ public class Predef {
 		return new Factorial(expression).expressionValue();
 	}
 
+	public static Generic quotient(Generic expression1, Generic expression2) {
+		return new Division(expression1, expression2).expressionValue();
+	}
+
+	public static Generic rem(Generic expression1, Generic expression2) {
+		return new Modulo(expression1, expression2).expressionValue();
+	}
+
 	public static Generic transpose(Generic matrix) {
 		return new Transpose(matrix).expressionValue();
 	}
@@ -289,14 +297,14 @@ public class Predef {
 	}
 
 	public static Generic groebner(Generic generic, Generic variable[]) {
-		return new Groebner(generic, new JSCLVector(variable), new Constant("lex").expressionValue(), JSCLInteger.valueOf(0)).expressionValue();
+		return new Groebner(generic, new JSCLVector(variable), new Constant("lex").expressionValue(), JSCLInteger.valueOf(0)).transmute().expressionValue();
 	}
 
 	public static Generic groebner(Generic generic, Generic variable[], Generic ordering) {
-		return new Groebner(generic, new JSCLVector(variable), ordering, JSCLInteger.valueOf(0)).expressionValue();
+		return new Groebner(generic, new JSCLVector(variable), ordering, JSCLInteger.valueOf(0)).transmute().expressionValue();
 	}
 
 	public static Generic groebner(Generic generic, Generic variable[], Generic ordering, Generic modulo) {
-		return new Groebner(generic, new JSCLVector(variable), ordering, modulo).expressionValue();
+		return new Groebner(generic, new JSCLVector(variable), ordering, modulo).transmute().expressionValue();
 	}
 }

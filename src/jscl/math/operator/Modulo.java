@@ -7,7 +7,7 @@ import jscl.math.Variable;
 
 public class Modulo extends Operator {
     public Modulo(Generic expression1, Generic expression2) {
-        super("mod",new Generic[] {expression1,expression2});
+        super("rem",new Generic[] {expression1,expression2});
     }
 
     public Generic compute() {
