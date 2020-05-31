@@ -18,22 +18,6 @@ public class Trace extends Operator {
         return expressionValue();
     }
 
-    public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) {
-		b.append("<mo>" + "tr" + "</mo>");
-        }
-        else {
-		b.append("<msup>");
-		b.append("<mo>" + "tr" + "</mo>");
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-        b.append(parameter[0].toMathML(null));
-	return b.toString();
-    }
-
     protected Variable newinstance() {
         return new Trace(null);
     }

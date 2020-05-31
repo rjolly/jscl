@@ -209,7 +209,7 @@
 	<xsl:text>)</xsl:text>
 </xsl:template>
 
-<xsl:template match="m:apply[*[1][self::m:factorial]]">
+<xsl:template match="m:apply[*[1][self::m:factorial or self::m:transpose or self::m:determinant]]">
 	<xsl:value-of select="local-name(*[1])"/>
 	<xsl:text>(</xsl:text>
 	<xsl:apply-templates select="*[2]"/>
@@ -247,6 +247,36 @@
 	<xsl:text>)</xsl:text>
 </xsl:template>
 
+<xsl:template match="m:apply[*[1][self::m:grad or self::m:divergence or self::m:curl or self::m:laplacian]]">
+	<xsl:value-of select="local-name(*[1])"/>
+	<xsl:text>(</xsl:text>
+	<xsl:apply-templates select="*[2]"/>
+	<xsl:text>, new Generic[] {</xsl:text>
+	<xsl:for-each select="*[3]/*">
+		<xsl:apply-templates select="."/>
+		<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+	</xsl:for-each>
+	<xsl:text>})</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:apply[*[1][self::m:transpose]]]]">
+	<xsl:choose>
+		<xsl:when test="*[1]/*[1]/*[1]/*[1]/*[1]/text() = '&#x02207;'">
+			<xsl:text>jacobian(</xsl:text>
+			<xsl:apply-templates select="*[2]/*[1]/*[1]"/>
+			<xsl:text>, new Generic[] {</xsl:text>
+			<xsl:for-each select="*[1]/*[1]/*[1]/*[1]/*[2]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>})</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
 <xsl:template match="m:apply[*[1][self::m:ci]]">
 	<xsl:choose>
 		<xsl:when test="*[1]/*[1]/*[1]/text() = 'root'">
@@ -263,7 +293,67 @@
 				*[1]/text() = 'factorize' or
 				*[1]/text() = 'simplify' or
 				*[1]/text() = 'numeric' or
-				*[1]/text() = 'quote'">
+				*[1]/text() = 'quote' or
+				*[1]/text() = 'trace'">
+			<xsl:apply-templates select="*[1]"/>
+			<xsl:text>(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
+		<xsl:when test="*[1]/*[1]/*[1]/text() = '&#x025A1;'">
+			<xsl:text>dalembertian(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, new Generic[] {</xsl:text>
+			<xsl:for-each select="*[1]/*[1]/*[2]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>})</xsl:text>
+		</xsl:when>
+		<xsl:when test="*[1]/*[1]/*[1]/text() = '&#x02207;'">
+			<xsl:text>del(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, new Generic[] {</xsl:text>
+			<xsl:for-each select="*[1]/*[1]/*[2]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>}</xsl:text>
+			<xsl:if test="*[3]">
+				<xsl:text>, </xsl:text>
+				<xsl:apply-templates select="*[3]"/>
+			</xsl:if>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
+		<xsl:when test="*[1]/text() = 'cl'">
+			<xsl:apply-templates select="*[1]"/>
+			<xsl:text>(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[3]"/>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
+		<xsl:when test="*[1]/text() = 'groebner'">
+			<xsl:apply-templates select="*[1]"/>
+			<xsl:text>(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, new Generic[] {</xsl:text>
+			<xsl:for-each select="*[3]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>}</xsl:text>
+			<xsl:if test="*[4]">
+				<xsl:text>, </xsl:text>
+				<xsl:apply-templates select="*[4]"/>
+			</xsl:if>
+			<xsl:if test="*[5]">
+				<xsl:text>, </xsl:text>
+				<xsl:apply-templates select="*[5]"/>
+			</xsl:if>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
+		<xsl:when test="*[1]/text() = 'elim'">
 			<xsl:apply-templates select="*[1]"/>
 			<xsl:text>(</xsl:text>
 			<xsl:apply-templates select="*[2]"/>

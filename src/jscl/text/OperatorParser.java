@@ -86,7 +86,7 @@ public class OperatorParser extends Parser {
         else if(name.compareTo("tensor")==0) v=new TensorProduct(a[0],a[1]);
         else if(name.compareTo("transpose")==0) v=new Transpose(a[0]);
         else if(name.compareTo("trace")==0) v=new Trace(a[0]);
-        else if(name.compareTo("det")==0) v=new Determinant(a[0]);
+        else if(name.compareTo("determinant")==0) v=new Determinant(a[0]);
         else if(name.compareTo("coef")==0) v=new Coefficient(a[0],a[1]);
         else if(name.compareTo("solve")==0) v=new Solve(a[0],a[1],a.length>2?a[2]:JSCLInteger.valueOf(0));
         else if(name.compareTo("subst")==0) v=new Substitute(a[0],a[1],a[2]).transmute();
@@ -115,5 +115,5 @@ public class OperatorParser extends Parser {
         return false;
     }
 
-    private static String na[]={"d","grad","divergence","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","transpose","trace","det","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","limit","sum","product","integral","groebner","div","mod","modpow","modinv","eulerphi","primitiveroots"};
+    private static String na[]={"d","grad","divergence","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","transpose","trace","determinant","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","limit","sum","product","integral","groebner","div","mod","modpow","modinv","eulerphi","primitiveroots"};
 }
