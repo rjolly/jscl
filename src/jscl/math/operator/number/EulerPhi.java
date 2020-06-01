@@ -8,7 +8,7 @@ import jscl.math.operator.Operator;
 
 public class EulerPhi extends Operator {
     public EulerPhi(Generic integer) {
-        super("eulerphi",new Generic[] {integer});
+        super("phi",new Generic[] {integer});
     }
 
     public Generic compute() {
@@ -17,10 +17,6 @@ public class EulerPhi extends Operator {
             return en.phi();
         } catch (NotIntegerException e) {}
         return expressionValue();
-    }
-
-    protected String nameToMathML() {
-	return "\u03C6";
     }
 
     protected Variable newinstance() {
