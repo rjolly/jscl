@@ -337,9 +337,9 @@
 		<xsl:when test="*[1]/text() = 'cl'">
 			<xsl:apply-templates select="*[1]"/>
 			<xsl:text>(</xsl:text>
-			<xsl:apply-templates select="*[2]"/>
+			<xsl:apply-templates select="*[2]/text()"/>
 			<xsl:text>, </xsl:text>
-			<xsl:apply-templates select="*[3]"/>
+			<xsl:apply-templates select="*[3]/text()"/>
 			<xsl:text>)</xsl:text>
 		</xsl:when>
 		<xsl:when test="*[1]/text() = 'groebner'">
@@ -365,7 +365,7 @@
 		<xsl:when test="*[1]/text() = 'elim'">
 			<xsl:apply-templates select="*[1]"/>
 			<xsl:text>(</xsl:text>
-			<xsl:apply-templates select="*[2]"/>
+			<xsl:apply-templates select="*[2]/text()"/>
 			<xsl:text>)</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>

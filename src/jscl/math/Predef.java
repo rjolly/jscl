@@ -6,11 +6,24 @@ import jscl.math.function.hyperbolic.*;
 import jscl.math.operator.*;
 import jscl.math.operator.vector.*;
 import jscl.math.operator.matrix.*;
+import jscl.math.operator.product.*;
 import jscl.math.numeric.*;
 
 public class Predef {
 	public static final Generic pi=Constant.pi;
 	public static final Generic oo=Constant.infinity;
+
+	public static final Generic lex=Groebner.lex;
+	public static final Generic tdl=Groebner.tdl;
+	public static final Generic drl=Groebner.drl;
+
+	public static Generic elim(int k) {
+		return Groebner.elim.apply(new Generic[] {JSCLInteger.valueOf(k)});
+	}
+
+	public static Generic cl(int p, int q) {
+		return GeometricProduct.cl.apply(new Generic[] {JSCLInteger.valueOf(p), JSCLInteger.valueOf(q)});
+	}
 
 	public static ImplicitFunction.Curried function(String name, int derivation) {
 		return ImplicitFunction.apply(name, new int[] {derivation});
@@ -297,7 +310,7 @@ public class Predef {
 	}
 
 	public static Generic groebner(Generic generic, Generic variable[]) {
-		return new Groebner(generic, new JSCLVector(variable), new Constant("lex").expressionValue(), JSCLInteger.valueOf(0)).transmute().expressionValue();
+		return new Groebner(generic, new JSCLVector(variable), lex, JSCLInteger.valueOf(0)).transmute().expressionValue();
 	}
 
 	public static Generic groebner(Generic generic, Generic variable[], Generic ordering) {

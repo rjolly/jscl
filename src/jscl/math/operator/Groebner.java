@@ -13,6 +13,11 @@ import jscl.math.polynomial.Ordering;
 import jscl.math.polynomial.Polynomial;
 
 public class Groebner extends Operator {
+    public static final Generic lex = new Constant("lex").expressionValue();
+    public static final Generic tdl = new Constant("tdl").expressionValue();
+    public static final Generic drl = new Constant("drl").expressionValue();
+    public static final ImplicitFunction.Curried elim = ImplicitFunction.apply("elim", new int[1]);
+
     public Groebner(Generic generic, Generic variable, Generic ordering, Generic modulo) {
         super("groebner",new Generic[] {generic,variable,ordering,modulo});
     }
@@ -39,13 +44,13 @@ public class Groebner extends Operator {
 
     static Ordering ordering(Generic generic) {
         Variable v=generic.variableValue();
-        if(v.compareTo(new Constant("lex"))==0) return Monomial.lexicographic;
-        else if(v.compareTo(new Constant("tdl"))==0) return Monomial.totalDegreeLexicographic;
-        else if(v.compareTo(new Constant("drl"))==0) return Monomial.degreeReverseLexicographic;
+        if(v.compareTo(lex.variableValue())==0) return Monomial.lexicographic;
+        else if(v.compareTo(tdl.variableValue())==0) return Monomial.totalDegreeLexicographic;
+        else if(v.compareTo(drl.variableValue())==0) return Monomial.degreeReverseLexicographic;
         else if(v instanceof ImplicitFunction) {
             Generic g[]=((ImplicitFunction)v).parameters();
             int k=g[0].integerValue().intValue();
-            if(v.compareTo(new ImplicitFunction("elim",new Generic[] {JSCLInteger.valueOf(k)}))==0) return Monomial.kthElimination(k);
+            if(v.compareTo(elim.apply(new Generic[] {JSCLInteger.valueOf(k)}).variableValue())==0) return Monomial.kthElimination(k);
         }
         throw new ArithmeticException();
     }
