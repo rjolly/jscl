@@ -660,38 +660,14 @@ public class Expression extends Generic {
         return buffer.toString();
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        if(signum()==0) buffer.append("JSCLDouble.valueOf(0)");
-        for(int i=0;i<size;i++) {
-            Literal l=literal[i];
-            JSCLInteger en=coef[i];
-            if(i>0) {
-                if(en.signum()<0) {
-                    buffer.append(".subtract(");
-                    en=(JSCLInteger)en.negate();
-                } else buffer.append(".add(");
-            }
-            if(l.degree()==0) buffer.append(en.toJava());
-            else {
-                if(en.abs().compareTo(JSCLInteger.valueOf(1))==0) {
-                    if(en.signum()>0) buffer.append(l.toJava());
-                    else if(en.signum()<0) buffer.append(l.toJava()).append(".negate()");
-                } else buffer.append(en.toJava()).append(".multiply(").append(l.toJava()).append(")");
-            }
-            if(i>0) buffer.append(")");
-        }
-        return buffer.toString();
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
 	String s = "<cn>" + "0" + "</cn>";
 	int n = 0;
 	for(int i=0;i<size;i++) {
 	    Literal l=literal[i];
 	    JSCLInteger en=coef[i];
 	    Generic c = en.abs();
-	    String t = l.degree() == 0?c.toMathML(null):c.compareTo(JSCLInteger.valueOf(1)) == 0?l.toMathML(null):"<apply><times/>" + c.toMathML(null) + l.toMathML(null) + "</apply>";
+	    String t = l.degree() == 0?c.toMathML():c.compareTo(JSCLInteger.valueOf(1)) == 0?l.toMathML():"<apply><times/>" + c.toMathML() + l.toMathML() + "</apply>";
 	    s = n == 0?en.signum() < 0?"<apply><minus/>" + t + "</apply>":t:en.signum() < 0?"<apply><minus/>" + s + t + "</apply>":"<apply><plus/>" + s + t + "</apply>";
 	    n++;
 	}

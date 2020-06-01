@@ -32,12 +32,6 @@ public class ExpressionVariable extends GenericVariable {
         return buffer.toString();
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        buffer.append("(").append(content.toJava()).append(")");
-        return buffer.toString();
-    }
-
     protected Variable newinstance() {
         return new ExpressionVariable(null);
     }

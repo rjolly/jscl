@@ -39,12 +39,12 @@ public class Derivative extends Operator {
         return buffer.toString();
     }
 
-    public String toMathML(Object data) {
+    public String toMathML() {
 	StringBuffer b = new StringBuffer();
         if(parameter[2].compareTo(parameter[1])!=0) {
 	    b.append("<apply>");
             b.append(derivationToMathML());
-	    b.append(parameter[2].toMathML(null));
+	    b.append(parameter[2].toMathML());
 	    b.append("</apply>");
         } else {
             b.append(derivationToMathML());
@@ -56,11 +56,11 @@ public class Derivative extends Operator {
         Variable v=parameter[1].variableValue();
 	StringBuffer b = new StringBuffer();
 	b.append("<apply><diff/><bvar><degree>");
-        b.append(parameter[3].toMathML(null));
+        b.append(parameter[3].toMathML());
         b.append("</degree>");
-        b.append(v.toMathML(null));
+        b.append(v.toMathML());
         b.append("</bvar>");
-        b.append(parameter[0].toMathML(null));
+        b.append(parameter[0].toMathML());
 	b.append("</apply>");
 	return b.toString();
     }

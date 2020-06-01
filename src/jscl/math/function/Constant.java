@@ -156,25 +156,7 @@ public class Constant extends Variable {
         return buffer.toString();
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        buffer.append(name);
-        if(prime==0);
-        else if(prime<=PRIMECHARS) buffer.append(underscores(prime));
-        else buffer.append("_").append(prime);
-        for(int i=0;i<subscript.length;i++) {
-            buffer.append("[").append(subscript[i].integerValue().intValue()).append("]");
-        }
-        return buffer.toString();
-    }
-
-    static String underscores(int n) {
-        StringBuffer buffer=new StringBuffer();
-        for(int i=0;i<n;i++) buffer.append("_");
-        return buffer.toString();
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
         if("pi".equals(name)) return "<pi/>";
         else if("oo".equals(name)) return "<infinity/>";
         else return "<ci>" + bodyToMathML() + "</ci>";
@@ -202,7 +184,7 @@ public class Constant extends Variable {
                 b.append("<mi>" + nameToMathML() + "</mi>");
                 b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
-                    b.append(subscript[i].toMathML(null));
+                    b.append(subscript[i].toMathML());
                 }
                 b.append("</mrow>");
                 b.append("</msub>");
@@ -214,7 +196,7 @@ public class Constant extends Variable {
                 b.append("</mrow>");
                 b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
-                    b.append(subscript[i].toMathML(null));
+                    b.append(subscript[i].toMathML());
                 }
                 b.append("</mrow>");
                 b.append("</msub>");
@@ -223,7 +205,7 @@ public class Constant extends Variable {
                 b.append("<mi>" + nameToMathML() + "</mi>");
                 b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
-                    b.append(subscript[i].toMathML(null));
+                    b.append(subscript[i].toMathML());
                 }
                 b.append("</mrow>");
                 b.append(primeToMathML());

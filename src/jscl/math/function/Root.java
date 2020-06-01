@@ -330,24 +330,12 @@ public class Root extends Algebraic {
         return buffer.toString();
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        buffer.append("Numeric.").append(name).append("(");
-        buffer.append(subscript.integerValue().intValue());
-        buffer.append(", new Numeric[] {");
-        for(int i=0;i<parameter.length;i++) {
-            buffer.append(parameter[i].toJava()).append(i<parameter.length-1?", ":"");
-        }
-        buffer.append("})");
-        return buffer.toString();
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
 	StringBuffer b = new StringBuffer();
 	b.append("<apply>");
-        b.append(new Constant(name,0,new Generic[] {subscript}).toMathML(null));
+        b.append(new Constant(name,0,new Generic[] {subscript}).toMathML());
         for(int i=0;i<parameter.length;i++) {
-            b.append(parameter[i].toMathML(null));
+            b.append(parameter[i].toMathML());
         }
 	b.append("</apply>");
 	return b.toString();

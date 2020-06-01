@@ -25,24 +25,24 @@ public class Limit extends Operator {
         return buffer.toString();
     }
 
-    public String toMathML(Object data) {
+    public String toMathML() {
         int c=parameter[3].signum();
         Variable v=parameter[1].variableValue();
         StringBuffer b = new StringBuffer();
         b.append("<apply><limit/><lowlimit>");
-        if(c==0) b.append(parameter[2].toMathML(null));
+        if(c==0) b.append(parameter[2].toMathML());
         else {
             b.append("<msup>");
-            b.append(parameter[2].toMathML(null));
+            b.append(parameter[2].toMathML());
             b.append("<mo>");
             b.append(c<0?"-":"+");
             b.append("</mo>");
             b.append("</msup>");
         }
         b.append("</lowlimit><bvar>");
-        b.append(v.toMathML(null));
+        b.append(v.toMathML());
         b.append("</bvar>");
-        b.append(parameter[0].toMathML(null));
+        b.append(parameter[0].toMathML());
         b.append("</apply>");
         return b.toString();
     }

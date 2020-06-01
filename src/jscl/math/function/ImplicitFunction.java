@@ -156,39 +156,12 @@ public class ImplicitFunction extends Function {
         return buffer.toString();
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        int n=0;
-        for(int i=0;i<derivation.length;i++) n+=derivation[i];
-        buffer.append(name);
-        if(n==0);
-        else if(parameter.length==1?n<=Constant.PRIMECHARS:false) buffer.append(Constant.underscores(n));
-        else buffer.append(derivationToJava());
-        for(int i=0;i<subscript.length;i++) {
-            buffer.append("[").append(subscript[i].integerValue().intValue()).append("]");
-        }
-        buffer.append(".apply(");
-        for(int i=0;i<parameter.length;i++) {
-            buffer.append(parameter[i].toJava()).append(i<parameter.length-1?", ":"");
-        }
-        buffer.append(")");
-        return buffer.toString();
-    }
-
-    String derivationToJava() {
-        StringBuffer buffer=new StringBuffer();
-        for(int i=0;i<derivation.length;i++) {
-            buffer.append("_").append(derivation[i]);
-        }
-        return buffer.toString();
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
         StringBuffer b = new StringBuffer();
         b.append("<apply>");
         b.append("<ci>" + bodyToMathML() + "</ci>");
         for(int i=0;i<parameter.length;i++) {
-            b.append(parameter[i].toMathML(null));
+            b.append(parameter[i].toMathML());
         }
         b.append("</apply>");
         return b.toString();
@@ -218,7 +191,7 @@ public class ImplicitFunction extends Function {
                 b.append("<mi>" + nameToMathML() + "</mi>");
                 b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
-                    b.append(subscript[i].toMathML(null));
+                    b.append(subscript[i].toMathML());
                 }
                 b.append("</mrow>");
                 b.append("</msub>");
@@ -230,7 +203,7 @@ public class ImplicitFunction extends Function {
                 b.append("</mrow>");
                 b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
-                    b.append(subscript[i].toMathML(null));
+                    b.append(subscript[i].toMathML());
                 }
                 b.append("</mrow>");
                 b.append("</msub>");
@@ -239,7 +212,7 @@ public class ImplicitFunction extends Function {
                 b.append("<mi>" + nameToMathML() + "</mi>");
                 b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
-                    b.append(subscript[i].toMathML(null));
+                    b.append(subscript[i].toMathML());
                 }
                 b.append("</mrow>");
                 b.append(derivationToMathML(n));

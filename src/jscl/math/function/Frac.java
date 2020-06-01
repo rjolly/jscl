@@ -133,17 +133,8 @@ public class Frac extends Algebraic {
         return buffer.toString();
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        buffer.append(parameter[0].toJava());
-        buffer.append(".divide(");
-        buffer.append(parameter[1].toJava());
-        buffer.append(")");
-        return buffer.toString();
-    }
-
-    public String toMathML(Object data) {
-	return "<apply><divide/>" + parameter[0].toMathML(null) + parameter[1].toMathML(null) + "</apply>";
+    public String toMathML() {
+	return "<apply><divide/>" + parameter[0].toMathML() + parameter[1].toMathML() + "</apply>";
     }
 
     protected Variable newinstance() {

@@ -314,11 +314,7 @@ public final class JSCLInteger extends Generic {
         return content.toString();
     }
 
-    public String toJava() {
-        return "JSCLInteger.valueOf(\"" + content + "\")";
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
 	return "<cn>" + String.valueOf(content) + "</cn>";
     }
 }

@@ -445,7 +445,7 @@ public abstract class Polynomial implements Arithmetic, Comparable {
         return buffer.toString();
     }
 
-    public String toMathML(Object data) {
+    public String toMathML() {
 	String s = "<cn>" + "0" + "</cn>";
         int n=0;
         for(Iterator it=iterator();it.hasNext();) {
@@ -454,7 +454,7 @@ public abstract class Polynomial implements Arithmetic, Comparable {
             Generic a=te.coef();
             if(a instanceof Expression) a=a.signum()>0?GenericVariable.valueOf(a).expressionValue():GenericVariable.valueOf(a.negate()).expressionValue().negate();
 	    Generic c = a.abs();
-	    String t = m.degree() == 0?c.toMathML(null):c.compareTo(JSCLInteger.valueOf(1)) == 0?m.toMathML(null):"<apply><times/>" + c.toMathML(null) + m.toMathML(null) + "</apply>";
+	    String t = m.degree() == 0?c.toMathML():c.compareTo(JSCLInteger.valueOf(1)) == 0?m.toMathML():"<apply><times/>" + c.toMathML() + m.toMathML() + "</apply>";
 	    s = n == 0?a.signum() < 0?"<apply><minus/>" + t + "</apply>":t:a.signum() < 0?"<apply><minus/>" + s + t + "</apply>":"<apply><plus/>" + s + t + "</apply>";
 	    n++;
 	}

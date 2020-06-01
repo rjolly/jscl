@@ -98,35 +98,6 @@ public class Conjugate extends Function {
         return ((NumericWrapper)parameter[0]).conjugate();
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        buffer.append(parameter[0].toJava());
-        buffer.append(".conjugate()");
-        return buffer.toString();
-    }
-
-    public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML());
-        else {
-		b.append("<msup>");
-		b.append("<mfenced>" + bodyToMathML() + "</mfenced>");
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
-    }
-
-    String bodyToMathML() {
-	StringBuffer b = new StringBuffer();
-	b.append("<mover>");
-        b.append(parameter[0].toMathML(null));
-	b.append("<mo>" + "-" + "</mo>");
-	b.append("</mover>");
-	return b.toString();
-    }
-
     protected Variable newinstance() {
         return new Conjugate(null);
     }

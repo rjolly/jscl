@@ -212,13 +212,13 @@ public class Monomial implements Comparable {
         return buffer.toString();
     }
 
-    public String toMathML(Object data) {
+    public String toMathML() {
 	String s = "<cn>" + "1" + "</cn>";
 	boolean first = true;
         for(int i=0;i<unknown.length;i++) {
             int c=element(i);
             if(c > 0) {
-		String t = c == 1?unknown[i].toMathML(null):"<apply><power/>" + unknown[i].toMathML(null) + "<cn>" + c + "</cn></apply>";
+		String t = c == 1?unknown[i].toMathML():"<apply><power/>" + unknown[i].toMathML() + "<cn>" + c + "</cn></apply>";
 		s = first?t:"<apply><times/>" + s + t + "</apply>";
 		first = false;
 	    }

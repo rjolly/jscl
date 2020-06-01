@@ -57,10 +57,10 @@ public class Factorial extends Operator {
         return buffer.toString();
     }
 
-    public String toMathML(Object data) {
+    public String toMathML() {
         StringBuffer b = new StringBuffer();
         b.append("<apply><factorial/>");
-        b.append(parameter[0].toMathML(null));
+        b.append(parameter[0].toMathML());
         b.append("</apply>");
         return b.toString();
     }

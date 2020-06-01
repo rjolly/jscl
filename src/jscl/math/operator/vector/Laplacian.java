@@ -17,11 +17,11 @@ public class Laplacian extends VectorOperator {
     }
 
     @Override
-    public String toMathML(Object data) {
+    public String toMathML() {
         StringBuffer b = new StringBuffer();
         b.append("<apply><laplacian/>");
-        b.append(parameter[0].toMathML(null));
-        b.append(parameter[1].toMathML(null));
+        b.append(parameter[0].toMathML());
+        b.append(parameter[1].toMathML());
         b.append("</apply>");
         return b.toString();
     }

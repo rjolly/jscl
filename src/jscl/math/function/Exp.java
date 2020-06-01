@@ -86,11 +86,11 @@ public class Exp extends Function {
         return ((NumericWrapper)parameter[0]).exp();
     }
 
-    public String toMathML(Object data) {
+    public String toMathML() {
         if(parameter[0].compareTo(JSCLInteger.valueOf(1))==0) {
 		return "<exponentiale/>";
         } else {
-		return super.toMathML(data);
+		return super.toMathML();
         }
     }
 

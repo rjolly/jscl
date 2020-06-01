@@ -323,11 +323,7 @@ public final class NumericWrapper extends Generic {
         return content.toString();
     }
 
-    public String toJava() {
-        return "JSCLDouble.valueOf(0)";
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
         return content.toMathML();
     }
 

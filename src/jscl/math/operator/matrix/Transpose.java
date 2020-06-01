@@ -19,10 +19,10 @@ public class Transpose extends Operator {
     }
 
     @Override
-    public String toMathML(Object data) {
+    public String toMathML() {
         StringBuffer b = new StringBuffer();
         b.append("<apply><transpose/>");
-        b.append(parameter[0].toMathML(null));
+        b.append(parameter[0].toMathML());
         b.append("</apply>");
         return b.toString();
     }

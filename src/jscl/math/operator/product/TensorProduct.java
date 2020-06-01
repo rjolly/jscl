@@ -20,12 +20,12 @@ public class TensorProduct extends VectorOperator {
     }
 
     @Override
-    public String toMathML(Object data) {
+    public String toMathML() {
         StringBuffer b = new StringBuffer();
         b.append("<apply>");
         b.append("<mo>" + "\u2A2F" + "</mo>");
         for(int i=0;i<parameter.length;i++) {
-            b.append(parameter[i].toMathML(null));
+            b.append(parameter[i].toMathML());
         }
         b.append("</apply>");
         return b.toString();

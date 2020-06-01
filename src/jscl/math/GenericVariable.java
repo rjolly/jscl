@@ -90,11 +90,7 @@ public abstract class GenericVariable extends Variable {
         return content.toString();
     }
 
-    public String toJava() {
-        return content.toJava();
-    }
-
-    public String toMathML(Object data) {
-        return content.toMathML(data);
+    public String toMathML() {
+        return content.toMathML();
     }
 }

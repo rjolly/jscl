@@ -65,34 +65,6 @@ public class Abs extends Function {
         return ((NumericWrapper)parameter[0]).abs();
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        buffer.append(parameter[0].toJava());
-        buffer.append(".abs()");
-        return buffer.toString();
-    }
-
-    public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-        if(exponent==1) b.append(bodyToMathML());
-        else {
-		b.append("<msup>");
-		b.append(bodyToMathML());
-		b.append("<mn>" + String.valueOf(exponent) + "</mn>");
-		b.append("</msup>");
-        }
-	return b.toString();
-    }
-
-    String bodyToMathML() {
-	StringBuffer b = new StringBuffer();
-	b.append("<mfenced open=\"|\" close=\"|\">");
-        b.append(parameter[0].toMathML(null));
-	b.append("</mfenced>");
-	return b.toString();
-    }
-
     protected Variable newinstance() {
         return new Abs(null);
     }

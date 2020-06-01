@@ -333,9 +333,10 @@ final class GeoBucket extends Polynomial {
         }
     }
 
-    public String toMathML(Object data) {
+    @Override
+    public String toMathML() {
 	StringBuffer b = new StringBuffer();
-        if(canonicalized) b.append(polynomial().toMathML(data));
+        if(canonicalized) b.append(polynomial().toMathML());
         else {
 	    b.append("<mfenced>");
 	    b.append("<mtable>");
@@ -343,7 +344,7 @@ final class GeoBucket extends Polynomial {
 		b.append("<mtr>");
 		b.append("<mtd>");
                 Polynomial p=content[i];
-                b.append((p==null?factory.valueof(JSCLInteger.valueOf(0)):p).toMathML(null));
+                b.append((p==null?factory.valueof(JSCLInteger.valueOf(0)):p).toMathML());
 		b.append("</mtd>");
 		b.append("</mtr>");
             }

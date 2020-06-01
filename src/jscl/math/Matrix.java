@@ -459,27 +459,13 @@ public class Matrix extends Generic {
         return buffer.toString();
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        buffer.append("new Matrix(new Generic[][] {");
-        for(int i=0;i<n;i++) {
-            buffer.append("{");
-            for(int j=0;j<p;j++) {
-                buffer.append(element[i][j].toJava()).append(j<p-1?", ":"");
-            }
-            buffer.append("}").append(i<n-1?", ":"");
-        }
-        buffer.append("})");
-        return buffer.toString();
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
 	StringBuffer b = new StringBuffer();
 	b.append("<matrix>");
         for(int i=0;i<n;i++) {
 	    b.append("<matrixrow>");
             for(int j=0;j<p;j++) {
-                b.append(element[i][j].toMathML(null));
+                b.append(element[i][j].toMathML());
             }
 	    b.append("</matrixrow>");
         }

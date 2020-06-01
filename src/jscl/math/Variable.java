@@ -58,11 +58,7 @@ public abstract class Variable implements Comparable {
         return name;
     }
 
-    public String toJava() {
-        return name;
-    }
-
-    public abstract String toMathML(Object data);
+    public abstract String toMathML();
 
     protected String nameToMathML() {
 	return special.containsKey(name)?(String)special.get(name):name;

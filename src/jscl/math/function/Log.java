@@ -73,8 +73,8 @@ public class Log extends Function {
         return ((NumericWrapper)parameter[0]).log();
     }
 
-    public String toMathML(Object data) {
-	return "<apply><ln/>" + parameter[0].toMathML(null) + "</apply>";
+    public String toMathML() {
+	return "<apply><ln/>" + parameter[0].toMathML() + "</apply>";
     }
 
     protected Variable newinstance() {

@@ -256,11 +256,7 @@ public final class Rational extends Generic implements Field {
         return buffer.toString();
     }
 
-    public String toJava() {
-        return "Rational.valueOf(\"" + numerator + "\", \"" + denominator + "\")";
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
 	return "<cn type=\"rational\">" + String.valueOf(numerator) + "<sep/>" + String.valueOf(denominator) + "</cn>";
     }
 }

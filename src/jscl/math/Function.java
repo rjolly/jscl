@@ -371,11 +371,7 @@ public abstract class Function extends Generic {
         return "<function>";
     }
 
-    public String toJava() {
-        return "Function.valueOf(0)";
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
 	return "<ci>function</ci>";
     }
 

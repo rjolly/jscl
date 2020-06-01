@@ -182,11 +182,7 @@ public class ModularInteger extends Generic implements Field {
         return String.valueOf(content);
     }
 
-    public String toJava() {
-        return "ModularInteger.valueOf(" + content + ", " + modulo + ")";
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
 	return "<cn type=\"integer\" base=\"" + modulo + "\">" + content + "</cn>";
     }
 

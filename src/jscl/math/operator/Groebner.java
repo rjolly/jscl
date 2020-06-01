@@ -70,7 +70,7 @@ public class Groebner extends Operator {
     }
 
     @Override
-    public String toMathML(Object data) {
+    public String toMathML() {
 	StringBuffer b = new StringBuffer();
         int n=4;
         if(parameter[3].signum()==0) {
@@ -79,9 +79,9 @@ public class Groebner extends Operator {
         }
 	b.append("<apply>");
 	b.append("<ci>" + nameToMathML() + "</ci>");
-        b.append(getContent().toMathML(null));
+        b.append(getContent().toMathML());
         for(int i=1;i<n;i++) {
-            b.append(parameter[i].toMathML(null));
+            b.append(parameter[i].toMathML());
         }
 	b.append("</apply>");
 	return b.toString();
@@ -116,11 +116,11 @@ class PolynomialVector extends JSCLVector {
     }
 
     @Override
-    public String toMathML(Object data) {
+    public String toMathML() {
 	StringBuffer b = new StringBuffer();
 	b.append("<vector>");
         for(int i=0;i<n;i++) {
-            b.append(basis.polynomial(element[i]).toMathML(null));
+            b.append(basis.polynomial(element[i]).toMathML());
         }
 	b.append("</vector>");
 	return b.toString();

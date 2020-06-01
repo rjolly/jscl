@@ -332,21 +332,11 @@ public class JSCLVector extends Generic {
         return buffer.toString();
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        buffer.append("new JSCLVector(new Generic[] {");
-        for(int i=0;i<n;i++) {
-            buffer.append(element[i].toJava()).append(i<n-1?", ":"");
-        }
-        buffer.append("})");
-        return buffer.toString();
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
         StringBuffer b = new StringBuffer();
         b.append("<vector>");
         for(int i=0;i<n;i++) {
-            b.append(element[i].toMathML(null));
+            b.append(element[i].toMathML());
         }
         b.append("</vector>");
         return b.toString();

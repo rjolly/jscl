@@ -17,11 +17,11 @@ public class Dalembertian extends VectorOperator {
     }
 
     @Override
-    public String toMathML(Object data) {
+    public String toMathML() {
         StringBuffer b = new StringBuffer();
         b.append("<apply>");
-        b.append(operator("square").toMathML(null));
-        b.append(parameter[0].toMathML(null));
+        b.append(operator("square").toMathML());
+        b.append(parameter[0].toMathML());
         b.append("</apply>");
         return b.toString();
     }

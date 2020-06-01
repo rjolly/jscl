@@ -100,19 +100,11 @@ public class Sqrt extends Algebraic {
         return ((NumericWrapper)parameter[0]).sqrt();
     }
 
-    public String toJava() {
-        if(parameter[0].compareTo(JSCLInteger.valueOf(-1))==0) return "Complex.valueOf(0, 1)";
-        StringBuffer buffer=new StringBuffer();
-        buffer.append(parameter[0].toJava());
-        buffer.append(".").append(name).append("()");
-        return buffer.toString();
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
         if(parameter[0].compareTo(JSCLInteger.valueOf(-1))==0) {
 		return "<imaginaryi/>";
         } else {
-		return "<apply><root/>" + parameter[0].toMathML(null) + "</apply>";
+		return "<apply><root/>" + parameter[0].toMathML() + "</apply>";
         }
     }
 

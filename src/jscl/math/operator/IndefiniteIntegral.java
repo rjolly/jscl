@@ -17,13 +17,13 @@ public class IndefiniteIntegral extends Operator {
         return expressionValue();
     }
 
-    public String toMathML(Object data) {
+    public String toMathML() {
         Variable v=parameter[1].variableValue();
 	StringBuffer b = new StringBuffer();
 	b.append("<apply><int/><bvar>");
-        b.append(v.toMathML(null));
+        b.append(v.toMathML());
         b.append("</bvar>");
-        b.append(parameter[0].toMathML(null));
+        b.append(parameter[0].toMathML());
 	b.append("</apply>");
 	return b.toString();
     }

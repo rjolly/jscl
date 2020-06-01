@@ -33,14 +33,14 @@ public class Solve extends Operator {
         return buffer.toString();
     }
 
-    public String toMathML(Object data) {
+    public String toMathML() {
 	StringBuffer b = new StringBuffer();
         int n=3;
         if(parameter[2].signum()==0) n=2;
 	b.append("<apply>");
 	b.append("<ci>" + nameToMathML() + "</ci>");
         for(int i=0;i<n;i++) {
-            b.append(parameter[i].toMathML(null));
+            b.append(parameter[i].toMathML());
         }
 	b.append("</apply>");
 	return b.toString();

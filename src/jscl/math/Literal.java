@@ -333,28 +333,13 @@ public class Literal implements Comparable {
         return buffer.toString();
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        if(degree==0) buffer.append("JSCLDouble.valueOf(1)");
-        for(int i=0;i<size;i++) {
-            if(i>0) buffer.append(".multiply(");
-            Variable v=variable[i];
-            int c=power[i];
-            buffer.append(v.toJava());
-            if(c==1);
-            else buffer.append(".pow(").append(c).append(")");
-            if(i>0) buffer.append(")");
-        }
-        return buffer.toString();
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
 	String s = "<cn>" + "1" + "</cn>";
 	boolean first = true;
         for(int i=0;i<size;i++) {
             Variable v=variable[i];
             int c=power[i];
-	    String t = c == 1?v.toMathML(null):"<apply><power/>" + v.toMathML(null) + "<cn>" + c + "</cn></apply>";
+	    String t = c == 1?v.toMathML():"<apply><power/>" + v.toMathML() + "<cn>" + c + "</cn></apply>";
 	    s = first?t:"<apply><times/>" + s + t + "</apply>";
 	    first = false;
 	}

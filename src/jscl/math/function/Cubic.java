@@ -77,21 +77,12 @@ public class Cubic extends Algebraic {
         return ((NumericWrapper)parameter[0]).nthrt(3);
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        buffer.append(parameter[0].toJava());
-        buffer.append(".pow(");
-        buffer.append(Constant.third.toJava());
-        buffer.append(")");
-        return buffer.toString();
-    }
-
-    public String toMathML(Object data) {
+    public String toMathML() {
 	StringBuffer b = new StringBuffer();
 	b.append("<apply><root/><degree>");
-        b.append(JSCLInteger.valueOf(3).toMathML(null));
+        b.append(JSCLInteger.valueOf(3).toMathML());
 	b.append("</degree>");
-        b.append(parameter[0].toMathML(null));
+        b.append(parameter[0].toMathML());
 	b.append("</apply>");
 	return b.toString();
     }

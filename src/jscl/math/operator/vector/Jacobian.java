@@ -21,14 +21,14 @@ public class Jacobian extends VectorOperator {
     }
 
     @Override
-    public String toMathML(Object data) {
+    public String toMathML() {
         StringBuffer b = new StringBuffer();
         b.append("<apply>");
 	b.append("<apply><transpose/>");
-        b.append(operator("nabla").toMathML(null));
+        b.append(operator("nabla").toMathML());
         b.append("</apply>");
 	b.append("<apply><transpose/>");
-        b.append(parameter[0].toMathML(null));
+        b.append(parameter[0].toMathML());
         b.append("</apply>");
         b.append("</apply>");
         return b.toString();

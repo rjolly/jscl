@@ -24,17 +24,17 @@ public class Sum extends Operator {
         return expressionValue();
     }
 
-    public String toMathML(Object data) {
+    public String toMathML() {
         Variable v=parameter[1].variableValue();
         StringBuffer b = new StringBuffer();
         b.append("<apply><sum/><lowlimit>");
-        b.append(parameter[2].toMathML(null));
+        b.append(parameter[2].toMathML());
         b.append("</lowlimit><uplimit>");
-        b.append(parameter[3].toMathML(null));
+        b.append(parameter[3].toMathML());
         b.append("</uplimit><bvar>");
-        b.append(v.toMathML(null));
+        b.append(v.toMathML());
         b.append("</bvar>");
-        b.append(parameter[0].toMathML(null));
+        b.append(parameter[0].toMathML());
         b.append("</apply>");
         return b.toString();
      }

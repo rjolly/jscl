@@ -222,24 +222,6 @@ public class Pow extends Algebraic {
         return buffer.toString();
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        try {
-            JSCLInteger en=parameter[1].integerValue();
-	    buffer.append(parameter[0].toJava());
-            buffer.append(".pow(");
-            buffer.append(en.intValue());
-            buffer.append(")");
-        } catch (NotIntegerException e) {
-            buffer.append(name).append("(");
-            buffer.append(parameter[0].toJava());
-            buffer.append(", ");
-            buffer.append(parameter[1].toJava());
-            buffer.append(")");
-	}
-        return buffer.toString();
-    }
-
     protected Variable newinstance() {
         return new Pow(null,null);
     }

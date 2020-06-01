@@ -220,11 +220,8 @@ final class PolynomialWrapper extends Generic {
         return buffer.toString();
     }
 
-    public String toJava() {
-        return null;
-    }
-
-    public String toMathML(Object data) {
+    @Override
+    public String toMathML() {
 	    return "";
     }
 }

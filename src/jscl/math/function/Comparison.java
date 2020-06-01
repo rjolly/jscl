@@ -88,17 +88,9 @@ public class Comparison extends Function {
         }
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        buffer.append(parameter[0].toJava()).append(easj[operator]).append(parameter[1].toJava());
-        return buffer.toString();
-    }
-
     protected Variable newinstance() {
         return new Comparison(name,null,null);
     }
 
-    private static final String eass[]={"=","<>","<=","<",">=",">","~"};
-    private static final String easj[]={"==","!=","<=","<",">=",">","=="};
     private static final String easo[]={"eq","neq","leq","lt","geq","gt","approx"};
 }
