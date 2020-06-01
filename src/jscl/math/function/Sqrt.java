@@ -74,7 +74,7 @@ public class Sqrt extends Algebraic {
             Generic s=JSCLInteger.valueOf(1);
             for(int i=0;i<p.length;i++) {
                 Power o=p[i].powerValue();
-                Generic q=o.value(true);
+                Generic q=o.value();
                 int c=o.exponent();
                 s=s.multiply(q.pow(c/2).multiply(new Sqrt(q).expressionValue().pow(c%2)));
             }

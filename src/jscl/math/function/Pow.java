@@ -193,7 +193,7 @@ public class Pow extends Algebraic {
             } catch (NotVariableException e2) {
                 try {
                     Power o=parameter[0].powerValue();
-                    if(o.exponent()==1) buffer.append(o.value(true));
+                    if(o.exponent()==1) buffer.append(o.value());
                     else buffer.append(GenericVariable.valueOf(parameter[0]));
                 } catch (NotPowerException e3) {
                     buffer.append(GenericVariable.valueOf(parameter[0]));

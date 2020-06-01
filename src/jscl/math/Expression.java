@@ -454,7 +454,7 @@ public class Expression extends Generic {
         } else throw new NotPowerException();
     }
 
-    public Expression expressionValue() throws NotExpressionException {
+    public Expression expressionValue() {
         return this;
     }
 

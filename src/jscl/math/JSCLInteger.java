@@ -146,7 +146,7 @@ public final class JSCLInteger extends Generic {
         Generic s=JSCLInteger.valueOf(1);
         for(int i=0;i<p.length;i++) {
             Power o=p[i].powerValue();
-            Generic q=o.value(true);
+            Generic q=o.value();
             int c=o.exponent();
             s=s.multiply(q.subtract(JSCLInteger.valueOf(1)).multiply(q.pow(c-1)));
         }
@@ -159,7 +159,7 @@ public final class JSCLInteger extends Generic {
         Generic p[]=a.productValue();
         JSCLInteger d[]=new JSCLInteger[p.length];
         for(int i=0;i<p.length;i++) {
-            d[i]=phi.integerDivide(p[i].powerValue().value(true).integerValue());
+            d[i]=phi.integerDivide(p[i].powerValue().value().integerValue());
         }
         int k=0;
         JSCLInteger n=this;

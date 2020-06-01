@@ -43,7 +43,7 @@ public class Log extends Function {
                 Generic s=JSCLInteger.valueOf(0);
                 for(int i=0;i<p.length;i++) {
                     Power o=p[i].powerValue();
-                    s=s.add(JSCLInteger.valueOf(o.exponent()).multiply(new Log(o.value(true)).expressionValue()));
+                    s=s.add(JSCLInteger.valueOf(o.exponent()).multiply(new Log(o.value()).expressionValue()));
                 }
                 return s;
             }
