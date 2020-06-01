@@ -635,6 +635,8 @@ public class Expression extends Generic {
             init((Expression)generic);
         } else if(generic instanceof JSCLInteger) {
             init((JSCLInteger)generic);
+        } else if(generic instanceof ModularInteger) {
+            init(generic.integerValue());
         } else if(generic instanceof Rational) {
             init((Rational)generic);
         } else throw new ArithmeticException();
