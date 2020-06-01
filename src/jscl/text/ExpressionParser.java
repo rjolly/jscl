@@ -3,8 +3,8 @@ package jscl.text;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import jscl.math.ExpressionVariable;
 import jscl.math.Generic;
-import jscl.math.GenericVariable;
 import jscl.math.JSCLInteger;
 import jscl.math.NotIntegerException;
 import jscl.math.Variable;
@@ -108,8 +108,8 @@ class TermParser extends Parser {
             } catch (ParseException e) {
                 try {
                     Generic b=(Generic)MultiplyOrDivideFactor.divide.parse(str,pos);
-                    if(s.compareTo(JSCLInteger.valueOf(1))==0) s=new Inv(GenericVariable.content(b,true)).expressionValue();
-                    else s=new Frac(GenericVariable.content(s,true),GenericVariable.content(b,true)).expressionValue();
+                    if(s.compareTo(JSCLInteger.valueOf(1))==0) s=new Inv(ExpressionVariable.content(b)).expressionValue();
+                    else s=new Frac(ExpressionVariable.content(s),ExpressionVariable.content(b)).expressionValue();
                 } catch (ParseException e2) {
                     break;
                 }
@@ -198,10 +198,10 @@ class UnsignedFactor extends Parser {
             Generic b=(Generic)it.previous();
             try {
                 int c=a.integerValue().intValue();
-                if(c<0) a=new Pow(GenericVariable.content(b,true),JSCLInteger.valueOf(c)).expressionValue();
+                if(c<0) a=new Pow(ExpressionVariable.content(b),JSCLInteger.valueOf(c)).expressionValue();
                 else a=b.pow(c);
             } catch (NotIntegerException e) {
-                a=new Pow(GenericVariable.content(b,true),GenericVariable.content(a,true)).expressionValue();
+                a=new Pow(ExpressionVariable.content(b),ExpressionVariable.content(a)).expressionValue();
             }
         }
         return a;
@@ -296,7 +296,7 @@ class UnsignedExponent extends Parser {
             FactorialParser.parser.parse(str,pos);
             factorial=true;
         } catch (ParseException e) {}
-        return factorial?new Factorial(GenericVariable.content(a,true)).expressionValue():a;
+        return factorial?new Factorial(ExpressionVariable.content(a)).expressionValue():a;
     }
 }
 

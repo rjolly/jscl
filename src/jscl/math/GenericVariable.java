@@ -9,17 +9,9 @@ public abstract class GenericVariable extends Variable {
     }
 
     public static Generic content(Generic generic) {
-        return content(generic,false);
-    }
-
-    public static Generic content(Generic generic, boolean expression) {
         try {
             Variable v=generic.variableValue();
-            if(expression) {
-                if(v instanceof ExpressionVariable) generic=((ExpressionVariable)v).content;
-            } else {
-                if(v instanceof GenericVariable) generic=((GenericVariable)v).content;
-            }
+            if(v instanceof GenericVariable) generic=((GenericVariable)v).content;
         } catch (NotVariableException e) {}
         return generic;
     }

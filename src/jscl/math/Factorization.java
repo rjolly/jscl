@@ -156,7 +156,7 @@ public class Factorization {
     }
 
     Generic getValue() {
-        return GenericVariable.content(result,true);
+        return ExpressionVariable.content(result);
     }
 }
 
