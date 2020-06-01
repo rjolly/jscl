@@ -98,7 +98,7 @@ class UsualFunctionParser extends Parser {
         else if(name.compareTo("acoth")==0) v=new Acoth(a[0]);
         else if(name.compareTo("abs")==0) v=new Abs(a[0]);
         else if(name.compareTo("conjugate")==0) v=new Conjugate(a[0]);
-        else if(name.compareTo("eq")==0 || name.compareTo("le")==0 || name.compareTo("ge")==0 || name.compareTo("ne")==0 || name.compareTo("lt")==0 || name.compareTo("gt")==0 || name.compareTo("ap")==0) v=new Comparison(name,a[0],a[1]);
+        else if(name.compareTo("eq")==0 || name.compareTo("neq")==0 || name.compareTo("leq")==0 || name.compareTo("lt")==0 || name.compareTo("geq")==0 || name.compareTo("gt")==0 || name.compareTo("approx")==0) v=new Comparison(name,a[0],a[1]);
         return v;
     }
 
@@ -107,5 +107,5 @@ class UsualFunctionParser extends Parser {
         return false;
     }
 
-    private static String na[]={"sin","cos","tan","cot","asin","acos","atan","acot","log","exp","sqrt","cubic","sinh","cosh","tanh","coth","asinh","acosh","atanh","acoth","abs","conjugate","eq","le","ge","ne","lt","gt","ap"};
+    private static String na[]={"sin","cos","tan","cot","asin","acos","atan","acot","log","exp","sqrt","cubic","sinh","cosh","tanh","coth","asinh","acosh","atanh","acoth","abs","conjugate","eq","neq","leq","lt","geq","gt","approx"};
 }

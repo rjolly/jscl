@@ -9,6 +9,7 @@ import jscl.math.operator.Derivative;
 import jscl.math.operator.Division;
 import jscl.math.operator.Elementary;
 import jscl.math.operator.Factorize;
+import jscl.math.operator.FactorOf;
 import jscl.math.operator.Graph;
 import jscl.math.operator.Groebner;
 import jscl.math.operator.IndefiniteIntegral;
@@ -103,6 +104,7 @@ public class OperatorParser extends Parser {
         else if(name.compareTo("groebner")==0) v=new Groebner(a[0],a[1],a.length>2?a[2]:Groebner.lex,a.length>3?a[3]:JSCLInteger.valueOf(0));
         else if(name.compareTo("quotient")==0) v=new Division(a[0],a[1]);
         else if(name.compareTo("rem")==0) v=new Modulo(a[0],a[1]);
+        else if(name.compareTo("factorof")==0) v=new FactorOf(a[0],a[1]);
         else if(name.compareTo("modpow")==0) v=new ModPow(a[0],a[1],a[2]);
         else if(name.compareTo("modinv")==0) v=new ModInverse(a[0],a[1]);
         else if(name.compareTo("phi")==0) v=new EulerPhi(a[0]);
@@ -115,5 +117,5 @@ public class OperatorParser extends Parser {
         return false;
     }
 
-    private static String na[]={"d","grad","divergence","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","transpose","trace","determinant","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","limit","sum","product","integral","groebner","quotient","rem","modpow","modinv","phi","primitiveroots"};
+    private static String na[]={"d","grad","divergence","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","transpose","trace","determinant","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","limit","sum","product","integral","groebner","quotient","rem","factorof","modpow","modinv","phi","primitiveroots"};
 }

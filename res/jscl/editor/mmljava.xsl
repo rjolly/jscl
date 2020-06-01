@@ -216,7 +216,17 @@
 	<xsl:text>)</xsl:text>
 </xsl:template>
 
-<xsl:template match="m:apply[*[1][self::m:quotient or self::m:rem]]">
+<xsl:template match="m:apply[*[1][
+self::m:quotient or
+self::m:rem or
+self::m:eq or
+self::m:neq or
+self::m:leq or
+self::m:lt or
+self::m:geq or
+self::m:gt or
+self::m:approx or
+self::m:factorof]]">
 	<xsl:value-of select="local-name(*[1])"/>
 	<xsl:text>(</xsl:text>
 	<xsl:apply-templates select="*[2]"/>

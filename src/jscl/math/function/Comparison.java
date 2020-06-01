@@ -1,6 +1,7 @@
 package jscl.math.function;
 
 import jscl.math.Generic;
+import jscl.math.JSCLBoolean;
 import jscl.math.JSCLInteger;
 import jscl.math.NotIntegerException;
 import jscl.math.NotIntegrableException;
@@ -46,34 +47,42 @@ public class Comparison extends Function {
         return compare((NumericWrapper)parameter[0],(NumericWrapper)parameter[1]);
     }
 
-    JSCLInteger compare(JSCLInteger a1, JSCLInteger a2) {
-        return JSCLInteger.valueOf(compare((Generic)a1,(Generic)a2)?1:0);
+    private JSCLBoolean compare(JSCLInteger a1, JSCLInteger a2) {
+        return JSCLBoolean.valueOf(compare((Generic)a1,(Generic)a2));
     }
 
-    jscl.math.Function compare(jscl.math.Function a1, jscl.math.Function a2) {
-        return jscl.math.Function.valueOf(0);
+    private jscl.math.Function compare(final jscl.math.Function a1, final jscl.math.Function a2) {
+        return new jscl.math.Function() {
+            public double apply(double value) {
+                return JSCLBoolean.valueOf(compare(Double.compare(a1.apply(value),a2.apply(value)))).content();
+            }
+        };
     }
 
-    NumericWrapper compare(NumericWrapper a1, NumericWrapper a2) {
-        return new NumericWrapper(JSCLInteger.valueOf(compare((Generic)a1,(Generic)a2)?1:0));
+    private NumericWrapper compare(NumericWrapper a1, NumericWrapper a2) {
+        return new NumericWrapper(JSCLBoolean.valueOf(compare((Generic)a1,(Generic)a2)));
     }
 
-    boolean compare(Generic a1, Generic a2) {
+    private boolean compare(Generic a1, Generic a2) {
+        return compare(a1.compareTo(a2));
+    }
+
+    private boolean compare(int n) {
         switch(operator) {
             case 0:
-                return a1.compareTo(a2)==0;
+                return n==0;
             case 1:
-                return a1.compareTo(a2)<0;
+                return n!=0;
             case 2:
-                return a1.compareTo(a2)>0;
+                return n<=0;
             case 3:
-                return a1.compareTo(a2)!=0;
+                return n<0;
             case 4:
-                return a1.compareTo(a2)<=0;
+                return n>=0;
             case 5:
-                return a1.compareTo(a2)>=0;
+                return n>0;
             case 6:
-                return a1.compareTo(a2)==0;
+                return n==0;
             default:
                 return false;
         }
@@ -85,20 +94,11 @@ public class Comparison extends Function {
         return buffer.toString();
     }
 
-    public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-        b.append(parameter[0].toMathML(null));
-	b.append("<mo>" + easm[operator] + "</mo>");
-        b.append(parameter[1].toMathML(null));
-	return b.toString();
-    }
-
     protected Variable newinstance() {
         return new Comparison(name,null,null);
     }
 
-    private static final String eass[]={"=","<=",">=","<>","<",">","~"};
-    private static final String easj[]={"==","<=",">=","!=","<",">","=="};
-    private static final String easm[]={"=","\u2264","\u2265","\u2260","<",">","\u2248"};
-    private static final String easo[]={"eq","le","ge","ne","lt","gt","ap"};
+    private static final String eass[]={"=","<>","<=","<",">=",">","~"};
+    private static final String easj[]={"==","!=","<=","<",">=",">","=="};
+    private static final String easo[]={"eq","neq","leq","lt","geq","gt","approx"};
 }

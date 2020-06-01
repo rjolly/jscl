@@ -265,6 +265,38 @@ public class Predef {
 		return new Modulo(expression1, expression2).expressionValue();
 	}
 
+	public static Generic factorof(Generic expression1, Generic expression2) {
+		return new FactorOf(expression1, expression2).expressionValue();
+	}
+
+	public static Generic eq(Generic expression1, Generic expression2) {
+		return new Comparison("eq", expression1, expression2).expressionValue();
+	}
+
+	public static Generic neq(Generic expression1, Generic expression2) {
+		return new Comparison("neq", expression1, expression2).expressionValue();
+	}
+
+	public static Generic leq(Generic expression1, Generic expression2) {
+		return new Comparison("leq", expression1, expression2).expressionValue();
+	}
+
+	public static Generic lt(Generic expression1, Generic expression2) {
+		return new Comparison("lt", expression1, expression2).expressionValue();
+	}
+
+	public static Generic geq(Generic expression1, Generic expression2) {
+		return new Comparison("geq", expression1, expression2).expressionValue();
+	}
+
+	public static Generic gt(Generic expression1, Generic expression2) {
+		return new Comparison("gt", expression1, expression2).expressionValue();
+	}
+
+	public static Generic approx(Generic expression1, Generic expression2) {
+		return new Comparison("approx", expression1, expression2).expressionValue();
+	}
+
 	public static Generic transpose(Generic matrix) {
 		return new Transpose(matrix).expressionValue();
 	}

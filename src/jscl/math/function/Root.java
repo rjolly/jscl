@@ -344,13 +344,8 @@ public class Root extends Algebraic {
 
     public String toMathML(Object data) {
 	StringBuffer b = new StringBuffer();
-        int exponent=data instanceof Integer?((Integer)data).intValue():1;
-	b.append("<apply><ci><msub>");
-        b.append("<mi>" + nameToMathML() + "</mi>");
-        b.append("<mrow>");
-        b.append(subscript.toMathML(null));
-        b.append("</mrow>");
-	b.append("</msub></ci>");
+	b.append("<apply>");
+        b.append(new Constant(name,0,new Generic[] {subscript}).toMathML(null));
         for(int i=0;i<parameter.length;i++) {
             b.append(parameter[i].toMathML(null));
         }
