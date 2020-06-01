@@ -289,18 +289,30 @@
 <xsl:template match="m:apply[*[1][self::m:mo]]">
 	<xsl:choose>
 		<xsl:when test="*[1]/text() = '&#x02227;'">
-			<xsl:text>vector(</xsl:text>
-			<xsl:apply-templates select="*[2]"/>
-			<xsl:text>, </xsl:text>
-			<xsl:apply-templates select="*[3]"/>
-			<xsl:text>)</xsl:text>
+			<xsl:text>vector(new Generic[] {</xsl:text>
+			<xsl:for-each select="*[2]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>}, new Generic[] {</xsl:text>
+			<xsl:for-each select="*[3]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>})</xsl:text>
 		</xsl:when>
 		<xsl:when test="*[1]/text() = '&#x02A2F;'">
-			<xsl:text>tensor(</xsl:text>
-			<xsl:apply-templates select="*[2]"/>
-			<xsl:text>, </xsl:text>
-			<xsl:apply-templates select="*[3]"/>
-			<xsl:text>)</xsl:text>
+			<xsl:text>tensor(new Generic[][] {</xsl:text>
+			<xsl:for-each select="*[2]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>}, new Generic[][] {</xsl:text>
+			<xsl:for-each select="*[3]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>})</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>
 			<xsl:apply-templates/>
@@ -331,10 +343,7 @@
 			<xsl:apply-templates select="*[2]"/>
 			<xsl:text>)</xsl:text>
 		</xsl:when>
-		<xsl:when test="*[1]/text() = 'coef' or
-				*[1]/text() = 'complex' or
-				*[1]/text() = 'quaternion' or
-				*[1]/text() = 'matrix'">
+		<xsl:when test="*[1]/text() = 'coef'">
 			<xsl:apply-templates select="*[1]"/>
 			<xsl:text>(</xsl:text>
 			<xsl:apply-templates select="*[2]"/>
@@ -342,12 +351,48 @@
 			<xsl:apply-templates select="*[3]"/>
 			<xsl:text>)</xsl:text>
 		</xsl:when>
+		<xsl:when test="*[1]/text() = 'matrix'">
+			<xsl:apply-templates select="*[1]"/>
+			<xsl:text>(new Generic[][] {</xsl:text>
+			<xsl:for-each select="*[2]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>}, new Generic[][] {</xsl:text>
+			<xsl:for-each select="*[3]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>})</xsl:text>
+		</xsl:when>
+		<xsl:when test="*[1]/text() = 'complex' or
+				*[1]/text() = 'quaternion'">
+			<xsl:apply-templates select="*[1]"/>
+			<xsl:text>(new Generic[] {</xsl:text>
+			<xsl:for-each select="*[2]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>}, new Generic[] {</xsl:text>
+			<xsl:for-each select="*[3]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>})</xsl:text>
+		</xsl:when>
 		<xsl:when test="*[1]/text() = 'geometric'">
 			<xsl:apply-templates select="*[1]"/>
-			<xsl:text>(</xsl:text>
-			<xsl:apply-templates select="*[2]"/>
-			<xsl:text>, </xsl:text>
-			<xsl:apply-templates select="*[3]"/>
+			<xsl:text>(new Generic[] {</xsl:text>
+			<xsl:for-each select="*[2]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>}, new Generic[] {</xsl:text>
+			<xsl:for-each select="*[3]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>}</xsl:text>
 			<xsl:if test="*[4]">
 				<xsl:text>, </xsl:text>
 				<xsl:apply-templates select="*[4]"/>
