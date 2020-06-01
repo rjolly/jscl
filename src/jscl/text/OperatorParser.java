@@ -100,7 +100,7 @@ public class OperatorParser extends Parser {
         else if(name.compareTo("sum")==0) v=new Sum(a[0],a[1],a[2],a[3]);
         else if(name.compareTo("product")==0) v=new Product(a[0],a[1],a[2],a[3]);
         else if(name.compareTo("integral")==0) v=a.length>2?(Operator)new Integral(a[0],a[1],a[2],a[3]):new IndefiniteIntegral(a[0],a[1]);
-        else if(name.compareTo("groebner")==0) v=new Groebner(a[0],a[1],a.length>2?a[2]:Groebner.lex,a.length>3?a[3]:JSCLInteger.valueOf(0)).transmute();
+        else if(name.compareTo("groebner")==0) v=new Groebner(a[0],a[1],a.length>2?a[2]:Groebner.lex,a.length>3?a[3]:JSCLInteger.valueOf(0));
         else if(name.compareTo("quotient")==0) v=new Division(a[0],a[1]);
         else if(name.compareTo("rem")==0) v=new Modulo(a[0],a[1]);
         else if(name.compareTo("modpow")==0) v=new ModPow(a[0],a[1],a[2]);

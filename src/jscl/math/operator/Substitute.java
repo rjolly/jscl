@@ -1,8 +1,8 @@
 package jscl.math.operator;
 
 import jscl.math.Generic;
-import jscl.math.GenericVariable;
 import jscl.math.JSCLVector;
+import jscl.math.NotVectorException;
 import jscl.math.Variable;
 
 public class Substitute extends Operator {
@@ -11,14 +11,13 @@ public class Substitute extends Operator {
     }
 
     public Generic compute() {
-        Generic p[]=new Generic[] {null,GenericVariable.content(parameter[1]),GenericVariable.content(parameter[2])};
-        if(p[1] instanceof JSCLVector && p[2] instanceof JSCLVector) {
+        try {
             Generic a=parameter[0];
-            Variable variable[]=variables(p[1]);
-            Generic s[]=((JSCLVector)p[2]).elements();
+            Variable variable[]=variables(parameter[1].vectorValue());
+            Generic s[]=parameter[2].vectorValue().elements();
             for(int i=0;i<variable.length;i++) a=a.substitute(variable[i],s[i]);
             return a;
-        } else {
+        } catch (final NotVectorException e) {
             Variable variable=parameter[1].variableValue();
             return parameter[0].substitute(variable,parameter[2]);
         }

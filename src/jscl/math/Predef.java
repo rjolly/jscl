@@ -310,14 +310,14 @@ public class Predef {
 	}
 
 	public static Generic groebner(Generic generic, Generic variable[]) {
-		return new Groebner(generic, new JSCLVector(variable), lex, JSCLInteger.valueOf(0)).transmute().expressionValue();
+		return new Groebner(generic, new JSCLVector(variable), lex, JSCLInteger.valueOf(0)).expressionValue();
 	}
 
 	public static Generic groebner(Generic generic, Generic variable[], Generic ordering) {
-		return new Groebner(generic, new JSCLVector(variable), ordering, JSCLInteger.valueOf(0)).transmute().expressionValue();
+		return new Groebner(generic, new JSCLVector(variable), ordering, JSCLInteger.valueOf(0)).expressionValue();
 	}
 
 	public static Generic groebner(Generic generic, Generic variable[], Generic ordering, Generic modulo) {
-		return new Groebner(generic, new JSCLVector(variable), ordering, modulo).transmute().expressionValue();
+		return new Groebner(generic, new JSCLVector(variable), ordering, modulo).expressionValue();
 	}
 }

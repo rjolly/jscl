@@ -97,6 +97,13 @@ public abstract class Generic implements Arithmetic, Comparable, MathObject {
     public abstract Power powerValue() throws NotPowerException;
     public abstract Expression expressionValue() throws NotExpressionException;
     public abstract JSCLInteger integerValue() throws NotIntegerException;
+    public JSCLVector vectorValue() throws NotVectorException {
+        final Generic p = GenericVariable.content(this);
+        if (p instanceof JSCLVector) {
+            return (JSCLVector) p;
+        }
+        throw new NotVectorException();
+    }
     public abstract Variable variableValue() throws NotVariableException;
     public abstract Variable[] variables();
     public abstract boolean isPolynomial(Variable variable);

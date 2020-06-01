@@ -11,7 +11,7 @@ public class Grad extends VectorOperator {
     }
 
     public Generic compute() {
-        Variable variable[]=variables(parameter[1]);
+        Variable variable[]=variables(parameter[1].vectorValue());
         Expression expression=parameter[0].expressionValue();
         return expression.grad(variable);
     }

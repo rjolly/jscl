@@ -23,23 +23,19 @@ public class Groebner extends Operator {
     }
 
     public Generic compute() {
-        Generic generic[]=((JSCLVector)parameter[0]).elements();
-        Variable variable[]=variables(parameter[1]);
+        Generic generic[]=parameter[0].vectorValue().elements();
+        Variable variable[]=variables(parameter[1].vectorValue());
         Ordering ord=ordering(parameter[2]);
         int m=parameter[3].integerValue().intValue();
         return new PolynomialVector(Basis.compute(generic,variable,ord,m));
     }
 
-    public Operator transmute() {
-        Generic p[]=new Generic[] {GenericVariable.content(parameter[0]),GenericVariable.content(parameter[1])};
-        if(p[0] instanceof JSCLVector && p[1] instanceof JSCLVector) {
-            Generic generic[]=((JSCLVector)p[0]).elements();
-            Variable variable[]=variables(p[1]);
-            Ordering ord=ordering(parameter[2]);
-            int m=parameter[3].integerValue().intValue();
-            return new Groebner(new PolynomialVector(new Basis(generic,Polynomial.factory(variable,ord,m))),p[1],parameter[2],parameter[3]);
-        }
-        return this;
+    private JSCLVector getContent() {
+        Generic generic[]=parameter[0].vectorValue().elements();
+        Variable variable[]=variables(parameter[1].vectorValue());
+        Ordering ord=ordering(parameter[2]);
+        int m=parameter[3].integerValue().intValue();
+        return new PolynomialVector(new Basis(generic,Polynomial.factory(variable,ord,m)));
     }
 
     static Ordering ordering(Generic generic) {
@@ -55,6 +51,7 @@ public class Groebner extends Operator {
         throw new ArithmeticException();
     }
 
+    @Override
     public String toString() {
         StringBuffer buffer=new StringBuffer();
         int n=4;
@@ -64,13 +61,15 @@ public class Groebner extends Operator {
         }
         buffer.append(name);
         buffer.append("(");
-        for(int i=0;i<n;i++) {
+        buffer.append(getContent()).append(", ");
+        for(int i=1;i<n;i++) {
             buffer.append(parameter[i]).append(i<n-1?", ":"");
         }
         buffer.append(")");
         return buffer.toString();
     }
 
+    @Override
     public String toMathML(Object data) {
 	StringBuffer b = new StringBuffer();
         int n=4;
@@ -80,7 +79,8 @@ public class Groebner extends Operator {
         }
 	b.append("<apply>");
 	b.append("<ci>" + nameToMathML() + "</ci>");
-        for(int i=0;i<n;i++) {
+        b.append(getContent().toMathML(null));
+        for(int i=1;i<n;i++) {
             b.append(parameter[i].toMathML(null));
         }
 	b.append("</apply>");
@@ -104,6 +104,7 @@ class PolynomialVector extends JSCLVector {
         this.basis=basis;
     }
 
+    @Override
     public String toString() {
         StringBuffer buffer=new StringBuffer();
         buffer.append("{");
@@ -114,19 +115,14 @@ class PolynomialVector extends JSCLVector {
         return buffer.toString();
     }
 
-    protected String bodyToMathML() {
+    @Override
+    public String toMathML(Object data) {
 	StringBuffer b = new StringBuffer();
-	b.append("<mfenced>");
-	b.append("<mtable>");
+	b.append("<vector>");
         for(int i=0;i<n;i++) {
-	    b.append("<mtr>");
-	    b.append("<mtd>");
             b.append(basis.polynomial(element[i]).toMathML(null));
-	    b.append("</mtd>");
-	    b.append("</mtr>");
         }
-	b.append("</mtable>");
-	b.append("</mfenced>");
+	b.append("</vector>");
 	return b.toString();
     }
 

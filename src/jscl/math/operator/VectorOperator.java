@@ -1,7 +1,6 @@
 package jscl.math.operator;
 
 import jscl.math.Generic;
-import jscl.math.GenericVariable;
 import jscl.math.Variable;
 import jscl.math.function.Constant;
 
@@ -15,7 +14,7 @@ public abstract class VectorOperator extends Operator {
     }
 
     private Generic[] subscript() {
-        Variable variable[]=variables(GenericVariable.content(parameter[1]));
+        Variable variable[]=variables(parameter[1].vectorValue());
         Generic subscript[]=new Generic[variable.length];
         for(int i=0;i<variable.length;i++) subscript[i]=variable[i].expressionValue();
         return subscript;

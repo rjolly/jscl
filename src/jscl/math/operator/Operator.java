@@ -98,8 +98,8 @@ public abstract class Operator extends Variable {
         }
     }
 
-    protected static Variable[] variables(Generic generic) throws NotVariableException {
-        Generic element[]=((JSCLVector)generic).elements();
+    protected static Variable[] variables(JSCLVector vector) throws NotVariableException {
+        Generic element[]=vector.elements();
         Variable variable[]=new Variable[element.length];
         for(int i=0;i<element.length;i++) {
             variable[i]=element[i].variableValue();

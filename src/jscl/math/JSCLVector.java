@@ -343,13 +343,13 @@ public class JSCLVector extends Generic {
     }
 
     public String toMathML(Object data) {
-	StringBuffer b = new StringBuffer();
-	b.append("<vector>");
+        StringBuffer b = new StringBuffer();
+        b.append("<vector>");
         for(int i=0;i<n;i++) {
-		b.append(element[i].toMathML(null));
+            b.append(element[i].toMathML(null));
         }
-	b.append("</vector>");
-	return b.toString();
+        b.append("</vector>");
+        return b.toString();
     }
 
     protected Generic newinstance() {
