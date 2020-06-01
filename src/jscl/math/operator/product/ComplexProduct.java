@@ -19,10 +19,6 @@ public class ComplexProduct extends VectorOperator {
         return expressionValue();
     }
 
-    protected String bodyToMathML() {
-        return parameter[0].toMathML(null) + parameter[1].toMathML(null);
-    }
-
     protected Variable newinstance() {
         return new ComplexProduct(null,null);
     }

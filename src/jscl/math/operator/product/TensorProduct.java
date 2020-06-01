@@ -19,12 +19,16 @@ public class TensorProduct extends VectorOperator {
         return expressionValue();
     }
 
-    protected String bodyToMathML() {
-	StringBuffer b = new StringBuffer();
-        b.append(parameter[0].toMathML(null));
-	b.append("<mo>" + /*"\u2A2F"*/"*" + "</mo>");
-        b.append(parameter[1].toMathML(null));
-	return b.toString();
+    @Override
+    public String toMathML(Object data) {
+        StringBuffer b = new StringBuffer();
+        b.append("<apply>");
+        b.append("<mo>" + "\u2A2F" + "</mo>");
+        for(int i=0;i<parameter.length;i++) {
+            b.append(parameter[i].toMathML(null));
+        }
+        b.append("</apply>");
+        return b.toString();
     }
 
     protected Variable newinstance() {

@@ -17,19 +17,6 @@ public class MatrixProduct extends VectorOperator {
         return expressionValue();
     }
 
-    public String toJava() {
-        StringBuffer buffer=new StringBuffer();
-        buffer.append(parameter[0].toJava());
-        buffer.append(".multiply(");
-        buffer.append(parameter[1].toJava());
-        buffer.append(")");
-        return buffer.toString();
-    }
-
-    protected String bodyToMathML() {
-        return parameter[0].toMathML(null) + parameter[1].toMathML(null);
-    }
-
     protected Variable newinstance() {
         return new MatrixProduct(null,null);
     }

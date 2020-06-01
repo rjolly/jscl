@@ -340,4 +340,32 @@ public class Predef {
 	public static Generic solve(Generic expression, Generic variable, int subscript) {
 		return new Solve(expression, variable, JSCLInteger.valueOf(subscript)).expressionValue();
 	}
+
+	public static Generic complex(Generic vector1, Generic vector2) {
+		return new ComplexProduct(vector1, vector2).expressionValue();
+	}
+
+	public static Generic quaternion(Generic vector1, Generic vector2) {
+		return new QuaternionProduct(vector1, vector2).expressionValue();
+	}
+
+	public static Generic vector(Generic vector1, Generic vector2) {
+		return new VectorProduct(vector1, vector2).expressionValue();
+	}
+
+	public static Generic matrix(Generic matrix1, Generic matrix2) {
+		return new MatrixProduct(matrix1, matrix2).expressionValue();
+	}
+
+	public static Generic tensor(Generic matrix1, Generic matrix2) {
+		return new TensorProduct(matrix1, matrix2).expressionValue();
+	}
+
+	public static Generic geometric(Generic vector1, Generic vector2) {
+		return new GeometricProduct(vector1, vector2, JSCLInteger.valueOf(0)).expressionValue();
+	}
+
+	public static Generic geometric(Generic vector1, Generic vector2, Generic algebra) {
+		return new GeometricProduct(vector1, vector2, algebra).expressionValue();
+	}
 }

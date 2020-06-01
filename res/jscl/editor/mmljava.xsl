@@ -286,6 +286,28 @@
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template match="m:apply[*[1][self::m:mo]]">
+	<xsl:choose>
+		<xsl:when test="*[1]/text() = '&#x02227;'">
+			<xsl:text>vector(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[3]"/>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
+		<xsl:when test="*[1]/text() = '&#x02A2F;'">
+			<xsl:text>tensor(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[3]"/>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
 <xsl:template match="m:apply[*[1][self::m:ci]]">
 	<xsl:choose>
 		<xsl:when test="*[1]/*[1]/*[1]/text() = 'root'">
@@ -309,12 +331,27 @@
 			<xsl:apply-templates select="*[2]"/>
 			<xsl:text>)</xsl:text>
 		</xsl:when>
-		<xsl:when test="*[1]/text() = 'coef'">
+		<xsl:when test="*[1]/text() = 'coef' or
+				*[1]/text() = 'complex' or
+				*[1]/text() = 'quaternion' or
+				*[1]/text() = 'matrix'">
 			<xsl:apply-templates select="*[1]"/>
 			<xsl:text>(</xsl:text>
 			<xsl:apply-templates select="*[2]"/>
 			<xsl:text>, </xsl:text>
 			<xsl:apply-templates select="*[3]"/>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
+		<xsl:when test="*[1]/text() = 'geometric'">
+			<xsl:apply-templates select="*[1]"/>
+			<xsl:text>(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[3]"/>
+			<xsl:if test="*[4]">
+				<xsl:text>, </xsl:text>
+				<xsl:apply-templates select="*[4]"/>
+			</xsl:if>
 			<xsl:text>)</xsl:text>
 		</xsl:when>
 		<xsl:when test="*[1]/text() = 'subst'">

@@ -36,6 +36,7 @@ public class GeometricProduct extends VectorOperator {
         throw new ArithmeticException();
     }
 
+    @Override
     public String toString() {
         StringBuffer buffer=new StringBuffer();
         int n=3;
@@ -49,8 +50,18 @@ public class GeometricProduct extends VectorOperator {
         return buffer.toString();
     }
 
-    protected String bodyToMathML() {
-        return parameter[0].toMathML(null) + parameter[1].toMathML(null);
+    @Override
+    public String toMathML(Object data) {
+        StringBuffer b = new StringBuffer();
+        int n=3;
+        if(parameter[2].signum()==0) n=2;
+        b.append("<apply>");
+        b.append("<ci>" + nameToMathML() + "</ci>");
+        for(int i=0;i<n;i++) {
+            b.append(parameter[i].toMathML(null));
+        }
+        b.append("</apply>");
+        return b.toString();
     }
 
     protected Variable newinstance() {
