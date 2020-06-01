@@ -89,7 +89,7 @@ public class OperatorParser extends Parser {
         else if(name.compareTo("determinant")==0) v=new Determinant(a[0]);
         else if(name.compareTo("coef")==0) v=new Coefficient(a[0],a[1]);
         else if(name.compareTo("solve")==0) v=new Solve(a[0],a[1],a.length>2?a[2]:JSCLInteger.valueOf(0));
-        else if(name.compareTo("subst")==0) v=new Substitute(a[0],a[1],a[2]).transmute();
+        else if(name.compareTo("subst")==0) v=new Substitute(a[0],a[1],a[2]);
         else if(name.compareTo("graph")==0) v=new Graph(a[0],a[1]);
         else if(name.compareTo("elementary")==0) v=new Elementary(a[0]);
         else if(name.compareTo("factorize")==0) v=new Factorize(a[0]);
