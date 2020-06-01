@@ -317,7 +317,27 @@ public class Predef {
 		return new Groebner(generic, new JSCLVector(variable), ordering, JSCLInteger.valueOf(0)).expressionValue();
 	}
 
-	public static Generic groebner(Generic generic, Generic variable[], Generic ordering, Generic modulo) {
-		return new Groebner(generic, new JSCLVector(variable), ordering, modulo).expressionValue();
+	public static Generic groebner(Generic generic, Generic variable[], Generic ordering, int modulo) {
+		return new Groebner(generic, new JSCLVector(variable), ordering, JSCLInteger.valueOf(modulo)).expressionValue();
+	}
+
+	public static Generic coef(Generic expression, Generic variable) {
+		return new Coefficient(expression, variable).expressionValue();
+	}
+
+	public static Generic subst(Generic expression, Generic variable, Generic value) {
+		return new Substitute(expression, variable, value).expressionValue();
+	}
+
+	public static Generic subst(Generic expression, Generic variable[], Generic value[]) {
+		return new Substitute(expression, new JSCLVector(variable), new JSCLVector(value)).expressionValue();
+	}
+
+	public static Generic solve(Generic expression, Generic variable) {
+		return new Solve(expression, variable, JSCLInteger.valueOf(0)).expressionValue();
+	}
+
+	public static Generic solve(Generic expression, Generic variable, int subscript) {
+		return new Solve(expression, variable, JSCLInteger.valueOf(subscript)).expressionValue();
 	}
 }

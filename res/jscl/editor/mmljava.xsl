@@ -309,6 +309,53 @@
 			<xsl:apply-templates select="*[2]"/>
 			<xsl:text>)</xsl:text>
 		</xsl:when>
+		<xsl:when test="*[1]/text() = 'coef'">
+			<xsl:apply-templates select="*[1]"/>
+			<xsl:text>(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[3]"/>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
+		<xsl:when test="*[1]/text() = 'subst'">
+			<xsl:apply-templates select="*[1]"/>
+			<xsl:text>(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:choose>
+				<xsl:when test="*[3][self::m:vector]">
+					<xsl:text>new Generic[] {</xsl:text>
+					<xsl:for-each select="*[3]/*">
+						<xsl:apply-templates select="."/>
+						<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+					</xsl:for-each>
+					<xsl:text>}, new Generic[] {</xsl:text>
+					<xsl:for-each select="*[4]/*">
+						<xsl:apply-templates select="."/>
+						<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+					</xsl:for-each>
+					<xsl:text>}</xsl:text>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="*[3]"/>
+					<xsl:text>, </xsl:text>
+					<xsl:apply-templates select="*[4]"/>
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
+		<xsl:when test="*[1]/text() = 'solve'">
+			<xsl:apply-templates select="*[1]"/>
+			<xsl:text>(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[3]"/>
+			<xsl:if test="*[4]">
+				<xsl:text>, </xsl:text>
+				<xsl:apply-templates select="*[4]/text()"/>
+			</xsl:if>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
 		<xsl:when test="*[1]/*[1]/*[1]/text() = '&#x025A1;'">
 			<xsl:text>dalembertian(</xsl:text>
 			<xsl:apply-templates select="*[2]"/>
@@ -358,7 +405,7 @@
 			</xsl:if>
 			<xsl:if test="*[5]">
 				<xsl:text>, </xsl:text>
-				<xsl:apply-templates select="*[5]"/>
+				<xsl:apply-templates select="*[5]/text()"/>
 			</xsl:if>
 			<xsl:text>)</xsl:text>
 		</xsl:when>
