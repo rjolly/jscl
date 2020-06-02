@@ -7,6 +7,7 @@ import jscl.math.operator.*;
 import jscl.math.operator.vector.*;
 import jscl.math.operator.matrix.*;
 import jscl.math.operator.product.*;
+import jscl.math.operator.number.*;
 import jscl.math.numeric.*;
 
 public class Predef {
@@ -399,5 +400,21 @@ public class Predef {
 
 	public static Generic geometric(Generic vector1[], Generic vector2[], Generic algebra) {
 		return new GeometricProduct(new JSCLVector(vector1), new JSCLVector(vector2), algebra).expressionValue();
+	}
+
+	public static Generic modpow(Generic integer, Generic exponent, Generic modulo) {
+		return new ModPow(integer, exponent, modulo).expressionValue();
+	}
+
+	public static Generic modinv(Generic integer, Generic modulo) {
+		return new ModInverse(integer, modulo).expressionValue();
+	}
+
+	public static Generic phi(Generic integer) {
+		return new EulerPhi(integer).expressionValue();
+	}
+
+	public static Generic primitiveroots(Generic integer) {
+		return new PrimitiveRoots(integer).expressionValue();
 	}
 }
