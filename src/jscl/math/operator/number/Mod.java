@@ -4,22 +4,23 @@ import jscl.math.Generic;
 import jscl.math.JSCLInteger;
 import jscl.math.NotIntegerException;
 import jscl.math.Variable;
+import jscl.math.operator.Operator;
 
-public class Modulo extends Operator {
-    public Modulo(Generic expression1, Generic expression2) {
-        super("rem",new Generic[] {expression1,expression2});
+public class Mod extends Operator {
+    public Mod(Generic integer, Generic modulo) {
+        super("mod",new Generic[] {integer,modulo});
     }
 
     public Generic compute() {
         try {
             JSCLInteger en=parameter[0].integerValue();
-            JSCLInteger en2=parameter[1].integerValue();
-            return en.mod(en2);
+            JSCLInteger modulo=parameter[1].integerValue();
+            return en.mod(modulo);
         } catch (NotIntegerException e) {}
-        return parameter[0].remainder(parameter[1]);
+        return expressionValue();
     }
 
     protected Variable newinstance() {
-        return new Modulo(null,null);
+        return new Mod(null,null);
     }
 }

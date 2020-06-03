@@ -263,7 +263,7 @@ public class Predef {
 	}
 
 	public static Generic rem(Generic expression1, Generic expression2) {
-		return new Modulo(expression1, expression2).expressionValue();
+		return new Remainder(expression1, expression2).expressionValue();
 	}
 
 	public static Generic factorof(Generic expression1, Generic expression2) {
@@ -400,6 +400,10 @@ public class Predef {
 
 	public static Generic geometric(Generic vector1[], Generic vector2[], Generic algebra) {
 		return new GeometricProduct(new JSCLVector(vector1), new JSCLVector(vector2), algebra).expressionValue();
+	}
+
+	public static Generic mod(Generic integer, Generic modulo) {
+		return new Mod(integer, modulo).expressionValue();
 	}
 
 	public static Generic modpow(Generic integer, Generic exponent, Generic modulo) {

@@ -360,6 +360,7 @@ self::m:factorof]]">
 			<xsl:text>)</xsl:text>
 		</xsl:when>
 		<xsl:when test="*[1]/text() = 'coef' or
+				*[1]/text() = 'mod' or
 				*[1]/text() = 'modinv'">
 			<xsl:apply-templates select="*[1]"/>
 			<xsl:text>(</xsl:text>
