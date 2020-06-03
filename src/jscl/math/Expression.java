@@ -161,9 +161,7 @@ public class Expression extends Generic {
     public Generic multiply(Generic generic) {
         if(generic instanceof Expression) {
             return multiply((Expression)generic);
-        } else if(generic instanceof JSCLInteger) {
-            return multiply(valueof(generic));
-        } else if(generic instanceof Rational) {
+        } else if(generic instanceof JSCLInteger || generic instanceof Rational) {
             return multiply(valueof(generic));
         } else {
             return generic.multiply(this);
