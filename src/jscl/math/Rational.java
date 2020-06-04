@@ -95,11 +95,18 @@ public final class Rational extends Generic implements Field {
     }
 
     public Generic gcd() {
-        return null;
+        return Rational.valueOf(signum(),1);
     }
 
+    @Override
     public Generic pow(int exponent) {
-        return null;
+        final Generic a;
+        if (exponent < 0) {
+            a = inverse().pow(-exponent);
+        } else {
+            a = super.pow(exponent);
+        }
+        return a;
     }
 
     public Generic negate() {

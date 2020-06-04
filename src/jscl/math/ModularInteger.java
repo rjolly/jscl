@@ -53,15 +53,16 @@ public class ModularInteger extends Generic implements Field {
     }
 
     public Generic gcd(Generic generic) {
-        throw new UnsupportedOperationException();
+        return generic.signum()==0?this:generic;
     }
 
     public Generic gcd() {
-        throw new UnsupportedOperationException();
+        return newinstance(signum());
     }
 
+    @Override
     public Generic pow(int exponent) {
-        throw new UnsupportedOperationException();
+        return newinstance(BigInteger.valueOf(content).modPow(BigInteger.valueOf(exponent),BigInteger.valueOf(modulo)).intValue());
     }
 
     public Generic negate() {

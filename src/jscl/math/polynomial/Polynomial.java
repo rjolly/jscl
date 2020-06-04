@@ -188,8 +188,19 @@ public abstract class Polynomial implements Arithmetic, Comparable {
     }
 
     public Polynomial pow(int exponent) {
-        Polynomial a=valueof(JSCLInteger.valueOf(1));
-        for(int i=0;i<exponent;i++) a=a.multiply(this);
+        final Polynomial a;
+        if (exponent < 0) {
+            throw new ArithmeticException();
+        } else if (exponent == 0) {
+            a = valueof(JSCLInteger.valueOf(1));
+        } else {
+            if (exponent % 2 == 0) {
+                final Polynomial c = pow(exponent / 2);
+                a = c.multiply(c);
+            } else {
+                a = multiply(pow(exponent - 1));
+            }
+        }
         return a;
     }
 

@@ -108,9 +108,10 @@ public final class JSCLInteger extends Generic {
     }
 
     public Generic gcd() {
-        return new JSCLInteger(BigInteger.valueOf(signum()));
+        return JSCLInteger.valueOf(signum());
     }
 
+    @Override
     public Generic pow(int exponent) {
         return new JSCLInteger(content.pow(exponent));
     }
