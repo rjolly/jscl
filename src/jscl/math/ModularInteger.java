@@ -61,8 +61,8 @@ public class ModularInteger extends Generic implements Field {
     }
 
     @Override
-    public Generic pow(int exponent) {
-        return newinstance(BigInteger.valueOf(content).modPow(BigInteger.valueOf(exponent),BigInteger.valueOf(modulo)).intValue());
+    public Generic pow(final JSCLInteger exponent) {
+        return newinstance(BigInteger.valueOf(content).modPow(exponent.content(),BigInteger.valueOf(modulo)).intValue());
     }
 
     public Generic negate() {

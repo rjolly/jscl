@@ -65,10 +65,6 @@ public class ModularInteger extends Generic implements Field {
         throw new UnsupportedOperationException();
     }
 
-    public Generic pow(int exponent) {
-        throw new UnsupportedOperationException();
-    }
-
     public Generic negate() {
         return newinstance(modulo-content);
     }

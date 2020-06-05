@@ -97,6 +97,7 @@ public abstract class Function extends Generic {
         return null;
     }
 
+    @Override
     public Function pow(int exponent) {
         return (Function)super.pow(exponent);
     }

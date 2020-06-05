@@ -65,17 +65,22 @@ public abstract class Generic implements Arithmetic, Comparable, MathObject {
     }
 
     public Generic pow(int exponent) {
+        return pow(JSCLInteger.valueOf(exponent));
+    }
+
+    public Generic pow(final JSCLInteger exponent) {
         final Generic a;
-        if (exponent < 0) {
+        if (exponent.signum() < 0) {
             throw new ArithmeticException();
-        } else if (exponent == 0) {
+        } else if (exponent.signum() == 0) {
             a = JSCLInteger.valueOf(1);
         } else {
-            if (exponent % 2 == 0) {
-                final Generic c = pow(exponent / 2);
+            final JSCLInteger e[] = exponent.divideAndRemainder(JSCLInteger.valueOf(2));
+            if (e[1].signum() == 0) {
+                final Generic c = pow(e[0]);
                 a = c.multiply(c);
             } else {
-                a = multiply(pow(exponent - 1));
+                a = multiply(pow(exponent.subtract(JSCLInteger.valueOf(1))));
             }
         }
         return a;
