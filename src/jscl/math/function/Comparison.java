@@ -54,7 +54,7 @@ public class Comparison extends Function {
     private jscl.math.Function compare(final jscl.math.Function a1, final jscl.math.Function a2) {
         return new jscl.math.Function() {
             public double apply(double value) {
-                return JSCLBoolean.valueOf(compare(Double.compare(a1.apply(value),a2.apply(value)))).content();
+                return JSCLBoolean.valueOf(compare(Double.compare(a1.apply(value),a2.apply(value)))).content().doubleValue();
             }
         };
     }

@@ -174,8 +174,8 @@ public class Predef {
 		return new Derivative(expression, variable, value, order).expressionValue();
 	}
 
-	public static Generic modint(int content, int modulo) {
-		return ModularInteger.valueOf(content, modulo);
+	public static Generic modint(String str, String mod) {
+		return ModularInteger.valueOf(str, mod);
 	}
 
 	public static Generic integer(String str) {

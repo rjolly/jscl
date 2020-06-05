@@ -31,9 +31,15 @@
 
 <xsl:template match="m:cn[@type='integer' and @base!=10]">
 	<xsl:text>modint(</xsl:text>
-	<xsl:apply-templates/>
+	<xsl:call-template name="integer">
+		<xsl:with-param name="value" select="text()"/>
+		<xsl:with-param name="p" select="0"/>
+	</xsl:call-template>
 	<xsl:text>, </xsl:text>
-	<xsl:value-of select="@base"/>
+	<xsl:call-template name="integer">
+		<xsl:with-param name="value" select="@base"/>
+		<xsl:with-param name="p" select="0"/>
+	</xsl:call-template>
 	<xsl:text>)</xsl:text>
 </xsl:template>
 

@@ -2,192 +2,62 @@ package jscl.math;
 
 import java.math.BigInteger;
 
-public class ModularInteger extends Generic implements Field {
-    public static final ModularInteger booleanFactory=new ModularInteger(0,2);
-    final int modulo;
-    final int content;
+public class ModularInteger extends JSCLInteger implements Field {
+    private final BigInteger modulo;
 
-    public ModularInteger(long content, int modulo) {
+    public ModularInteger(BigInteger content, BigInteger modulo) {
+        super(content.mod(modulo));
         this.modulo=modulo;
-        this.content=(int)(content%modulo);
     }
 
-    public int content() {
-        return content;
-    }
-
-    public int modulo() {
-        return modulo;
-    }
-
-    public ModularInteger add(ModularInteger integer) {
-        return newinstance((long)content+integer.content);
-    }
-
-    public Generic add(Generic generic) {
-        return add((ModularInteger)generic);
-    }
-
-    public ModularInteger subtract(ModularInteger integer) {
-        return newinstance((long)content+(modulo-integer.content));
-    }
-
-    public Generic subtract(Generic generic) {
-        return subtract((ModularInteger)generic);
-    }
-
-    public ModularInteger multiply(ModularInteger integer) {
-        return newinstance((long)content*integer.content);
-    }
-
-    public Generic multiply(Generic generic) {
-        return multiply((ModularInteger)generic);
-    }
-
-    public Generic divide(Generic generic) throws ArithmeticException {
-        return multiply(generic.inverse());
-    }
-
-    public Generic inverse() {
-        return newinstance(BigInteger.valueOf(content).modInverse(BigInteger.valueOf(modulo)).intValue());
-    }
-
-    public Generic gcd(Generic generic) {
-        return generic.signum()==0?this:generic;
-    }
-
-    public Generic gcd() {
-        return newinstance(signum());
+    public JSCLInteger divide(ModularInteger integer) {
+        return multiply(integer.inverse());
     }
 
     @Override
-    public Generic pow(final JSCLInteger exponent) {
-        return newinstance(BigInteger.valueOf(content).modPow(exponent.content(),BigInteger.valueOf(modulo)).intValue());
+    public JSCLInteger integerDivide(JSCLInteger integer) {
+        return divide((ModularInteger)valueof(integer));
     }
 
-    public Generic negate() {
-        return newinstance(modulo-content);
+    @Override
+    public ModularInteger inverse() {
+        return newinstance(content.modInverse(modulo));
     }
 
-    public int signum() {
-        return content>0?1:0;
+    public ModularInteger gcd(ModularInteger integer) {
+        return integer.signum()==0?this:integer;
     }
 
-    public int degree() {
-        return 0;
+    @Override
+    public ModularInteger gcd(JSCLInteger integer) {
+        return gcd((ModularInteger)valueof(integer));
     }
 
-    public Generic antiderivative(Variable variable) throws NotIntegrableException {
-        throw new UnsupportedOperationException();
+    @Override
+    public ModularInteger pow(final JSCLInteger exponent) {
+        return newinstance(content.modPow(exponent.content(),modulo));
     }
 
-    public Generic derivative(Variable variable) {
-        throw new UnsupportedOperationException();
+    @Override
+    public ModularInteger negate() {
+        return newinstance(modulo.subtract(content));
     }
 
-    public Generic substitute(Variable variable, Generic generic) {
-        throw new UnsupportedOperationException();
-    }
-
-    public Generic function(Variable variable) {
-        throw new UnsupportedOperationException();
-    }
-
-    public Generic expand() {
-        throw new UnsupportedOperationException();
-    }
-
-    public Generic factorize() {
-        throw new UnsupportedOperationException();
-    }
-
-    public Generic elementary() {
-        throw new UnsupportedOperationException();
-    }
-
-    public Generic simplify() {
-        throw new UnsupportedOperationException();
-    }
-
-    public Generic numeric() {
-        throw new UnsupportedOperationException();
-    }
-
-    public Generic valueof(Generic generic) {
-        if(generic instanceof ModularInteger) {
-            return newinstance(((ModularInteger)generic).content);
-        } else if(generic instanceof JSCLInteger) {
-            return newinstance(((JSCLInteger)generic).content().mod(BigInteger.valueOf(modulo)).intValue());
-        } else {
-            throw new UnsupportedOperationException();
-        }
-    }
-
-    public Generic[] sumValue() {
-        throw new UnsupportedOperationException();
-    }
-
-    public Generic[] productValue() throws NotProductException {
-        throw new UnsupportedOperationException();
-    }
-
-    public Power powerValue() throws NotPowerException {
-        throw new UnsupportedOperationException();
-    }
-
-    public Expression expressionValue() throws NotExpressionException {
-        return Expression.valueOf(integerValue());
-    }
-
-    public JSCLInteger integerValue() throws NotIntegerException {
-        return JSCLInteger.valueOf(content);
-    }
-
-    public Variable variableValue() throws NotVariableException {
-        throw new UnsupportedOperationException();
-    }
-
-    public Variable[] variables() {
-        throw new UnsupportedOperationException();
-    }
-
-    public boolean isPolynomial(Variable variable) {
-        throw new UnsupportedOperationException();
-    }
-
-    public boolean isConstant(Variable variable) {
-        throw new UnsupportedOperationException();
-    }
-
-    public int compareTo(ModularInteger integer) {
-        return content<integer.content?-1:content>integer.content?1:0;
-    }
-
-    public int compareTo(Generic generic) {
-        if(generic instanceof ModularInteger) {
-            return compareTo((ModularInteger)generic);
-        } else {
-            return compareTo(valueof(generic));
-        }
-    }
-
-    public static ModularInteger valueOf(int content, int modulo) {
-        return new ModularInteger(content, modulo);
-    }
-
-    public static ModularInteger factory(int modulo) {
-        return new ModularInteger(0,modulo);
+    public static ModularInteger valueOf(String str, String mod) {
+        return new ModularInteger(new BigInteger(str), new BigInteger(mod));
     }
 
     public String toString() {
-        return String.valueOf(content);
+        return content.toString();
     }
 
+    @Override
     public String toMathML() {
 	return "<cn type=\"integer\" base=\"" + modulo + "\">" + content + "</cn>";
     }
 
-    protected ModularInteger newinstance(long content) {
+    @Override
+    protected ModularInteger newinstance(BigInteger content) {
         return new ModularInteger(content,modulo);
     }
 }

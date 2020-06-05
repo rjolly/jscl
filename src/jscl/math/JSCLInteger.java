@@ -2,7 +2,7 @@ package jscl.math;
 
 import java.math.BigInteger;
 
-public final class JSCLInteger extends Generic {
+public class JSCLInteger extends Generic {
     public static final JSCLInteger factory=new JSCLInteger(BigInteger.valueOf(0));
     final BigInteger content;
 
@@ -107,16 +107,16 @@ public final class JSCLInteger extends Generic {
         }
     }
 
-    public Generic gcd() {
+    public JSCLInteger gcd() {
         return JSCLInteger.valueOf(signum());
     }
 
     @Override
-    public Generic pow(int exponent) {
+    public JSCLInteger pow(int exponent) {
         return newinstance(content.pow(exponent));
     }
 
-    public Generic negate() {
+    public JSCLInteger negate() {
         return newinstance(content.negate());
     }
 
@@ -234,7 +234,7 @@ public final class JSCLInteger extends Generic {
         return new NumericWrapper(this);
     }
 
-    public Generic valueof(Generic generic) {
+    public JSCLInteger valueof(Generic generic) {
         return newinstance(((JSCLInteger)generic).content);
     }
 

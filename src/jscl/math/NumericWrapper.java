@@ -13,10 +13,6 @@ public final class NumericWrapper extends Generic {
         content=JSCLDouble.valueOf(integer.content().doubleValue());
     }
 
-    public NumericWrapper(ModularInteger integer) {
-        content=JSCLDouble.valueOf((double)integer.content());
-    }
-
     public NumericWrapper(Rational rational) {
         content=JSCLDouble.valueOf(rational.numerator().doubleValue()/rational.denominator().doubleValue());
     }
