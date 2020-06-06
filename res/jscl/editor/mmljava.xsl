@@ -543,6 +543,22 @@ self::m:factorof]]">
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template match="m:msubsup[*[1][self::m:mi]]">
+	<xsl:choose>
+		<xsl:when test="*[1]/text() = 'C'">
+			<xsl:apply-templates select="*[1]"/>
+			<xsl:text>(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[3]"/>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
 <xsl:template match="m:ci | m:mi">
 	<xsl:choose>
 		<xsl:when test="text() = '&#x00391;'"><xsl:text>Alpha</xsl:text></xsl:when>

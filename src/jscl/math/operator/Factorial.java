@@ -17,12 +17,7 @@ public class Factorial extends Operator {
 
     public Generic compute() {
         try {
-            int n=parameter[0].integerValue().intValue();
-            Generic a=JSCLInteger.valueOf(1);
-            for(int i=0;i<n;i++) {
-                a=a.multiply(JSCLInteger.valueOf(i+1));
-            }
-            return a;
+            return parameter[0].integerValue().factorial();
         } catch (NotIntegerException e) {}
         return expressionValue();
     }

@@ -1,4 +1,4 @@
-package jscl.math.operator;
+package jscl.math.operator.number;
 
 import jscl.math.Generic;
 import jscl.math.JSCLInteger;

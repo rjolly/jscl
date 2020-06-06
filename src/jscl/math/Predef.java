@@ -421,4 +421,8 @@ public class Predef {
 	public static Generic primitiveroots(Generic integer) {
 		return new PrimitiveRoots(integer).expressionValue();
 	}
+
+	public static Generic C(Generic n, Generic p) {
+		return new Binomial(n, p).expressionValue();
+	}
 }

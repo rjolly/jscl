@@ -128,6 +128,15 @@ public class JSCLInteger extends Generic {
         return 0;
     }
 
+    public JSCLInteger factorial() {
+        int n=intValue();
+        JSCLInteger a=JSCLInteger.valueOf(1);
+        for(int i=0;i<n;i++) {
+            a=a.multiply(JSCLInteger.valueOf(i+1));
+        }
+        return a;
+    }
+
     public JSCLInteger mod(JSCLInteger integer) {
         return newinstance(content.mod(integer.content));
     }
