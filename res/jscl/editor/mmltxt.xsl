@@ -180,6 +180,237 @@
 	</xsl:choose>
 </xsl:template>
 
+<xsl:template match="m:apply[*[1][self::m:root]]">
+	<xsl:choose>
+		<xsl:when test="m:degree">
+			<xsl:choose>
+				<xsl:when test="m:degree/m:cn/text()='3'">
+					<xsl:text>cubic(</xsl:text>
+					<xsl:apply-templates select="*[3]"/>
+					<xsl:text>)</xsl:text>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:text>sqrt(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>)</xsl:text>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][
+ self::m:sin or
+ self::m:cos or
+ self::m:tan or
+ self::m:cot or
+ self::m:arcsin or
+ self::m:arccos or
+ self::m:arctan or
+ self::m:arccot or
+ self::m:sinh or
+ self::m:cosh or
+ self::m:tanh or
+ self::m:coth or
+ self::m:arcsinh or
+ self::m:arccosh or
+ self::m:arctanh or
+ self::m:arccoth or
+ self::m:exp or
+ self::m:ln or
+ self::m:abs or
+ self::m:conjugate]]">
+	<xsl:value-of select="local-name(*[1])"/>
+	<xsl:text>(</xsl:text>
+	<xsl:apply-templates select="*[2]"/>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:diff] and *[2][self::m:bvar[*[1][self::m:degree]]]]">
+	<xsl:text>d(</xsl:text>
+	<xsl:apply-templates select="*[3]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[2]/*[2]"/>
+	<xsl:if test="not(*[2]/*[1]/m:cn) or *[2]/*[1]/m:cn/text() != '1'">
+		<xsl:text>, </xsl:text>
+		<xsl:apply-templates select="*[2]/*[2]"/>
+		<xsl:text>, </xsl:text>
+		<xsl:apply-templates select="*[2]/*[1]"/>
+	</xsl:if>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:apply[*[1][self::m:diff] and *[2][self::m:bvar[*[1][self::m:degree]]]]]]">
+	<xsl:text>d(</xsl:text>
+	<xsl:apply-templates select="*[1]/*[3]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[1]/*[2]/*[2]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[2]"/>
+	<xsl:if test="not(*[1]/*[2]/*[1]/m:cn) or *[1]/*[2]/*[1]/m:cn/text() != '1'">
+		<xsl:text>, </xsl:text>
+		<xsl:apply-templates select="*[1]/*[2]/*[1]"/>
+	</xsl:if>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:int]]">
+	<xsl:text>integral(</xsl:text>
+	<xsl:choose>
+		<xsl:when test="*[2][self::m:lowlimit] and *[3][self::m:uplimit] and *[4][self::m:bvar]">
+			<xsl:apply-templates select="*[5]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[4]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[3]"/>
+		</xsl:when>
+		<xsl:when test="*[2][self::m:bvar]">
+			<xsl:apply-templates select="*[3]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates/>
+		</xsl:otherwise>
+	</xsl:choose>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:sum or self::m:product]]">
+	<xsl:value-of select="local-name(*[1])"/>
+	<xsl:text>(</xsl:text>
+	<xsl:apply-templates select="*[5]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[4]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[2]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[3]"/>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:transpose or self::m:determinant]]">
+	<xsl:value-of select="local-name(*[1])"/>
+	<xsl:text>(</xsl:text>
+	<xsl:apply-templates select="*[2]"/>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][
+self::m:quotient or
+self::m:rem or
+self::m:eq or
+self::m:neq or
+self::m:leq or
+self::m:lt or
+self::m:geq or
+self::m:gt or
+self::m:approx or
+self::m:factorof]]">
+	<xsl:value-of select="local-name(*[1])"/>
+	<xsl:text>(</xsl:text>
+	<xsl:apply-templates select="*[2]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[3]"/>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:limit]]">
+	<xsl:value-of select="local-name(*[1])"/>
+	<xsl:text>(</xsl:text>
+	<xsl:apply-templates select="*[4]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:apply-templates select="*[3]"/>
+	<xsl:text>, </xsl:text>
+	<xsl:choose>
+		<xsl:when test="*[2]/m:msup">
+			<xsl:apply-templates select="*[2]/*[1]/*[1]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:choose>
+				<xsl:when test="*[2]/*[1]/*[2]/text() = '-'">
+					<xsl:text>-1</xsl:text>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:text>1</xsl:text>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates select="*[2]"/>
+		</xsl:otherwise>
+	</xsl:choose>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:grad or self::m:divergence or self::m:curl or self::m:laplacian]]">
+	<xsl:value-of select="local-name(*[1])"/>
+	<xsl:text>(</xsl:text>
+	<xsl:apply-templates select="*[2]"/>
+	<xsl:text>, {</xsl:text>
+	<xsl:for-each select="*[3]/*">
+		<xsl:apply-templates select="."/>
+		<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+	</xsl:for-each>
+	<xsl:text>})</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:apply[*[1][self::m:transpose]]]]">
+	<xsl:choose>
+		<xsl:when test="*[1]/*[1]/*[1]/*[1]/*[1]/text() = '&#x02207;'">
+			<xsl:text>jacobian(</xsl:text>
+			<xsl:apply-templates select="*[2]/*[1]/*[1]"/>
+			<xsl:text>, {</xsl:text>
+			<xsl:for-each select="*[1]/*[1]/*[1]/*[1]/*[2]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>})</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:mo]]">
+	<xsl:choose>
+		<xsl:when test="*[1]/text() = '&#x02227;'">
+			<xsl:text>vector({</xsl:text>
+			<xsl:for-each select="*[2]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>}, {</xsl:text>
+			<xsl:for-each select="*[3]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>})</xsl:text>
+		</xsl:when>
+		<xsl:when test="*[1]/text() = '&#x02A2F;'">
+			<xsl:text>tensor({</xsl:text>
+			<xsl:for-each select="*[2]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>}, {</xsl:text>
+			<xsl:for-each select="*[3]/*">
+				<xsl:apply-templates select="."/>
+				<xsl:if test="position()!=last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			<xsl:text>})</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:apply-templates/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
 <xsl:template match="m:ci[*[1][self::m:msub[*[1][self::m:mi] and *[2][self::m:mrow]]]]">
 	<xsl:apply-templates select="*[1]/*[1]"/>
 	<xsl:for-each select="*[1]/*[2]/*">
