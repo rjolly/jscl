@@ -254,14 +254,10 @@ self::m:factorof]]">
 			<xsl:text>, </xsl:text>
 			<xsl:choose>
 				<xsl:when test="*[2]/*[1]/*[2]/text() = '-'">
-					<xsl:call-template name="integer">
-						<xsl:with-param name="value">-1</xsl:with-param>
-					</xsl:call-template>
+					<xsl:text>-1</xsl:text>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:call-template name="integer">
-						<xsl:with-param name="value">1</xsl:with-param>
-					</xsl:call-template>
+					<xsl:text>1</xsl:text>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:when>

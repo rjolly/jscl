@@ -250,8 +250,8 @@ public class Predef {
 		return new Limit(expression, variable, limit, JSCLInteger.valueOf(0)).expressionValue();
 	}
 
-	public static Generic limit(Generic expression, Generic variable, Generic limit, Generic direction) {
-		return new Limit(expression, variable, limit, direction).expressionValue();
+	public static Generic limit(Generic expression, Generic variable, Generic limit, int direction) {
+		return new Limit(expression, variable, limit, JSCLInteger.valueOf(direction)).expressionValue();
 	}
 
 	public static Generic factorial(Generic expression) {
