@@ -25,8 +25,11 @@ public class Comparison extends Function {
     }
 
     public Generic evaluate() {
+        if (operator < 2) {
+            return JSCLBoolean.valueOf(compare(parameter[0],parameter[1]));
+	}
         try {
-            return compare(parameter[0].integerValue(),parameter[1].integerValue());
+            return JSCLBoolean.valueOf(compare(parameter[0].integerValue(),parameter[1].integerValue()));
         } catch (NotIntegerException e) {}
         return expressionValue();
     }
@@ -40,27 +43,15 @@ public class Comparison extends Function {
     }
 
     public Generic evalfunc() {
-        return compare((jscl.math.Function)parameter[0],(jscl.math.Function)parameter[1]);
-    }
-
-    public Generic evalnum() {
-        return compare((NumericWrapper)parameter[0],(NumericWrapper)parameter[1]);
-    }
-
-    private JSCLBoolean compare(JSCLInteger a1, JSCLInteger a2) {
-        return JSCLBoolean.valueOf(compare((Generic)a1,(Generic)a2));
-    }
-
-    private jscl.math.Function compare(final jscl.math.Function a1, final jscl.math.Function a2) {
         return new jscl.math.Function() {
             public double apply(double value) {
-                return JSCLBoolean.valueOf(compare(Double.compare(a1.apply(value),a2.apply(value)))).content().doubleValue();
+                return JSCLBoolean.valueOf(compare(Double.compare(((jscl.math.Function)parameter[0]).apply(value),((jscl.math.Function)parameter[1]).apply(value)))).content().doubleValue();
             }
         };
     }
 
-    private NumericWrapper compare(NumericWrapper a1, NumericWrapper a2) {
-        return new NumericWrapper(JSCLBoolean.valueOf(compare((Generic)a1,(Generic)a2)));
+    public Generic evalnum() {
+        return new NumericWrapper(JSCLBoolean.valueOf(compare((NumericWrapper)parameter[0],(NumericWrapper)parameter[1])));
     }
 
     private boolean compare(Generic a1, Generic a2) {
