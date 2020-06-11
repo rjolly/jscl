@@ -350,14 +350,10 @@ self::m:factorof]]">
 				*[1]/text() = 'numeric' or
 				*[1]/text() = 'quote' or
 				*[1]/text() = 'trace' or
+				*[1]/text() = '&#x003C6;' or
 				*[1]/text() = 'primitiveroots'">
 			<xsl:apply-templates select="*[1]"/>
 			<xsl:text>(</xsl:text>
-			<xsl:apply-templates select="*[2]"/>
-			<xsl:text>)</xsl:text>
-		</xsl:when>
-		<xsl:when test="*[1]/text() = '&#x003C6;'">
-			<xsl:text>phi(</xsl:text>
 			<xsl:apply-templates select="*[2]"/>
 			<xsl:text>)</xsl:text>
 		</xsl:when>
