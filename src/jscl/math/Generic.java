@@ -113,6 +113,12 @@ public abstract class Generic implements Arithmetic, Comparable, MathObject {
     public abstract Power powerValue() throws NotPowerException;
     public abstract Expression expressionValue() throws NotExpressionException;
     public abstract JSCLInteger integerValue() throws NotIntegerException;
+    public JSCLBoolean booleanValue() throws NotBooleanException {
+        try {
+            return JSCLBoolean.valueOf(integerValue().signum() != 0);
+        } catch (final NotIntegerException e) {}
+        throw new NotBooleanException();
+    }
     public JSCLVector vectorValue() throws NotVectorException {
         final Generic p = GenericVariable.content(this);
         if (p instanceof JSCLVector) {

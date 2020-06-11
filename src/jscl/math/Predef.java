@@ -3,6 +3,7 @@ package jscl.math;
 import jscl.math.function.*;
 import jscl.math.function.trigonometric.*;
 import jscl.math.function.hyperbolic.*;
+import jscl.math.function.bool.*;
 import jscl.math.operator.*;
 import jscl.math.operator.vector.*;
 import jscl.math.operator.matrix.*;
@@ -296,6 +297,26 @@ public class Predef {
 
 	public static Generic approx(Generic expression1, Generic expression2) {
 		return new Comparison("approx", expression1, expression2).expressionValue();
+	}
+
+	public static Generic and(Generic expression1, Generic expression2) {
+		return new And(expression1, expression2).expressionValue();
+	}
+
+	public static Generic or(Generic expression1, Generic expression2) {
+		return new Or(expression1, expression2).expressionValue();
+	}
+
+	public static Generic xor(Generic expression1, Generic expression2) {
+		return new Xor(expression1, expression2).expressionValue();
+	}
+
+	public static Generic not(Generic expression) {
+		return new Not(expression).expressionValue();
+	}
+
+	public static Generic implies(Generic expression1, Generic expression2) {
+		return new Implies(expression1, expression2).expressionValue();
 	}
 
 	public static Generic transpose(Generic matrix) {

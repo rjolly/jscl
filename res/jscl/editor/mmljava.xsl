@@ -232,7 +232,12 @@ self::m:lt or
 self::m:geq or
 self::m:gt or
 self::m:approx or
-self::m:factorof]]">
+self::m:factorof or
+self::m:and or
+self::m:or or
+self::m:xor or
+self::m:not or
+self::m:implies]]">
 	<xsl:value-of select="local-name(*[1])"/>
 	<xsl:text>(</xsl:text>
 	<xsl:apply-templates select="*[2]"/>
