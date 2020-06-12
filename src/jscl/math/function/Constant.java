@@ -168,10 +168,7 @@ public class Constant extends Variable {
             if(prime==0) {
                 b.append(nameToMathML());
             } else if(prime<=PRIMECHARS) {
-                b.append("<mrow>");
-                b.append("<mi>" + nameToMathML() + "</mi>");
-                b.append(primecharsToMathML(prime));
-                b.append("</mrow>");
+                b.append(nameToMathML() + primecharsToMathML(prime));
             } else {
                 b.append("<msup>");
                 b.append("<mi>" + nameToMathML() + "</mi>");
@@ -190,10 +187,7 @@ public class Constant extends Variable {
                 b.append("</msub>");
             } else if(prime<=PRIMECHARS) {
                 b.append("<msub>");
-                b.append("<mrow>");
-                b.append("<mi>" + nameToMathML() + "</mi>");
-                b.append(primecharsToMathML(prime));
-                b.append("</mrow>");
+                b.append("<mi>" + nameToMathML() + primecharsToMathML(prime) + "</mi>");
                 b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
                     b.append(subscript[i].toMathML());
@@ -225,9 +219,7 @@ public class Constant extends Variable {
 
     static String primecharsToMathML(int n) {
         StringBuffer b = new StringBuffer();
-        b.append("<mo>");
         for(int i=0;i<n;i++) b.append("\u2032");
-        b.append("</mo>");
         return b.toString();
     }
 

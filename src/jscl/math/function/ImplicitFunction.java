@@ -175,10 +175,7 @@ public class ImplicitFunction extends Function {
             if(n==0) {
                 b.append(nameToMathML());
             } else if(parameter.length==1?n<=Constant.PRIMECHARS:false) {
-                b.append("<mrow>");
-                b.append("<mi>" + nameToMathML() + "</mi>");
-                b.append(Constant.primecharsToMathML(n));
-                b.append("</mrow>");
+                b.append(nameToMathML() + Constant.primecharsToMathML(n));
             } else {
                 b.append("<msup>");
                 b.append("<mi>" + nameToMathML() + "</mi>");
@@ -197,10 +194,7 @@ public class ImplicitFunction extends Function {
                 b.append("</msub>");
             } else if(parameter.length==1?n<=Constant.PRIMECHARS:false) {
                 b.append("<msub>");
-                b.append("<mrow>");
-                b.append("<mi>" + nameToMathML() + "</mi>");
-                b.append(Constant.primecharsToMathML(n));
-                b.append("</mrow>");
+                b.append("<mi>" + nameToMathML() + Constant.primecharsToMathML(n) + "</mi>");
                 b.append("<mrow>");
                 for(int i=0;i<subscript.length;i++) {
                     b.append(subscript[i].toMathML());
