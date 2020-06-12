@@ -131,6 +131,14 @@ public abstract class Generic implements Arithmetic, Comparable, MathObject {
     public abstract boolean isPolynomial(Variable variable);
     public abstract boolean isConstant(Variable variable);
 
+    public boolean isZero() {
+        return signum() == 0;
+    }
+
+    public boolean isOne() {
+        return equals(JSCLInteger.valueOf(1));
+    }
+
     public boolean isIdentity(Variable variable) {
         try {
             return variableValue().isIdentity(variable);

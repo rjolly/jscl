@@ -2,7 +2,6 @@ package jscl.math.function;
 
 import jscl.math.Generic;
 import jscl.math.JSCLBoolean;
-import jscl.math.JSCLInteger;
 import jscl.math.NotIntegerException;
 import jscl.math.NotIntegrableException;
 import jscl.math.NumericWrapper;
@@ -21,7 +20,7 @@ public class Comparison extends Function {
     }
 
     public Generic derivative(int n) {
-        return JSCLInteger.valueOf(0);
+        return JSCLBoolean.valueOf(false);
     }
 
     public Generic evaluate() {

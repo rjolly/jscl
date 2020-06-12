@@ -16,7 +16,7 @@ public class ModularInteger extends JSCLInteger implements Field {
 
     @Override
     public JSCLInteger integerDivide(JSCLInteger integer) {
-        return divide((ModularInteger)valueof(integer));
+        return divide(valueof(integer));
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ModularInteger extends JSCLInteger implements Field {
 
     @Override
     public ModularInteger gcd(JSCLInteger integer) {
-        return gcd((ModularInteger)valueof(integer));
+        return gcd(valueof(integer));
     }
 
     @Override
@@ -41,6 +41,11 @@ public class ModularInteger extends JSCLInteger implements Field {
     @Override
     public ModularInteger negate() {
         return newinstance(modulo.subtract(content));
+    }
+
+    @Override
+    public ModularInteger valueof(Generic generic) {
+        return (ModularInteger)super.valueof(generic);
     }
 
     public static ModularInteger valueOf(String str, String mod) {

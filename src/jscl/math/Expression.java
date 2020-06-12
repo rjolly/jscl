@@ -342,9 +342,9 @@ public class Expression extends Generic {
                 Generic b=(Generic)map.get(v);
                 b=b.pow(c);
                 if(Matrix.product(a,b)) throw new ArithmeticException();
-                a=a.multiply(b);
+                a=a.isOne()?b:a.multiply(b);
             }
-            s=s.add(a);
+            s=s.isZero()?a:s.add(a);
         }
         return s;
     }

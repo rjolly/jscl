@@ -30,4 +30,14 @@ public class JSCLBoolean extends ModularInteger {
     public JSCLBoolean implies(JSCLBoolean bool) {
         return valueOf(content.signum() == 0 || bool.content.signum() != 0);
     }
+
+    @Override
+    public String toMathML() {
+	return content.signum() != 0?"<true/>":"<false/>";
+    }
+
+    @Override
+    protected JSCLBoolean newinstance(BigInteger content) {
+        return new JSCLBoolean(content);
+    }
 }

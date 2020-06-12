@@ -11,10 +11,13 @@ public class JSCLBoolean extends ModularInteger {
         return new JSCLBoolean(value?1:0);
     }
 
-    protected ModularInteger newinstance(long content) {
-        return content%2==0?zero:one;
+    @Override
+    public String toMathML() {
+	return content != 0?"<true/>":"<false/>";
     }
 
-    private static final JSCLBoolean zero=factory;
-    private static final JSCLBoolean one=new JSCLBoolean(1);
+    @Override
+    protected JSCLBoolean newinstance(long content) {
+        return new JSCLBoolean(content);
+    }
 }

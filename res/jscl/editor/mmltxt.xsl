@@ -23,8 +23,12 @@
 	<xsl:apply-templates/>
 </xsl:template>
 
-<xsl:template match="m:true | m:false">
-	<xsl:value-of select="local-name(*[1])"/>
+<xsl:template match="m:true">
+	<xsl:text>1</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:false">
+	<xsl:text>0</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:exponentiale">

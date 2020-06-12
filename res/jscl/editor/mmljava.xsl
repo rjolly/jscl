@@ -73,7 +73,7 @@
 
 <xsl:template match="m:true | m:false">
 	<xsl:text>bool(</xsl:text>
-	<xsl:value-of select="local-name(*[1])"/>
+	<xsl:value-of select="local-name()"/>
 	<xsl:text>)</xsl:text>
 </xsl:template>
 
