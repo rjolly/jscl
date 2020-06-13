@@ -179,33 +179,31 @@ public class Constant extends Variable {
             if(prime==0) {
                 b.append("<msub>");
                 b.append("<mi>" + nameToMathML() + "</mi>");
-                b.append("<mrow>");
-                for(int i=0;i<subscript.length;i++) {
-                    b.append(subscript[i].toMathML());
-                }
-                b.append("</mrow>");
+                b.append(subscriptToMathML());
                 b.append("</msub>");
             } else if(prime<=PRIMECHARS) {
                 b.append("<msub>");
                 b.append("<mi>" + nameToMathML() + primecharsToMathML(prime) + "</mi>");
-                b.append("<mrow>");
-                for(int i=0;i<subscript.length;i++) {
-                    b.append(subscript[i].toMathML());
-                }
-                b.append("</mrow>");
+                b.append(subscriptToMathML());
                 b.append("</msub>");
             } else {
                 b.append("<msubsup>");
                 b.append("<mi>" + nameToMathML() + "</mi>");
-                b.append("<mrow>");
-                for(int i=0;i<subscript.length;i++) {
-                    b.append(subscript[i].toMathML());
-                }
-                b.append("</mrow>");
+                b.append(subscriptToMathML());
                 b.append(primeToMathML());
                 b.append("</msubsup>");
             }
         }
+        return b.toString();
+    }
+
+    String subscriptToMathML() {
+        StringBuffer b = new StringBuffer();
+        b.append("<mrow>");
+        for(int i=0;i<subscript.length;i++) {
+            b.append(subscript[i].toMathML());
+        }
+        b.append("</mrow>");
         return b.toString();
     }
 
