@@ -504,19 +504,14 @@ self::m:implies]]">
 </xsl:template>
 
 <xsl:template match="m:msubsup[*[1][self::m:mi]]">
-	<xsl:choose>
-		<xsl:when test="*[1]/text() = 'C'">
-			<xsl:apply-templates select="*[1]"/>
-			<xsl:text>(</xsl:text>
-			<xsl:apply-templates select="*[2]"/>
-			<xsl:text>, </xsl:text>
-			<xsl:apply-templates select="*[3]"/>
-			<xsl:text>)</xsl:text>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:apply-templates/>
-		</xsl:otherwise>
-	</xsl:choose>
+	<xsl:if test="*[1]/text() = 'C'">
+		<xsl:apply-templates select="*[1]"/>
+		<xsl:text>(</xsl:text>
+		<xsl:apply-templates select="*[2]"/>
+		<xsl:text>, </xsl:text>
+		<xsl:apply-templates select="*[3]"/>
+		<xsl:text>)</xsl:text>
+	</xsl:if>
 </xsl:template>
 
 <xsl:template match="m:mrow">
