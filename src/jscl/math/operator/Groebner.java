@@ -30,14 +30,6 @@ public class Groebner extends Operator {
         return new PolynomialVector(Basis.compute(generic,variable,ord,m));
     }
 
-    private JSCLVector getContent() {
-        Generic generic[]=parameter[0].vectorValue().elements();
-        Variable variable[]=variables(parameter[1].vectorValue());
-        Ordering ord=ordering(parameter[2]);
-        int m=parameter[3].integerValue().intValue();
-        return new PolynomialVector(new Basis(generic,Polynomial.factory(variable,ord,m)));
-    }
-
     static Ordering ordering(Generic generic) {
         Variable v=generic.variableValue();
         if(v.compareTo(lex.variableValue())==0) return Monomial.lexicographic;
@@ -61,8 +53,7 @@ public class Groebner extends Operator {
         }
         buffer.append(name);
         buffer.append("(");
-        buffer.append(getContent()).append(", ");
-        for(int i=1;i<n;i++) {
+        for(int i=0;i<n;i++) {
             buffer.append(parameter[i]).append(i<n-1?", ":"");
         }
         buffer.append(")");
@@ -79,8 +70,7 @@ public class Groebner extends Operator {
         }
 	b.append("<apply>");
 	b.append("<ci>" + nameToMathML() + "</ci>");
-        b.append(getContent().toMathML());
-        for(int i=1;i<n;i++) {
+        for(int i=0;i<n;i++) {
             b.append(parameter[i].toMathML());
         }
 	b.append("</apply>");
