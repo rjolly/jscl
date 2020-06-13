@@ -24,9 +24,6 @@ public class Comparison extends Function {
     }
 
     public Generic evaluate() {
-        if (operator < 2) {
-            return JSCLBoolean.valueOf(compare(parameter[0],parameter[1]));
-	}
         try {
             return JSCLBoolean.valueOf(compare(parameter[0].integerValue(),parameter[1].integerValue()));
         } catch (NotIntegerException e) {}
@@ -38,6 +35,9 @@ public class Comparison extends Function {
     }
 
     public Generic evalsimp() {
+        if (operator < 2) {
+            return JSCLBoolean.valueOf(compare(parameter[0],parameter[1]));
+	}
         return expressionValue();
     }
 
