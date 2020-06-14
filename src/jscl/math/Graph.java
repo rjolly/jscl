@@ -1,15 +1,13 @@
 package jscl.math;
 
-import org.jdesktop.swingx.JXGraph;
-
-public class Graph extends JXGraph.Plot {
+public class Graph implements jscl.editor.rendering.Plot {
 	private final Function f;
 
 	private Graph(final Function f) {
 		this.f = f;
 	}
 
-	public double compute(final double value) {
+	public double apply(final double value) {
 		return f.apply(value);
 	}
 

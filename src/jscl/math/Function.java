@@ -1,6 +1,6 @@
 package jscl.math;
 
-public abstract class Function extends Generic {
+public abstract class Function extends Generic implements java.io.Serializable {
     public static final Function identity = new Function() {
         public double apply(double value) {
             return value;
