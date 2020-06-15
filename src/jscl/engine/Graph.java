@@ -1,4 +1,9 @@
-package jscl.math;
+package jscl.engine;
+
+import jscl.math.Generic;
+import jscl.math.JSCLVector;
+import jscl.math.NotFunctionException;
+import jscl.math.Function;
 
 public class Graph implements jscl.editor.rendering.Plot {
 	private final Function f;

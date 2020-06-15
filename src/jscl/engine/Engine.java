@@ -9,7 +9,6 @@ import javax.script.ScriptException;
 import javax.script.SimpleBindings;
 import jscl.math.Expression;
 import jscl.math.Generic;
-import jscl.math.Graph;
 import jscl.math.NotFunctionException;
 import jscl.text.ParseException;
 

@@ -208,15 +208,15 @@ public class Predef {
 	}
 
 	public static Object graph(Generic a) {
-		return Graph.apply(a.expand());
+		return jscl.engine.Graph.apply(a.expand());
 	}
 
 	public static Object graph(Generic a[]) {
-		return Graph.apply(new JSCLVector(a).expand());
+		return jscl.engine.Graph.apply(new JSCLVector(a).expand());
 	}
 
 	public static Generic function(Generic expression, Generic variable) {
-		return new jscl.math.operator.Graph(expression, variable).expressionValue();
+		return new Graph(expression, variable).expressionValue();
 	}
 
 	public static Generic elementary(Generic expression) {
