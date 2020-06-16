@@ -13,8 +13,9 @@ import jscl.math.function.Sqrt;
 import jscl.math.operator.Factorial;
 import jscl.math.operator.Operator;
 import jscl.text.ParseException;
+import jscl.editor.rendering.MathObject;
 
-public abstract class Variable implements Comparable {
+public abstract class Variable implements Comparable, MathObject {
     public static final Comparator comparator=VariableComparator.comparator;
     protected final String name;
 
@@ -57,8 +58,6 @@ public abstract class Variable implements Comparable {
     public String toString() {
         return name;
     }
-
-    public abstract String toMathML();
 
     protected String nameToMathML() {
 	return special.containsKey(name)?(String)special.get(name):name;

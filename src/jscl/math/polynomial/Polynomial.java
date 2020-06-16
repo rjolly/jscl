@@ -12,8 +12,9 @@ import jscl.math.Literal;
 import jscl.math.NotDivisibleException;
 import jscl.math.Rational;
 import jscl.math.Variable;
+import jscl.editor.rendering.MathObject;
 
-public abstract class Polynomial implements Arithmetic, Comparable {
+public abstract class Polynomial implements Arithmetic, Comparable, MathObject {
     final Monomial monomialFactory;
     final Generic coefFactory;
     final Ordering ordering;
