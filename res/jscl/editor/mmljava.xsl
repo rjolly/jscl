@@ -623,7 +623,7 @@ self::m:implies]]">
 		<xsl:when test="*[3][self::m:cn[not(@type) or @type='integer']]">
 			<xsl:apply-templates select="*[2]"/>
 			<xsl:text>.pow(</xsl:text>
-			<xsl:apply-templates select="*[3]"/>
+			<xsl:apply-templates select="*[3]/text()"/>
 			<xsl:text>)</xsl:text>
 		</xsl:when>
 		<xsl:otherwise>
