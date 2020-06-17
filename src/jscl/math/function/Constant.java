@@ -157,7 +157,7 @@ public class Constant extends Variable {
     }
 
     public String toMathML() {
-        if("pi".equals(name)) return "<pi/>";
+        if("pi".equals(name) && prime==0 && subscript.length==0) return "<pi/>";
         else if("oo".equals(name)) return "<infinity/>";
         else return "<ci>" + bodyToMathML() + "</ci>";
     }

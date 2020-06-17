@@ -71,7 +71,16 @@
 </xsl:template>
 
 <xsl:template match="m:ci | m:mi">
-	<xsl:variable name="n" select="string-length(substring-before(text(), '&#x02032;'))+1"/>
+	<xsl:variable name="n">
+		<xsl:choose>
+			<xsl:when test="contains(text(), '&#x02032;')">
+				<xsl:value-of select="string-length(substring-before(text(), '&#x02032;'))+1"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="string-length(text())+1"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>
 	<xsl:call-template name="greek">
 		<xsl:with-param name="value" select="substring(text(), 0, $n)"/>
 	</xsl:call-template>
