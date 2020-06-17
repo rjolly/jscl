@@ -139,7 +139,14 @@
  self::m:ln or
  self::m:abs or
  self::m:conjugate]]">
-	<xsl:value-of select="local-name(*[1])"/>
+	<xsl:choose>
+		<xsl:when test="local-name(*[1])='ln'">
+			<xsl:text>log</xsl:text>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="local-name(*[1])"/>
+		</xsl:otherwise>
+	</xsl:choose>
 	<xsl:text>(</xsl:text>
 	<xsl:apply-templates select="*[2]"/>
 	<xsl:text>)</xsl:text>

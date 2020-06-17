@@ -123,7 +123,7 @@ public class Predef {
 		return new Exp(a).expressionValue();
 	}
 
-	public static Generic ln(Generic a) {
+	public static Generic log(Generic a) {
 		return new Log(a).expressionValue();
 	}
 
