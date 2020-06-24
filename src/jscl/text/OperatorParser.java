@@ -111,7 +111,7 @@ public class OperatorParser extends Parser {
         else if(name.compareTo("mod")==0) v=new Mod(a[0],a[1]);
         else if(name.compareTo("modpow")==0) v=new ModPow(a[0],a[1],a[2]);
         else if(name.compareTo("modinv")==0) v=new ModInverse(a[0],a[1]);
-        else if(name.compareTo("phi")==0) v=new EulerPhi(a[0]);
+        else if(name.compareTo("eulerphi")==0) v=new EulerPhi(a[0]);
         else if(name.compareTo("primitiveroots")==0) v=new PrimitiveRoots(a[0]);
         return v;
     }
@@ -121,5 +121,5 @@ public class OperatorParser extends Parser {
         return false;
     }
 
-    private static String na[]={"d","grad","divergence","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","transpose","trace","determinant","C","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","limit","sum","product","integral","groebner","quotient","rem","factorof","mod","modpow","modinv","phi","primitiveroots"};
+    private static String na[]={"d","grad","divergence","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","transpose","trace","determinant","C","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","limit","sum","product","integral","groebner","quotient","rem","factorof","mod","modpow","modinv","eulerphi","primitiveroots"};
 }

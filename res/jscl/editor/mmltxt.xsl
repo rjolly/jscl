@@ -334,7 +334,7 @@ self::m:implies]]">
 				*[1]/text() = 'numeric' or
 				*[1]/text() = 'quote' or
 				*[1]/text() = 'trace' or
-				*[1]/text() = '&#x003C6;' or
+				*[1]/text() = 'eulerphi' or
 				*[1]/text() = 'primitiveroots'">
 			<xsl:apply-templates select="*[1]"/>
 			<xsl:text>(</xsl:text>
