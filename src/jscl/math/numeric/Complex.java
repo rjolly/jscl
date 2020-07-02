@@ -167,7 +167,7 @@ public final class Complex extends Numeric {
             else {
                 buffer.append(real);
                 if(imag<=0.);
-                                else buffer.append("+");
+                else buffer.append("+");
             }
             if(imag==1.);
             else if(imag==-1.) buffer.append("-");

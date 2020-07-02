@@ -62,12 +62,61 @@
 
 <xsl:template match="m:cn[@type='complex-cartesian']">
 	<xsl:param name="p" select="0"/>
-	<xsl:if test="0 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
-	<xsl:value-of select="text()[1]"/>
-	<xsl:text>+</xsl:text>
-	<xsl:value-of select="text()[2]"/>
-	<xsl:text>*sqrt(-1)</xsl:text>
-	<xsl:if test="0 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
+	<xsl:variable name="real">
+		<xsl:value-of select="number(text()[1])"/>
+	</xsl:variable>
+	<xsl:variable name="imag">
+		<xsl:value-of select="number(text()[2])"/>
+	</xsl:variable>
+	<xsl:choose>
+		<xsl:when test="$imag = 0">
+			<xsl:value-of select="$real"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:choose>
+				<xsl:when test="$real = 0">
+					<xsl:choose>
+						<xsl:when test="$imag = 1">
+							<xsl:text>sqrt(-1)</xsl:text>
+						</xsl:when>
+						<xsl:when test="$imag = -1">
+							<xsl:if test="0 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
+							<xsl:text>-sqrt(-1)</xsl:text>
+							<xsl:if test="0 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:if test="1 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
+							<xsl:value-of select="$imag"/>
+							<xsl:text>*sqrt(-1)</xsl:text>
+							<xsl:if test="1 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:if test="0 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
+					<xsl:value-of select="$real"/>
+					<xsl:choose>
+						<xsl:when test="$imag = 1">
+							<xsl:text>+sqrt(-1)</xsl:text>
+						</xsl:when>
+						<xsl:when test="$imag = -1">
+							<xsl:text>-sqrt(-1)</xsl:text>
+						</xsl:when>
+						<xsl:when test="$imag &lt; 0">
+							<xsl:value-of select="$imag"/>
+							<xsl:text>*sqrt(-1)</xsl:text>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:text>+</xsl:text>
+							<xsl:value-of select="$imag"/>
+							<xsl:text>*sqrt(-1)</xsl:text>
+						</xsl:otherwise>
+					</xsl:choose>
+					<xsl:if test="0 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:otherwise>
+	</xsl:choose>
 </xsl:template>
 
 <xsl:template match="m:ci | m:mi">
