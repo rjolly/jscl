@@ -573,7 +573,7 @@ self::m:implies]]">
 <xsl:template match="m:mrow">
 	<xsl:for-each select="*">
 		<xsl:text>[</xsl:text>
-		<xsl:apply-templates/>
+		<xsl:apply-templates select="text()"/>
 		<xsl:text>]</xsl:text>
 	</xsl:for-each>
 </xsl:template>
@@ -738,6 +738,12 @@ self::m:implies]]">
 		<xsl:when test="$value = '&#x003C7;'"><xsl:text>chi</xsl:text></xsl:when>
 		<xsl:when test="$value = '&#x003C8;'"><xsl:text>psi</xsl:text></xsl:when>
 		<xsl:when test="$value = '&#x003C9;'"><xsl:text>omega</xsl:text></xsl:when>
+		<xsl:when test="$value = '&#x02207;'"><xsl:text>nabla</xsl:text></xsl:when>
+		<xsl:when test="$value = '&#x02135;'"><xsl:text>aleph</xsl:text></xsl:when>
+		<xsl:when test="$value = '&#x0210F;'"><xsl:text>hbar</xsl:text></xsl:when>
+		<xsl:when test="$value = '&#x0210B;'"><xsl:text>hamilt</xsl:text></xsl:when>
+		<xsl:when test="$value = '&#x02112;'"><xsl:text>lagran</xsl:text></xsl:when>
+		<xsl:when test="$value = '&#x025A1;'"><xsl:text>square</xsl:text></xsl:when>
 		<xsl:otherwise><xsl:value-of select="$value"/></xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
