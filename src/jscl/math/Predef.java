@@ -256,7 +256,11 @@ public class Predef {
 	}
 
 	public static Generic factorial(Generic expression) {
-		return new Factorial(expression).expressionValue();
+		return new Factorial(expression, JSCLInteger.valueOf(1)).expressionValue();
+	}
+
+	public static Generic factorial(Generic expression, Generic order) {
+		return new Factorial(expression, order).expressionValue();
 	}
 
 	public static Generic quotient(Generic expression1, Generic expression2) {

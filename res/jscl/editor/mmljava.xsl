@@ -217,7 +217,18 @@
 	<xsl:text>)</xsl:text>
 </xsl:template>
 
-<xsl:template match="m:apply[*[1][self::m:factorial or self::m:transpose or self::m:determinant]]">
+<xsl:template match="m:apply[*[1][self::m:factorial]]">
+	<xsl:value-of select="local-name(*[1])"/>
+	<xsl:text>(</xsl:text>
+	<xsl:apply-templates select="*[2]"/>
+	<xsl:if test="*[3]">
+		<xsl:text>, </xsl:text>
+		<xsl:apply-templates select="*[3]"/>
+	</xsl:if>
+	<xsl:text>)</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:transpose or self::m:determinant]]">
 	<xsl:value-of select="local-name(*[1])"/>
 	<xsl:text>(</xsl:text>
 	<xsl:apply-templates select="*[2]"/>

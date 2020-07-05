@@ -286,17 +286,16 @@ class UnsignedExponent extends Parser {
     public Object parse(String str, int pos[]) throws ParseException {
         int pos0=pos[0];
         Generic a;
-        boolean factorial=false;
+        int d=0;
         try {
             a=(Generic)PrimaryExpression.parser.parse(str,pos);
         } catch (ParseException e) {
             throw e;
         }
         try {
-            FactorialParser.parser.parse(str,pos);
-            factorial=true;
+            d=((Integer)FactorialParser.parser.parse(str,pos)).intValue();
         } catch (ParseException e) {}
-        return factorial?new Factorial(ExpressionVariable.content(a)).expressionValue():a;
+        return d>0?new Factorial(ExpressionVariable.content(a), JSCLInteger.valueOf(d)).expressionValue():a;
     }
 }
 
@@ -305,16 +304,15 @@ class FactorialParser extends Parser {
 
     private FactorialParser() {}
 
-    public Object parse(String str, int pos[]) throws ParseException {
+    public Object parse(String str, int pos[]) {
         int pos0=pos[0];
+        int c=0;
         skipWhitespaces(str,pos);
-        if(pos[0]<str.length() && str.charAt(pos[0])=='!') {
+        while(pos[0]<str.length() && str.charAt(pos[0])=='!') {
             str.charAt(pos[0]++);
-        } else {
-            pos[0]=pos0;
-            throw new ParseException();
+            c++;
         }
-        return null;
+        return new Integer(c);
     }
 }
 

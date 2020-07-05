@@ -129,10 +129,14 @@ public class JSCLInteger extends Generic {
     }
 
     public JSCLInteger factorial() {
+        return factorial(1);
+    }
+
+    public JSCLInteger factorial(int k) {
         int n=intValue();
         JSCLInteger a=JSCLInteger.valueOf(1);
-        for(int i=0;i<n;i++) {
-            a=a.multiply(JSCLInteger.valueOf(i+1));
+        for(int i=n;i>1;i-=k) {
+            a=a.multiply(JSCLInteger.valueOf(i));
         }
         return a;
     }

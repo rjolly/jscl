@@ -11,13 +11,14 @@ import jscl.math.function.Pow;
 import jscl.util.ArrayComparator;
 
 public class Factorial extends Operator {
-    public Factorial(Generic expression) {
-        super("",new Generic[] {expression});
+    public Factorial(Generic expression, Generic order) {
+        super("",new Generic[] {expression, order});
     }
 
     public Generic compute() {
+        int k=parameter[1].integerValue().intValue();
         try {
-            return parameter[0].integerValue().factorial();
+            return parameter[0].integerValue().factorial(k);
         } catch (NotIntegerException e) {}
         return expressionValue();
     }
@@ -34,6 +35,7 @@ public class Factorial extends Operator {
     }
 
     public String toString() {
+        int k=parameter[1].integerValue().intValue();
         StringBuffer buffer=new StringBuffer();
         try {
             JSCLInteger en=parameter[0].integerValue();
@@ -48,19 +50,23 @@ public class Factorial extends Operator {
                 buffer.append(GenericVariable.valueOf(parameter[0]));
             }
         }
-        buffer.append("!");
+        for(int i=0;i<k;i++) buffer.append("!");
         return buffer.toString();
     }
 
     public String toMathML() {
+        int k=parameter[1].integerValue().intValue();
         StringBuffer b = new StringBuffer();
         b.append("<apply><factorial/>");
         b.append(parameter[0].toMathML());
+        if(k>1) {
+            b.append(JSCLInteger.valueOf(k).toMathML());
+        }
         b.append("</apply>");
         return b.toString();
     }
 
     protected Variable newinstance() {
-        return new Factorial(null);
+        return new Factorial(null,null);
     }
 }

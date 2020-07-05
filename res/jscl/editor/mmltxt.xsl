@@ -621,7 +621,7 @@ self::m:implies]]">
 	</xsl:apply-templates>
 	<xsl:text>-</xsl:text>
 	<xsl:apply-templates select="*[3]">
-	    	<xsl:with-param name="p" select="1"/>
+		<xsl:with-param name="p" select="1"/>
 	</xsl:apply-templates>
 	<xsl:if test="0 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
 </xsl:template>
@@ -634,7 +634,7 @@ self::m:implies]]">
 	</xsl:apply-templates>
 	<xsl:text>+</xsl:text>
 	<xsl:apply-templates select="*[3]">
-	    	<xsl:with-param name="p" select="0"/>
+		<xsl:with-param name="p" select="0"/>
 	</xsl:apply-templates>
 	<xsl:if test="0 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
 </xsl:template>
@@ -647,7 +647,7 @@ self::m:implies]]">
 	</xsl:apply-templates>
 	<xsl:text>*</xsl:text>
 	<xsl:apply-templates select="*[3]">
-	    	<xsl:with-param name="p" select="1"/>
+		<xsl:with-param name="p" select="1"/>
 	</xsl:apply-templates>
 	<xsl:if test="1 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
 </xsl:template>
@@ -660,7 +660,7 @@ self::m:implies]]">
 	</xsl:apply-templates>
 	<xsl:text>/</xsl:text>
 	<xsl:apply-templates select="*[3]">
-	    	<xsl:with-param name="p" select="2"/>
+		<xsl:with-param name="p" select="2"/>
 	</xsl:apply-templates>
 	<xsl:if test="1 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
 </xsl:template>
@@ -669,20 +669,43 @@ self::m:implies]]">
 	<xsl:param name="p" select="0"/>
 	<xsl:if test="2 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
 	<xsl:apply-templates select="*[2]">
-	    	<xsl:with-param name="p" select="2"/>
+		<xsl:with-param name="p" select="2"/>
 	</xsl:apply-templates>
 	<xsl:text>^</xsl:text>
 	<xsl:apply-templates select="*[3]">
-	    	<xsl:with-param name="p" select="2"/>
+		<xsl:with-param name="p" select="2"/>
 	</xsl:apply-templates>
 	<xsl:if test="2 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
 </xsl:template>
 
 <xsl:template match="m:apply[*[1][self::m:factorial]]">
 	<xsl:apply-templates select="*[2]">
-	    	<xsl:with-param name="p" select="3"/>
+		<xsl:with-param name="p" select="3"/>
 	</xsl:apply-templates>
-	<xsl:text>!</xsl:text>
+	<xsl:call-template name="factorials">
+		<xsl:with-param name="count">
+			<xsl:choose>
+				<xsl:when test="*[3]">
+					<xsl:value-of select="*[3]/text()"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="1"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:with-param>
+	</xsl:call-template> 
+</xsl:template>
+
+<xsl:template name="factorials">
+	<xsl:param name="count"/>
+	<xsl:if test="$count &gt; 0">
+		<xsl:text>!</xsl:text>
+		<xsl:call-template name="factorials">
+			<xsl:with-param name="count">
+				<xsl:value-of select="$count - 1"/>
+			</xsl:with-param>
+		</xsl:call-template>
+	</xsl:if>
 </xsl:template>
 
 <xsl:template match="m:vector | m:matrix | m:matrixrow | m:mfenced">
