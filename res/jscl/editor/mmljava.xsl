@@ -395,6 +395,18 @@ self::m:implies]]">
 			<xsl:apply-templates select="*[4]"/>
 			<xsl:text>)</xsl:text>
 		</xsl:when>
+		<xsl:when test="*[1]/text() = 'taylor'">
+			<xsl:apply-templates select="*[1]"/>
+			<xsl:text>(</xsl:text>
+			<xsl:apply-templates select="*[2]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[3]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[4]"/>
+			<xsl:text>, </xsl:text>
+			<xsl:apply-templates select="*[5]"/>
+			<xsl:text>)</xsl:text>
+		</xsl:when>
 		<xsl:when test="*[1]/text() = 'matrix'">
 			<xsl:apply-templates select="*[1]"/>
 			<xsl:text>(new Generic[][] {</xsl:text>

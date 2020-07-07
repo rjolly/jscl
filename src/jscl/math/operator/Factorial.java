@@ -15,6 +15,10 @@ public class Factorial extends Operator {
         super("",new Generic[] {expression, order});
     }
 
+    public Factorial(Generic expression) {
+        this(expression, JSCLInteger.valueOf(1));
+    }
+
     public Generic compute() {
         int k=parameter[1].integerValue().intValue();
         try {

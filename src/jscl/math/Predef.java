@@ -175,6 +175,10 @@ public class Predef {
 		return new Derivative(expression, variable, value, order).expressionValue();
 	}
 
+	public static Generic taylor(Generic expression, Generic variable, Generic value, Generic order) {
+		return new Taylor(expression, variable, value, order).expressionValue();
+	}
+
 	public static Generic modint(String str, String mod) {
 		return ModularInteger.valueOf(str, mod);
 	}
@@ -256,7 +260,7 @@ public class Predef {
 	}
 
 	public static Generic factorial(Generic expression) {
-		return new Factorial(expression, JSCLInteger.valueOf(1)).expressionValue();
+		return new Factorial(expression).expressionValue();
 	}
 
 	public static Generic factorial(Generic expression, Generic order) {

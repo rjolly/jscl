@@ -25,6 +25,7 @@ import jscl.math.operator.Simplify;
 import jscl.math.operator.Solve;
 import jscl.math.operator.Substitute;
 import jscl.math.operator.Sum;
+import jscl.math.operator.Taylor;
 import jscl.math.operator.matrix.Determinant;
 import jscl.math.operator.matrix.Trace;
 import jscl.math.operator.matrix.Transpose;
@@ -101,6 +102,7 @@ public class OperatorParser extends Parser {
         else if(name.compareTo("numeric")==0) v=new Numeric(a[0]);
         else if(name.compareTo("quote")==0) v=new Quote(a[0]);
         else if(name.compareTo("limit")==0) v=new Limit(a[0],a[1],a[2],a.length>3 && (a[2].compareTo(Constant.infinity)!=0 && a[2].compareTo(Constant.infinity.negate())!=0)?JSCLInteger.valueOf(a[3].signum()):JSCLInteger.valueOf(0));
+        else if(name.compareTo("taylor")==0) v=new Taylor(a[0],a[1],a[2],a[3]);
         else if(name.compareTo("sum")==0) v=new Sum(a[0],a[1],a[2],a[3]);
         else if(name.compareTo("product")==0) v=new Product(a[0],a[1],a[2],a[3]);
         else if(name.compareTo("integral")==0) v=a.length>2?(Operator)new Integral(a[0],a[1],a[2],a[3]):new IndefiniteIntegral(a[0],a[1]);
@@ -121,5 +123,5 @@ public class OperatorParser extends Parser {
         return false;
     }
 
-    private static String na[]={"d","grad","divergence","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","transpose","trace","determinant","C","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","limit","sum","product","integral","groebner","quotient","rem","factorof","mod","modpow","modinv","eulerphi","primitiveroots"};
+    private static String na[]={"d","grad","divergence","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","transpose","trace","determinant","C","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","limit","taylor","sum","product","integral","groebner","quotient","rem","factorof","mod","modpow","modinv","eulerphi","primitiveroots"};
 }
