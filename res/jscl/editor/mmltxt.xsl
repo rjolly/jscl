@@ -48,20 +48,29 @@
 </xsl:template>
 
 <xsl:template match="m:cn">
+	<xsl:param name="p" select="-1"/>
+	<xsl:variable name="content">
+		<xsl:value-of select="number(text())"/>
+	</xsl:variable>
+	<xsl:if test="-1 &lt; $p and $content &lt; 0"><xsl:text>(</xsl:text></xsl:if>
 	<xsl:value-of select="text()"/>
+	<xsl:if test="-1 &lt; $p and $content &lt; 0"><xsl:text>)</xsl:text></xsl:if>
 </xsl:template>
 
 <xsl:template match="m:cn[@type='rational']">
-	<xsl:param name="p" select="0"/>
-	<xsl:if test="1 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
+	<xsl:param name="p" select="-1"/>
+	<xsl:variable name="numerator">
+		<xsl:value-of select="number(text()[1])"/>
+	</xsl:variable>
+	<xsl:if test="1 &lt; $p or (-1 &lt; $p and $numerator &lt; 0)"><xsl:text>(</xsl:text></xsl:if>
 	<xsl:value-of select="text()[1]"/>
 	<xsl:text>/</xsl:text>
 	<xsl:value-of select="text()[2]"/>
-	<xsl:if test="1 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
+	<xsl:if test="1 &lt; $p or (-1 &lt; $p and $numerator &lt; 0)"><xsl:text>)</xsl:text></xsl:if>
 </xsl:template>
 
 <xsl:template match="m:cn[@type='complex-cartesian']">
-	<xsl:param name="p" select="0"/>
+	<xsl:param name="p" select="-1"/>
 	<xsl:variable name="real">
 		<xsl:value-of select="number(text()[1])"/>
 	</xsl:variable>
@@ -80,21 +89,21 @@
 							<xsl:text>sqrt(-1)</xsl:text>
 						</xsl:when>
 						<xsl:when test="$imag = -1">
-							<xsl:if test="0 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
+							<xsl:if test="-1 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
 							<xsl:text>-sqrt(-1)</xsl:text>
-							<xsl:if test="0 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
+							<xsl:if test="-1 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
 						</xsl:when>
 						<xsl:otherwise>
-							<xsl:if test="1 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
-							<xsl:value-of select="$imag"/>
+							<xsl:if test="1 &lt; $p or (-1 &lt; $p and $imag &lt; 0)"><xsl:text>(</xsl:text></xsl:if>
+							<xsl:value-of select="text()[2]"/>
 							<xsl:text>*sqrt(-1)</xsl:text>
-							<xsl:if test="1 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
+							<xsl:if test="1 &lt; $p or (-1 &lt; $p and $imag &lt; 0)"><xsl:text>)</xsl:text></xsl:if>
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:if test="0 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
-					<xsl:value-of select="$real"/>
+					<xsl:if test="0 &lt; $p or (-1 &lt; $p and $real &lt; 0)"><xsl:text>(</xsl:text></xsl:if>
+					<xsl:value-of select="text()[1]"/>
 					<xsl:choose>
 						<xsl:when test="$imag = 1">
 							<xsl:text>+sqrt(-1)</xsl:text>
@@ -103,16 +112,16 @@
 							<xsl:text>-sqrt(-1)</xsl:text>
 						</xsl:when>
 						<xsl:when test="$imag &lt; 0">
-							<xsl:value-of select="$imag"/>
+							<xsl:value-of select="text()[2]"/>
 							<xsl:text>*sqrt(-1)</xsl:text>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:text>+</xsl:text>
-							<xsl:value-of select="$imag"/>
+							<xsl:value-of select="text()[2]"/>
 							<xsl:text>*sqrt(-1)</xsl:text>
 						</xsl:otherwise>
 					</xsl:choose>
-					<xsl:if test="0 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
+					<xsl:if test="0 &lt; $p or (-1 &lt; $p and $real &lt; 0)"><xsl:text>)</xsl:text></xsl:if>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:otherwise>
@@ -604,13 +613,13 @@ self::m:implies]]">
 </xsl:template>
 
 <xsl:template match="m:apply[*[1][self::m:minus] and count(*) = 2]">
-	<xsl:param name="p" select="0"/>
-	<xsl:if test="0 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
+	<xsl:param name="p" select="-1"/>
+	<xsl:if test="-1 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
 	<xsl:text>-</xsl:text>
 	<xsl:apply-templates select="*[2]">
 		<xsl:with-param name="p" select="1"/>
 	</xsl:apply-templates>
-	<xsl:if test="0 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
+	<xsl:if test="-1 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
 </xsl:template>
 
 <xsl:template match="m:apply[*[1][self::m:minus] and count(*) &gt; 2]">

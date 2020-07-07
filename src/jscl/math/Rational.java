@@ -264,6 +264,6 @@ public final class Rational extends Generic implements Field {
     }
 
     public String toMathML() {
-	return "<cn type=\"rational\">" + String.valueOf(numerator) + "<sep/>" + String.valueOf(denominator) + "</cn>";
+	return "<cn type=\"rational\">" + numerator + "<sep/>" + denominator + "</cn>";
     }
 }

@@ -173,6 +173,6 @@ public final class JSCLDouble extends Numeric {
     }
 
     public String toMathML() {
-	return "<cn type=\"real\">" + String.valueOf(content) + "</cn>";
+	return "<cn type=\"real\">" + content + "</cn>";
     }
 }

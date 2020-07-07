@@ -181,6 +181,6 @@ public final class Complex extends Numeric {
     }
 
     public String toMathML() {
-	return "<cn type=\"complex-cartesian\">" + String.valueOf(real) + "<sep/>" + String.valueOf(imag) + "</cn>";
+	return "<cn type=\"complex-cartesian\">" + real + "<sep/>" + imag + "</cn>";
     }
 }

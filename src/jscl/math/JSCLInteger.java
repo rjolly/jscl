@@ -329,7 +329,7 @@ public class JSCLInteger extends Generic {
     }
 
     public String toMathML() {
-	return "<cn>" + String.valueOf(content) + "</cn>";
+	return "<cn>" + content + "</cn>";
     }
 
     protected JSCLInteger newinstance(BigInteger content) {
