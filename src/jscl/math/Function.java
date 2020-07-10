@@ -356,6 +356,16 @@ public abstract class Function extends Generic implements java.io.Serializable {
         return valueOf(1).add(exp().pow(2)).divide(valueOf(1).subtract(exp().pow(2))).negate();
     }
 
+    @Override
+    public boolean isZero() {
+        return false;
+    }
+
+    @Override
+    public boolean isOne() {
+        return false;
+    }
+
     public int compareTo(Function func) {
         return 0;
     }
