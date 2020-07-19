@@ -132,12 +132,12 @@ public class ImplicitFunction extends Function {
         int n=0;
         for(int i=0;i<derivation.length;i++) n+=derivation[i];
         buffer.append(name);
-        for(int i=0;i<subscript.length;i++) {
-            buffer.append("[").append(subscript[i]).append("]");
-        }
         if(n==0);
         else if(parameter.length==1?n<=Constant.PRIMECHARS:false) buffer.append(Constant.primechars(n));
         else buffer.append(derivationToString());
+        for(int i=0;i<subscript.length;i++) {
+            buffer.append("[").append(subscript[i]).append("]");
+        }
         buffer.append("(");
         for(int i=0;i<parameter.length;i++) {
             buffer.append(parameter[i]).append(i<parameter.length-1?", ":"");

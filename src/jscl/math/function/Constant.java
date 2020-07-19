@@ -141,12 +141,12 @@ public class Constant extends Variable {
     public String toString() {
         StringBuffer buffer=new StringBuffer();
         buffer.append(name);
-        for(int i=0;i<subscript.length;i++) {
-            buffer.append("[").append(subscript[i]).append("]");
-        }
         if(prime==0);
         else if(prime<=PRIMECHARS) buffer.append(primechars(prime));
         else buffer.append("{").append(prime).append("}");
+        for(int i=0;i<subscript.length;i++) {
+            buffer.append("[").append(subscript[i]).append("]");
+        }
         return buffer.toString();
     }
 
