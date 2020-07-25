@@ -23,10 +23,6 @@ public class Substitute extends Operator {
         }
     }
 
-    public Generic expand() {
-        return compute();
-    }
-
     protected Variable newinstance() {
         return new Substitute(null,null,null);
     }

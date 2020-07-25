@@ -13,10 +13,6 @@ public class Graph extends Operator {
         return parameter[0].function(variable);
     }
 
-    public Generic expand() {
-        return compute();
-    }
-
     protected Variable newinstance() {
         return new Graph(null,null);
     }
