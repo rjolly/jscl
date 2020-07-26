@@ -222,6 +222,6 @@ final class PolynomialWrapper extends Generic {
 
     @Override
     public String toMathML() {
-	    return "";
+	    return content.toMathML();
     }
 }
