@@ -63,6 +63,14 @@ public class Constant extends Variable {
         else return v.expressionValue();
     }
 
+    public Generic eval() {
+        Constant v=(Constant)newinstance();
+        for(int i=0;i<subscript.length;i++) {
+            v.subscript[i]=subscript[i].eval();
+        }
+        return v.expressionValue();
+    }
+
     public Generic expand() {
         Constant v=(Constant)newinstance();
         for(int i=0;i<subscript.length;i++) {

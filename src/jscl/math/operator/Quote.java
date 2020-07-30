@@ -12,7 +12,7 @@ public class Quote extends Operator {
         return parameter[0];
     }
 
-    public Generic expand() {
+    public Generic eval() {
         return compute();
     }
 

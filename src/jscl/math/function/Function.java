@@ -66,12 +66,20 @@ public abstract class Function extends Variable {
         else return v.evaluate();
     }
 
+    public Generic eval() {
+        Function v=(Function)newinstance();
+        for(int i=0;i<parameter.length;i++) {
+            v.parameter[i]=parameter[i].eval();
+        }
+        return v.evaluate();
+    }
+
     public Generic expand() {
         Function v=(Function)newinstance();
         for(int i=0;i<parameter.length;i++) {
             v.parameter[i]=parameter[i].expand();
         }
-        return v.evaluate();
+        return v.expressionValue();
     }
 
     public Generic factorize() {

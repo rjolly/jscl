@@ -40,12 +40,20 @@ public abstract class Operator extends Variable {
         else return v.compute();
     }
 
+    public Generic eval() {
+        Operator v=(Operator)newinstance();
+        for(int i=0;i<parameter.length;i++) {
+            v.parameter[i]=parameter[i].eval();
+        }
+        return v.compute();
+    }
+
     public Generic expand() {
         Operator v=(Operator)newinstance();
         for(int i=0;i<parameter.length;i++) {
             v.parameter[i]=parameter[i].expand();
         }
-        return v.compute();
+        return v.expressionValue();
     }
 
     public Generic factorize() {

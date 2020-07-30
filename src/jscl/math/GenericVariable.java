@@ -31,6 +31,12 @@ public abstract class GenericVariable extends Variable {
         else return v.expressionValue();
     }
 
+    public Generic eval() {
+        GenericVariable v=(GenericVariable)newinstance();
+        v.content=content.eval();
+        return v.expressionValue();
+    }
+
     public Generic expand() {
         return content.expand();
     }
@@ -48,9 +54,7 @@ public abstract class GenericVariable extends Variable {
     }
 
     public Generic simplify() {
-        GenericVariable v=(GenericVariable)newinstance();
-        v.content=content.simplify();
-        return v.expressionValue();
+        return content.simplify();
     }
 
     public Generic function(Variable variable) {

@@ -138,6 +138,10 @@ public abstract class Function extends Generic implements java.io.Serializable {
         return null;
     }
 
+    public Generic eval() {
+        return this;
+    }
+
     public Generic expand() {
         return this;
     }

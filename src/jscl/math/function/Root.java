@@ -78,13 +78,22 @@ public class Root extends Algebraic {
         else return v.evaluate();
     }
 
+    public Generic eval() {
+        Root v=(Root)newinstance();
+        for(int i=0;i<parameter.length;i++) {
+            v.parameter[i]=parameter[i].eval();
+        }
+        v.subscript=subscript.eval();
+        return v.evaluate();
+    }
+
     public Generic expand() {
         Root v=(Root)newinstance();
         for(int i=0;i<parameter.length;i++) {
             v.parameter[i]=parameter[i].expand();
         }
         v.subscript=subscript.expand();
-        return v.evaluate();
+        return v.expressionValue();
     }
 
     public Generic factorize() {

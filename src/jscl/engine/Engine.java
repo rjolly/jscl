@@ -29,7 +29,7 @@ public class Engine extends AbstractScriptEngine {
 
 	public Object eval(final String script, final ScriptContext context) throws ScriptException {
 		try {
-			Generic expr = Expression.valueOf(script).expand();
+			Generic expr = Expression.valueOf(script).eval();
 			try {
 				return Graph.apply(expr);
 			} catch (NotFunctionException e) {}

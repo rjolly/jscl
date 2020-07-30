@@ -13,19 +13,6 @@ public class ExpressionVariable extends GenericVariable {
         return generic;
     }
 
-    public Generic substitute(Variable variable, Generic generic) {
-        if(isIdentity(variable)) return generic;
-        else return content.substitute(variable,generic);
-    }
-
-    public Generic elementary() {
-        return content.elementary();
-    }
-
-    public Generic simplify() {
-        return content.simplify();
-    }
-
     public String toString() {
         StringBuffer buffer=new StringBuffer();
         buffer.append("(").append(content).append(")");

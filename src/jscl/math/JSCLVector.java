@@ -122,6 +122,12 @@ public class JSCLVector extends Generic {
         return v;
     }
 
+    public Generic eval() {
+        JSCLVector v=(JSCLVector)newinstance();
+        for(int i=0;i<n;i++) v.element[i]=element[i].eval();
+        return v;
+    }
+
     public Generic expand() {
         JSCLVector v=(JSCLVector)newinstance();
         for(int i=0;i<n;i++) v.element[i]=element[i].expand();

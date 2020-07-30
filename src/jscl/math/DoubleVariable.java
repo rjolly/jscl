@@ -22,6 +22,10 @@ public class DoubleVariable extends GenericVariable {
         else return expressionValue();
     }
 
+    public Generic eval() {
+        return expressionValue();
+    }
+
     public Generic expand() {
         return expressionValue();
     }

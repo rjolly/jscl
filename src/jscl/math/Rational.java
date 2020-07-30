@@ -133,6 +133,10 @@ public final class Rational extends Generic implements Field {
         return this;
     }
 
+    public Generic eval() {
+        return this;
+    }
+
     public Generic expand() {
         return this;
     }

@@ -93,6 +93,10 @@ public class ModularInteger extends Generic implements Field {
         throw new UnsupportedOperationException();
     }
 
+    public Generic eval() {
+        throw new UnsupportedOperationException();
+    }
+
     public Generic expand() {
         throw new UnsupportedOperationException();
     }

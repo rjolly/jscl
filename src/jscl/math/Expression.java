@@ -349,6 +349,17 @@ public class Expression extends Generic {
         return s;
     }
 
+    public Generic eval() {
+        Map m=literalScm().content();
+        Iterator it=m.entrySet().iterator();
+        while(it.hasNext()) {
+            Map.Entry e=(Map.Entry)it.next();
+            Variable v=(Variable)e.getKey();
+            e.setValue(v.eval());
+        }
+        return substitute(m);
+    }
+
     public Generic expand() {
         Map m=literalScm().content();
         Iterator it=m.entrySet().iterator();

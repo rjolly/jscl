@@ -26,6 +26,10 @@ public class TechnicalVariable extends Variable {
         else return expressionValue();
     }
 
+    public Generic eval() {
+        return expressionValue();
+    }
+
     public Generic expand() {
         return expressionValue();
     }

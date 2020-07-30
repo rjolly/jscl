@@ -129,6 +129,10 @@ public final class NumericWrapper extends Generic {
         return null;
     }
 
+    public Generic eval() {
+        return null;
+    }
+
     public Generic expand() {
         return null;
     }
