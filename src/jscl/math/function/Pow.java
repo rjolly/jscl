@@ -182,7 +182,7 @@ public class Pow extends Algebraic {
         StringBuffer buffer=new StringBuffer();
         try {
             JSCLInteger en=parameter[0].integerValue();
-            if(en.signum()<0) buffer.append(GenericVariable.valueOf(en,true));
+            if(en.signum()<0) buffer.append(GenericVariable.valueOf(en));
             else buffer.append(en);
         } catch (NotIntegerException e) {
             try {

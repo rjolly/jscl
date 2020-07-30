@@ -1,7 +1,6 @@
 package jscl.math.operator;
 
 import jscl.math.Generic;
-import jscl.math.GenericVariable;
 import jscl.math.JSCLInteger;
 import jscl.math.JSCLVector;
 import jscl.math.Variable;

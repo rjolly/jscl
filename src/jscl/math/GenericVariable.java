@@ -82,12 +82,7 @@ public abstract class GenericVariable extends Variable {
     }
 
     public static GenericVariable valueOf(Generic generic) {
-        return valueOf(generic,false);
-    }
-
-    public static GenericVariable valueOf(Generic generic, boolean integer) {
-        if(integer) return new IntegerVariable(generic);
-        else return new ExpressionVariable(generic);
+        return new ExpressionVariable(generic);
     }
 
     public String toString() {

@@ -40,7 +40,7 @@ public class Factorization {
                 q=s.divideAndRemainder(p);
             }
             if(q[1].signum()==0) {
-                a=a.multiply(expression(p,true));
+                a=a.multiply(expression(p));
                 s=q[0];
             } else p=p.add(JSCLInteger.valueOf(1));
         }
@@ -143,12 +143,8 @@ public class Factorization {
     }
 
     static Generic expression(Generic generic) {
-        return expression(generic,false);
-    }
-
-    static Generic expression(Generic generic, boolean integer) {
         if(generic.compareTo(JSCLInteger.valueOf(1))==0) return generic;
-        else return GenericVariable.valueOf(generic,integer).expressionValue();
+        else return new ExpressionVariable(generic).expressionValue();
     }
 
     static String toString(Monomial monomial[]) {
