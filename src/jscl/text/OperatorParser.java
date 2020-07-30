@@ -9,6 +9,7 @@ import jscl.math.operator.Coefficient;
 import jscl.math.operator.Derivative;
 import jscl.math.operator.Division;
 import jscl.math.operator.Elementary;
+import jscl.math.operator.Expand;
 import jscl.math.operator.Factorize;
 import jscl.math.operator.FactorOf;
 import jscl.math.operator.Graph;
@@ -96,8 +97,9 @@ public class OperatorParser extends Parser {
         else if(name.compareTo("solve")==0) v=new Solve(a[0],a[1],a.length>2?a[2]:JSCLInteger.valueOf(0));
         else if(name.compareTo("subst")==0) v=new Substitute(a[0],a[1],a[2]);
         else if(name.compareTo("graph")==0) v=new Graph(a[0],a[1]);
-        else if(name.compareTo("elementary")==0) v=new Elementary(a[0]);
+        else if(name.compareTo("expand")==0) v=new Expand(a[0]);
         else if(name.compareTo("factorize")==0) v=new Factorize(a[0]);
+        else if(name.compareTo("elementary")==0) v=new Elementary(a[0]);
         else if(name.compareTo("simplify")==0) v=new Simplify(a[0]);
         else if(name.compareTo("numeric")==0) v=new Numeric(a[0]);
         else if(name.compareTo("quote")==0) v=new Quote(a[0]);
@@ -123,5 +125,5 @@ public class OperatorParser extends Parser {
         return false;
     }
 
-    private static String na[]={"d","grad","divergence","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","transpose","trace","determinant","C","coef","solve","subst","graph","elementary","factorize","simplify","numeric","quote","limit","taylor","sum","product","integral","groebner","quotient","rem","factorof","mod","modpow","modinv","eulerphi","primitiveroots"};
+    private static String na[]={"d","grad","divergence","curl","jacobian","laplacian","dalembertian","del","vector","complex","quaternion","geometric","matrix","tensor","transpose","trace","determinant","C","coef","solve","subst","graph","expand","factorize","elementary","simplify","numeric","quote","limit","taylor","sum","product","integral","groebner","quotient","rem","factorof","mod","modpow","modinv","eulerphi","primitiveroots"};
 }
