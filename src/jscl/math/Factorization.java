@@ -117,7 +117,7 @@ public class Factorization {
         Iterator it=monomial[1].iterator(monomial[0]);
         for(int i=0;it.hasNext();i++) {
             Monomial m=(Monomial)it.next();
-            Variable t=it.hasNext()?new TechnicalVariable(ter,new int[] {i}):new TechnicalVariable(ter);
+            Variable t=it.hasNext()?new TechnicalVariable(ter,new Generic[] {JSCLInteger.valueOf(i)}):new TechnicalVariable(ter);
             p=p.add(p.valueof(m).multiply(t.expressionValue()));
         }
         return p;
@@ -126,7 +126,7 @@ public class Factorization {
     static Generic[] terminator(Polynomial polynomial) {
         Generic t[]=new Generic[2];
         t[1]=terminator(polynomial.head().coef().abs(),new TechnicalVariable(ter),false);
-        t[0]=terminator(polynomial.tail().coef(),new TechnicalVariable(ter,new int[] {0}),true);
+        t[0]=terminator(polynomial.tail().coef(),new TechnicalVariable(ter,new Generic[] {JSCLInteger.valueOf(0)}),true);
         return t;
     }
 

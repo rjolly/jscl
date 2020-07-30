@@ -5,6 +5,10 @@ class IntegerVariable extends GenericVariable {
         super(generic);
     }
 
+    public Generic eval() {
+        return content.eval();
+    }
+
     public String toString() {
         StringBuffer buffer=new StringBuffer();
         buffer.append("(").append(content).append(")");
