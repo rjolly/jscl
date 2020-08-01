@@ -130,18 +130,12 @@ public abstract class Function extends Variable {
         return s;
     }
 
-    public int compareTo(Variable variable) {
-        if(this==variable) return 0;
-        int c=comparator.compare(this,variable);
+    public int variableCompareTo(Variable variable) {
+        Function v=(Function)variable;
+        int c=name.compareTo(v.name);
         if(c<0) return -1;
         else if(c>0) return 1;
-        else {
-            Function v=(Function)variable;
-            c=name.compareTo(v.name);
-            if(c<0) return -1;
-            else if(c>0) return 1;
-            else return ArrayComparator.comparator.compare(parameter,v.parameter);
-        }
+        else return ArrayComparator.comparator.compare(parameter,v.parameter);
     }
 
     public String toString() {

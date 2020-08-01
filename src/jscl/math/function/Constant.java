@@ -123,25 +123,19 @@ public class Constant extends Variable {
         return !isIdentity(variable);
     }
 
-    public int compareTo(Variable variable) {
-        if(this==variable) return 0;
-        int c=comparator.compare(this,variable);
+    public int variableCompareTo(Variable variable) {
+        Constant v=(Constant)variable;
+        int c=name.compareTo(v.name);
         if(c<0) return -1;
         else if(c>0) return 1;
         else {
-            Constant v=(Constant)variable;
-            c=name.compareTo(v.name);
+            c=ArrayComparator.comparator.compare(subscript,v.subscript);
             if(c<0) return -1;
             else if(c>0) return 1;
             else {
-                c=ArrayComparator.comparator.compare(subscript,v.subscript);
-                if(c<0) return -1;
-                else if(c>0) return 1;
-                else {
-                    if(prime<v.prime) return -1;
-                    else if(prime>v.prime) return 1;
-                    else return 0;
-                }
+                if(prime<v.prime) return -1;
+                else if(prime>v.prime) return 1;
+                else return 0;
             }
         }
     }

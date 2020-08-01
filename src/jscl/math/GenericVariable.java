@@ -70,15 +70,9 @@ public abstract class GenericVariable extends Variable {
         return content.isConstant(variable);
     }
 
-    public int compareTo(Variable variable) {
-        if(this==variable) return 0;
-        int c=comparator.compare(this,variable);
-        if(c<0) return -1;
-        else if(c>0) return 1;
-        else {
-            GenericVariable v=(GenericVariable)variable;
-            return content.compareTo(v.content);
-        }
+    public int variableCompareTo(Variable variable) {
+        GenericVariable v=(GenericVariable)variable;
+        return content.compareTo(v.content);
     }
 
     public static GenericVariable valueOf(Generic generic) {

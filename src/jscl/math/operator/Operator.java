@@ -92,18 +92,12 @@ public abstract class Operator extends Variable {
         return !isIdentity(variable);
     }
 
-    public int compareTo(Variable variable) {
-        if(this==variable) return 0;
-        int c=comparator.compare(this,variable);
+    public int variableCompareTo(Variable variable) {
+        Operator v=(Operator)variable;
+        int c=name.compareTo(v.name);
         if(c<0) return -1;
         else if(c>0) return 1;
-        else {
-            Operator v=(Operator)variable;
-            c=name.compareTo(v.name);
-            if(c<0) return -1;
-            else if(c>0) return 1;
-            else return ArrayComparator.comparator.compare(parameter,v.parameter);
-        }
+        else return ArrayComparator.comparator.compare(parameter,v.parameter);
     }
 
     protected static Variable[] variables(JSCLVector vector) throws NotVariableException {

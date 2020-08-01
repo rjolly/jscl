@@ -94,26 +94,20 @@ public class ImplicitFunction extends Function {
         throw new ArithmeticException();
     }
 
-    public int compareTo(Variable variable) {
-        if(this==variable) return 0;
-        int c=comparator.compare(this,variable);
+    public int variableCompareTo(Variable variable) {
+        ImplicitFunction v=(ImplicitFunction)variable;
+        int c=name.compareTo(v.name);
         if(c<0) return -1;
         else if(c>0) return 1;
         else {
-            ImplicitFunction v=(ImplicitFunction)variable;
-            c=name.compareTo(v.name);
+            c=ArrayComparator.comparator.compare(subscript,v.subscript);
             if(c<0) return -1;
             else if(c>0) return 1;
             else {
-                c=ArrayComparator.comparator.compare(subscript,v.subscript);
+                c=compareDerivation(derivation,v.derivation);
                 if(c<0) return -1;
                 else if(c>0) return 1;
-                else {
-                    c=compareDerivation(derivation,v.derivation);
-                    if(c<0) return -1;
-                    else if(c>0) return 1;
-                    else return ArrayComparator.comparator.compare(parameter,v.parameter);
-                }
+                else return ArrayComparator.comparator.compare(parameter,v.parameter);
             }
         }
     }

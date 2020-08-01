@@ -44,7 +44,17 @@ public abstract class Variable implements Comparable, MathObject {
         return compareTo(variable)==0;
     }
 
-    public abstract int compareTo(Variable variable);
+    public int compareTo(Variable variable) {
+        if(this==variable) return 0;
+        int c=comparator.compare(this,variable);
+        if(c<0) return -1;
+        else if(c>0) return 1;
+        else {
+            return variableCompareTo(variable);
+        }
+    }
+
+    public abstract int variableCompareTo(Variable variable);
 
     public int compareTo(Object o) {
         return compareTo((Variable)o);
