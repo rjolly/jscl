@@ -78,13 +78,13 @@ public class Cubic extends Algebraic {
     }
 
     public String toMathML() {
-	StringBuffer b = new StringBuffer();
-	b.append("<apply><root/><degree>");
+        StringBuffer b = new StringBuffer();
+        b.append("<apply><root/><degree>");
         b.append(JSCLInteger.valueOf(3).toMathML());
-	b.append("</degree>");
+        b.append("</degree>");
         b.append(parameter[0].toMathML());
-	b.append("</apply>");
-	return b.toString();
+        b.append("</apply>");
+        return b.toString();
     }
 
     protected Variable newinstance() {

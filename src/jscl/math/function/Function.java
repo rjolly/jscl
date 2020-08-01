@@ -156,13 +156,13 @@ public abstract class Function extends Variable {
     }
 
     public String toMathML() {
-	StringBuffer b = new StringBuffer();
-	b.append("<apply>");
-	b.append("<" + name + "/>");
+        StringBuffer b = new StringBuffer();
+        b.append("<apply>");
+        b.append("<" + name + "/>");
         for(int i=0;i<parameter.length;i++) {
             b.append(parameter[i].toMathML());
         }
-	b.append("</apply>");
-	return b.toString();
+        b.append("</apply>");
+        return b.toString();
     }
 }

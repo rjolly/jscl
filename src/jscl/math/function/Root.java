@@ -340,14 +340,14 @@ public class Root extends Algebraic {
     }
 
     public String toMathML() {
-	StringBuffer b = new StringBuffer();
-	b.append("<apply>");
+        StringBuffer b = new StringBuffer();
+        b.append("<apply>");
         b.append(new Constant(name,0,new Generic[] {subscript}).toMathML());
         for(int i=0;i<parameter.length;i++) {
             b.append(parameter[i].toMathML());
         }
-	b.append("</apply>");
-	return b.toString();
+        b.append("</apply>");
+        return b.toString();
     }
 
     protected Variable newinstance() {

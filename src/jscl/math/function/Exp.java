@@ -88,9 +88,9 @@ public class Exp extends Function {
 
     public String toMathML() {
         if(parameter[0].compareTo(JSCLInteger.valueOf(1))==0) {
-		return "<exponentiale/>";
+            return "<exponentiale/>";
         } else {
-		return super.toMathML();
+            return super.toMathML();
         }
     }
 
