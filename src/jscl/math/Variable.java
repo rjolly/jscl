@@ -16,7 +16,6 @@ import jscl.text.ParseException;
 import jscl.editor.rendering.MathObject;
 
 public abstract class Variable implements Comparable, MathObject {
-    public static final Comparator comparator=VariableComparator.comparator;
     protected final String name;
 
     public Variable(final String name) {
@@ -76,7 +75,7 @@ public abstract class Variable implements Comparable, MathObject {
 
     protected abstract Variable newinstance();
 
-    static final Map special=new HashMap();
+    private static final Map special=new HashMap();
     static {
         special.put("Alpha","\u0391");
         special.put("Beta","\u0392");
@@ -131,18 +130,14 @@ public abstract class Variable implements Comparable, MathObject {
         special.put("lagran","\u2112");
         special.put("square","\u25A1");
     }
-}
 
-class VariableComparator implements Comparator {
-    public static final Comparator comparator=new VariableComparator();
+    protected static final Comparator comparator = new Comparator() {
+        public int compare(Object o1, Object o2) {
+            return value((Variable)o1)-value((Variable)o2);
+        }
+    };
 
-    private VariableComparator() {}
-
-    public int compare(Object o1, Object o2) {
-        return value((Variable)o1)-value((Variable)o2);
-    }
-
-    static int value(Variable v) {
+    private static int value(Variable v) {
         int n;
         if(v instanceof TechnicalVariable) n=0;
         else if(v instanceof DoubleVariable) n=1;

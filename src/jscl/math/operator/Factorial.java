@@ -1,7 +1,6 @@
 package jscl.math.operator;
 
 import jscl.math.Generic;
-import jscl.math.GenericVariable;
 import jscl.math.JSCLInteger;
 import jscl.math.NotIntegerException;
 import jscl.math.NotVariableException;
@@ -48,10 +47,10 @@ public class Factorial extends Operator {
             try {
                 Variable v=parameter[0].variableValue();
                 if(v instanceof Frac || v instanceof Pow) {
-                    buffer.append(GenericVariable.valueOf(parameter[0]));
+                    buffer.append("(").append(parameter[0]).append(")");
                 } else buffer.append(v);
             } catch (NotVariableException e2) {
-                buffer.append(GenericVariable.valueOf(parameter[0]));
+                buffer.append("(").append(parameter[0]).append(")");
             }
         }
         for(int i=0;i<k;i++) buffer.append("!");

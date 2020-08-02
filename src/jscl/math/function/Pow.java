@@ -2,7 +2,6 @@ package jscl.math.function;
 
 import jscl.math.Antiderivative;
 import jscl.math.Generic;
-import jscl.math.GenericVariable;
 import jscl.math.JSCLInteger;
 import jscl.math.NotIntegerException;
 import jscl.math.NotIntegrableException;
@@ -182,21 +181,21 @@ public class Pow extends Algebraic {
         StringBuffer buffer=new StringBuffer();
         try {
             JSCLInteger en=parameter[0].integerValue();
-            if(en.signum()<0) buffer.append(GenericVariable.valueOf(en));
+            if(en.signum()<0) buffer.append("(").append(en).append(")");
             else buffer.append(en);
         } catch (NotIntegerException e) {
             try {
                 Variable v=parameter[0].variableValue();
                 if(v instanceof Frac || v instanceof Pow) {
-                    buffer.append(GenericVariable.valueOf(parameter[0]));
+                    buffer.append("(").append(parameter[0]).append(")");
                 } else buffer.append(v);
             } catch (NotVariableException e2) {
                 try {
                     Power o=parameter[0].powerValue();
                     if(o.exponent()==1) buffer.append(o.value());
-                    else buffer.append(GenericVariable.valueOf(parameter[0]));
+                    else buffer.append("(").append(parameter[0]).append(")");
                 } catch (NotPowerException e3) {
-                    buffer.append(GenericVariable.valueOf(parameter[0]));
+                    buffer.append("(").append(parameter[0]).append(")");
                 }
             }
         }
@@ -208,14 +207,14 @@ public class Pow extends Algebraic {
             try {
                 Variable v=parameter[1].variableValue();
                 if(v instanceof Frac) {
-                    buffer.append(GenericVariable.valueOf(parameter[1]));
+                    buffer.append("(").append(parameter[1]).append(")");
                 } else buffer.append(v);
             } catch (NotVariableException e2) {
                 try {
                     parameter[1].powerValue();
                     buffer.append(parameter[1]);
                 } catch (NotPowerException e3) {
-                    buffer.append(GenericVariable.valueOf(parameter[1]));
+                    buffer.append("(").append(parameter[1]).append(")");
                 }
             }
         }

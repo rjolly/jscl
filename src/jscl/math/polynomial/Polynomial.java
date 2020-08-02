@@ -6,7 +6,6 @@ import jscl.math.Arithmetic;
 import jscl.math.Expression;
 import jscl.math.Field;
 import jscl.math.Generic;
-import jscl.math.GenericVariable;
 import jscl.math.JSCLInteger;
 import jscl.math.Literal;
 import jscl.math.NotDivisibleException;
@@ -442,7 +441,6 @@ public abstract class Polynomial implements Arithmetic, Comparable, MathObject {
             Term t=(Term)it.next();
             Monomial m=t.monomial();
             Generic a=t.coef();
-            if(a instanceof Expression) a=a.signum()>0?GenericVariable.valueOf(a).expressionValue():GenericVariable.valueOf(a.negate()).expressionValue().negate();
             if(a.signum()>0 && i>0) buffer.append("+");
             if(m.degree()==0) buffer.append(a);
             else {
@@ -462,7 +460,6 @@ public abstract class Polynomial implements Arithmetic, Comparable, MathObject {
             Term te=(Term)it.next();
             Monomial m=te.monomial();
             Generic a=te.coef();
-            if(a instanceof Expression) a=a.signum()>0?GenericVariable.valueOf(a).expressionValue():GenericVariable.valueOf(a.negate()).expressionValue().negate();
             Generic c = a.abs();
             String t = m.degree() == 0?c.toMathML():c.compareTo(JSCLInteger.valueOf(1)) == 0?m.toMathML():"<apply><times/>" + c.toMathML() + m.toMathML() + "</apply>";
             s = n == 0?a.signum() < 0?"<apply><minus/>" + t + "</apply>":t:a.signum() < 0?"<apply><minus/>" + s + t + "</apply>":"<apply><plus/>" + s + t + "</apply>";

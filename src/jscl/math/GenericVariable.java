@@ -75,10 +75,6 @@ public abstract class GenericVariable extends Variable {
         return content.compareTo(v.content);
     }
 
-    public static GenericVariable valueOf(Generic generic) {
-        return new ExpressionVariable(generic);
-    }
-
     public String toString() {
         return content.toString();
     }

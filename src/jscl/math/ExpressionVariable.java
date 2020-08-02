@@ -5,14 +5,6 @@ public class ExpressionVariable extends GenericVariable {
         super(generic);
     }
 
-    public static Generic content(Generic generic) {
-        try {
-            Variable v=generic.variableValue();
-            if(v instanceof ExpressionVariable) generic=((ExpressionVariable)v).content;
-        } catch (NotVariableException e) {}
-        return generic;
-    }
-
     public String toString() {
         StringBuffer buffer=new StringBuffer();
         buffer.append("(").append(content).append(")");

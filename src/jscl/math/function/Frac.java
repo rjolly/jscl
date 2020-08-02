@@ -2,7 +2,6 @@ package jscl.math.function;
 
 import jscl.math.Antiderivative;
 import jscl.math.Generic;
-import jscl.math.GenericVariable;
 import jscl.math.JSCLInteger;
 import jscl.math.NotDivisibleException;
 import jscl.math.NotExpressionException;
@@ -114,20 +113,20 @@ public class Frac extends Algebraic {
             parameter[0].powerValue();
             buffer.append(parameter[0]);
         } catch (NotPowerException e) {
-            buffer.append(GenericVariable.valueOf(parameter[0]));
+            buffer.append("(").append(parameter[0]).append(")");
         }
         buffer.append("/");
         try {
             Variable v=parameter[1].variableValue();
             if(v instanceof Frac) {
-                buffer.append(GenericVariable.valueOf(parameter[1]));
+                buffer.append("(").append(parameter[1]).append(")");
             } else buffer.append(v);
         } catch (NotVariableException e) {
             try {
                 parameter[1].abs().powerValue();
                 buffer.append(parameter[1]);
             } catch (NotPowerException e2) {
-                buffer.append(GenericVariable.valueOf(parameter[1]));
+                buffer.append("(").append(parameter[1]).append(")");
             }
         }
         return buffer.toString();

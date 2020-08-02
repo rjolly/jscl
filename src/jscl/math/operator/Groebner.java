@@ -22,7 +22,7 @@ public class Groebner extends Operator {
     }
 
     public Generic compute() {
-        Generic generic[]=parameter[0].vectorValue().elements();
+        Generic generic[]=parameter[0].expand().vectorValue().elements();
         Variable variable[]=variables(parameter[1].vectorValue());
         Ordering ord=ordering(parameter[2]);
         int m=parameter[3].integerValue().intValue();
