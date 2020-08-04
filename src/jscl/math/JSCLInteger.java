@@ -211,7 +211,7 @@ public class JSCLInteger extends Generic {
         }
     }
 
-    public Generic antiderivative(Variable variable) throws NotIntegrableException {
+    public Generic antiderivative(Variable variable) {
         return multiply(variable.expressionValue());
     }
 

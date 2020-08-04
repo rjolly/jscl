@@ -3,12 +3,6 @@ package jscl.math.polynomial;
 import jscl.math.Expression;
 import jscl.math.Generic;
 import jscl.math.JSCLInteger;
-import jscl.math.NotExpressionException;
-import jscl.math.NotIntegerException;
-import jscl.math.NotIntegrableException;
-import jscl.math.NotPowerException;
-import jscl.math.NotProductException;
-import jscl.math.NotVariableException;
 import jscl.math.Power;
 import jscl.math.Variable;
 
@@ -99,7 +93,7 @@ final class PolynomialWrapper extends Generic {
         return content.degree();
     }
 
-    public Generic antiderivative(Variable variable) throws NotIntegrableException {
+    public Generic antiderivative(Variable variable) {
         return null;
     }
 
@@ -151,24 +145,24 @@ final class PolynomialWrapper extends Generic {
         return null;
     }
 
-    public Generic[] productValue() throws NotProductException {
+    public Generic[] productValue() {
         return null;
     }
 
-    public Power powerValue() throws NotPowerException {
+    public Power powerValue() {
         return null;
     }
 
-    public Expression expressionValue() throws NotExpressionException {
-        return content.genericValue().expressionValue();
+    public Expression expressionValue() {
+        return null;
     }
 
-    public JSCLInteger integerValue() throws NotIntegerException {
-        throw new NotIntegerException();
+    public JSCLInteger integerValue() {
+        return null;
     }
 
-    public Variable variableValue() throws NotVariableException {
-        throw new NotVariableException();
+    public Variable variableValue() {
+        return null;
     }
 
     public Variable[] variables() {

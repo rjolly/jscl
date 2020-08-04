@@ -81,6 +81,19 @@ public final class NumericWrapper extends Generic {
         }
     }
 
+    public boolean multiple(NumericWrapper wrapper) {
+        return true;
+    }
+
+    public boolean multiple(Generic generic) {
+        if(generic instanceof NumericWrapper) {
+            return multiple((NumericWrapper)generic);
+        } else try {
+            return multiple(valueof(generic));
+        } catch (ArithmeticException e) {}
+        return false;
+    }
+
     public NumericWrapper divide(NumericWrapper wrapper) throws ArithmeticException {
         return new NumericWrapper(content.divide(wrapper.content));
     }
@@ -117,7 +130,7 @@ public final class NumericWrapper extends Generic {
         return 0;
     }
 
-    public Generic antiderivative(Variable variable) throws NotIntegrableException {
+    public Generic antiderivative(Variable variable) {
         return null;
     }
 
@@ -126,27 +139,27 @@ public final class NumericWrapper extends Generic {
     }
 
     public Generic substitute(Variable variable, Generic generic) {
-        return null;
+        return this;
     }
 
     public Generic eval() {
-        return null;
+        return this;
     }
 
     public Generic expand() {
-        return null;
+        return this;
     }
 
     public Generic factorize() {
-        return null;
+        return this;
     }
 
     public Generic elementary() {
-        return null;
+        return this;
     }
 
     public Generic simplify() {
-        return null;
+        return this;
     }
 
     public Generic function(Variable variable) {
@@ -180,11 +193,11 @@ public final class NumericWrapper extends Generic {
         return null;
     }
 
-    public Generic[] productValue() throws NotProductException {
+    public Generic[] productValue() {
         return null;
     }
 
-    public Power powerValue() throws NotPowerException {
+    public Power powerValue() {
         return null;
     }
 
