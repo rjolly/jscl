@@ -3,7 +3,7 @@ package jscl.text;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
-import jscl.math.ExpressionVariable;
+import jscl.math.GenericVariable;
 import jscl.math.Generic;
 import jscl.math.JSCLInteger;
 import jscl.math.NotIntegerException;
@@ -108,8 +108,8 @@ class TermParser extends Parser {
             } catch (ParseException e) {
                 try {
                     Generic b=(Generic)MultiplyOrDivideFactor.divide.parse(str,pos);
-                    if(s.compareTo(JSCLInteger.valueOf(1))==0) s=new Inv(ExpressionVariable.content(b)).expressionValue();
-                    else s=new Frac(ExpressionVariable.content(s),ExpressionVariable.content(b)).expressionValue();
+                    if(s.compareTo(JSCLInteger.valueOf(1))==0) s=new Inv(GenericVariable.content(b)).expressionValue();
+                    else s=new Frac(GenericVariable.content(s),GenericVariable.content(b)).expressionValue();
                 } catch (ParseException e2) {
                     break;
                 }
@@ -198,10 +198,10 @@ class UnsignedFactor extends Parser {
             Generic b=(Generic)it.previous();
             try {
                 int c=a.integerValue().intValue();
-                if(c<0) a=new Pow(ExpressionVariable.content(b),JSCLInteger.valueOf(c)).expressionValue();
+                if(c<0) a=new Pow(GenericVariable.content(b),JSCLInteger.valueOf(c)).expressionValue();
                 else a=b.pow(c);
             } catch (NotIntegerException e) {
-                a=new Pow(ExpressionVariable.content(b),ExpressionVariable.content(a)).expressionValue();
+                a=new Pow(GenericVariable.content(b),GenericVariable.content(a)).expressionValue();
             }
         }
         return a;
@@ -295,7 +295,7 @@ class UnsignedExponent extends Parser {
         try {
             d=((Integer)FactorialParser.parser.parse(str,pos)).intValue();
         } catch (ParseException e) {}
-        return d>0?new Factorial(ExpressionVariable.content(a), JSCLInteger.valueOf(d)).expressionValue():a;
+        return d>0?new Factorial(GenericVariable.content(a), JSCLInteger.valueOf(d)).expressionValue():a;
     }
 }
 

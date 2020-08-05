@@ -121,10 +121,6 @@ public abstract class Generic implements Arithmetic, Comparable, MathObject {
         throw new NotBooleanException();
     }
     public JSCLVector vectorValue() throws NotVectorException {
-        final Generic p = GenericVariable.content(this);
-        if (p instanceof JSCLVector) {
-            return (JSCLVector) p;
-        }
         throw new NotVectorException();
     }
     public abstract Variable variableValue() throws NotVariableException;

@@ -86,7 +86,7 @@ public class Factorization {
         result=a.multiply(n[0].multiply(m).genericValue());
     }
 
-    static Polynomial[] remainder(Polynomial s, Polynomial p, Generic t[]) {
+    private static Polynomial[] remainder(Polynomial s, Polynomial p, Generic t[]) {
         Polynomial zero=s.valueof(JSCLInteger.valueOf(0));
         Generic a[]=Basis.augment(t,s.remainderUpToCoefficient(p).elements());
         Variable unk[]=Basis.augmentUnknown(new Variable[] {},p.elements());
@@ -105,14 +105,14 @@ public class Factorization {
         return new Polynomial[] {s,zero,zero};
     }
 
-    static Polynomial substitute(Polynomial p, Generic a[], Variable unk[]) {
+    private static Polynomial substitute(Polynomial p, Generic a[], Variable unk[]) {
         Generic s[]=new Generic[] {p.genericValue()};
         return p.valueof(Basis.compute(Basis.augment(a,s),Basis.augmentUnknown(unk,s)).elements()[0]);
     }
 
     private static final String ter="t";
 
-    static Polynomial polynomial(Polynomial s, Monomial monomial[]) {
+    private static Polynomial polynomial(Polynomial s, Monomial monomial[]) {
         Polynomial p=s.valueof(JSCLInteger.valueOf(0));
         Iterator it=monomial[1].iterator(monomial[0]);
         for(int i=0;it.hasNext();i++) {
@@ -123,14 +123,14 @@ public class Factorization {
         return p;
     }
 
-    static Generic[] terminator(Polynomial polynomial) {
+    private static Generic[] terminator(Polynomial polynomial) {
         Generic t[]=new Generic[2];
         t[1]=terminator(polynomial.head().coef().abs(),new TechnicalVariable(ter),false);
         t[0]=terminator(polynomial.tail().coef(),new TechnicalVariable(ter,new Generic[] {JSCLInteger.valueOf(0)}),true);
         return t;
     }
 
-    static Generic terminator(Generic generic, Variable var, boolean tail) {
+    private static Generic terminator(Generic generic, Variable var, boolean tail) {
         Generic x=var.expressionValue();
         Generic a=JSCLInteger.valueOf(1);
         Iterator it=IntegerDivisor.create(generic.integerValue());
@@ -142,12 +142,12 @@ public class Factorization {
         return a;
     }
 
-    static Generic expression(Generic generic) {
+    private static Generic expression(Generic generic) {
         if(generic.compareTo(JSCLInteger.valueOf(1))==0) return generic;
         else return new ExpressionVariable(generic).expressionValue();
     }
 
-    static String toString(Monomial monomial[]) {
+    private static String toString(Monomial monomial[]) {
         return "{"+monomial[0]+", "+monomial[1]+"}";
     }
 
@@ -193,7 +193,7 @@ class Linearization {
         if(flag) result.add(generic);
     }
 
-    static Polynomial[] linearize(Polynomial polynomial, Variable variable) {
+    private static Polynomial[] linearize(Polynomial polynomial, Variable variable) {
         List l=new ArrayList();
         Generic x=variable.expressionValue();
         Polynomial s=polynomial;

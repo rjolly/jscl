@@ -191,6 +191,11 @@ public class JSCLVector extends Generic {
         throw new NotIntegerException();
     }
 
+    @Override
+    public JSCLVector vectorValue() {
+        return this;
+    }
+
     public Variable variableValue() throws NotVariableException {
         throw new NotVariableException();
     }
