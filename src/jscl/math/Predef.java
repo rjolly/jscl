@@ -211,24 +211,20 @@ public class Predef {
 		return new Matrix(element);
 	}
 
-	public static Object graph(Generic a) {
-		return jscl.engine.Graph.apply(a.expand());
+	public static Object graph(Generic expression, Generic variable) {
+		return new Graph(expression, variable).apply();
 	}
 
-	public static Object graph(Generic a[]) {
-		return jscl.engine.Graph.apply(new JSCLVector(a).expand());
-	}
-
-	public static Generic function(Generic expression, Generic variable) {
-		return new Graph(expression, variable).expressionValue();
-	}
-
-	public static Generic elementary(Generic expression) {
-		return new Elementary(expression).expressionValue();
+	public static Generic expand(Generic expression) {
+		return new Expand(expression).expressionValue();
 	}
 
 	public static Generic factorize(Generic expression) {
 		return new Factorize(expression).expressionValue();
+	}
+
+	public static Generic elementary(Generic expression) {
+		return new Elementary(expression).expressionValue();
 	}
 
 	public static Generic simplify(Generic expression) {

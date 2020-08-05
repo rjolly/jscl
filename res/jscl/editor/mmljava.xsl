@@ -362,8 +362,9 @@ self::m:implies]]">
 			<xsl:text>})</xsl:text>
 			<xsl:apply-templates select="*[1]/*[1]/*[2]"/>
 		</xsl:when>
-		<xsl:when test="*[1]/text() = 'elementary' or
+		<xsl:when test="*[1]/text() = 'expand' or
 				*[1]/text() = 'factorize' or
+				*[1]/text() = 'elementary' or
 				*[1]/text() = 'simplify' or
 				*[1]/text() = 'numeric' or
 				*[1]/text() = 'quote' or
@@ -377,7 +378,8 @@ self::m:implies]]">
 		</xsl:when>
 		<xsl:when test="*[1]/text() = 'coef' or
 				*[1]/text() = 'mod' or
-				*[1]/text() = 'modinv'">
+				*[1]/text() = 'modinv' or
+				*[1]/text() = 'graph'">
 			<xsl:apply-templates select="*[1]"/>
 			<xsl:text>(</xsl:text>
 			<xsl:apply-templates select="*[2]"/>

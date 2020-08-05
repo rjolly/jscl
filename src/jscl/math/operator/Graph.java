@@ -8,6 +8,10 @@ public class Graph extends Operator {
         super("graph",new Generic[] {expression,variable});
     }
 
+    public Object apply() {
+        return jscl.engine.Graph.apply(eval());
+    }
+
     public Generic compute() {
         Variable variable=parameter[1].variableValue();
         return parameter[0].function(variable);

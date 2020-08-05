@@ -61,19 +61,19 @@ public class Groebner extends Operator {
 
     @Override
     public String toMathML() {
-	StringBuffer b = new StringBuffer();
+        StringBuffer b = new StringBuffer();
         int n=4;
         if(parameter[3].signum()==0) {
             n=3;
             if(ordering(parameter[2])==Monomial.lexicographic) n=2;
         }
-	b.append("<apply>");
-	b.append("<ci>" + nameToMathML() + "</ci>");
+        b.append("<apply>");
+        b.append("<ci>" + nameToMathML() + "</ci>");
         for(int i=0;i<n;i++) {
             b.append(parameter[i].toMathML());
         }
-	b.append("</apply>");
-	return b.toString();
+        b.append("</apply>");
+        return b.toString();
     }
 
     protected Variable newinstance() {
@@ -106,13 +106,13 @@ class PolynomialVector extends JSCLVector {
 
     @Override
     public String toMathML() {
-	StringBuffer b = new StringBuffer();
-	b.append("<vector>");
+        StringBuffer b = new StringBuffer();
+        b.append("<vector>");
         for(int i=0;i<n;i++) {
             b.append(basis.polynomial(element[i]).toMathML());
         }
-	b.append("</vector>");
-	return b.toString();
+        b.append("</vector>");
+        return b.toString();
     }
 
     protected Generic newinstance(Generic element[]) {
