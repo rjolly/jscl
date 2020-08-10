@@ -34,7 +34,6 @@ public class Exp extends Function {
 
     public Generic evaluate() {
         if(parameter[0].signum()<0) {
-            return new Inv(new Exp(parameter[0].negate()).evaluate()).evaluate();
         } else if(parameter[0].signum()==0) {
             return JSCLInteger.valueOf(1);
         }

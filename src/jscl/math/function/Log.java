@@ -30,13 +30,9 @@ public class Log extends Function {
     }
 
     public Generic evalelem() {
-        return evaluate();
-    }
-
-    public Generic evalsimp() {
         try {
             JSCLInteger en=parameter[0].integerValue();
-            if(en.signum()<0) return Constant.i.multiply(Constant.pi).add(new Log(en.negate()).evalsimp());
+            if(en.signum()<0) return Constant.i.multiply(Constant.pi).add(new Log(en.negate()).evalelem());
             else {
                 Generic a=en.factorize();
                 Generic p[]=a.productValue();
@@ -52,17 +48,21 @@ public class Log extends Function {
             Variable v=parameter[0].variableValue();
             if(v instanceof Sqrt) {
                 Generic g[]=((Sqrt)v).parameters();
-                return Constant.half.multiply(new Log(g[0]).evalsimp());
+                return Constant.half.multiply(new Log(g[0]).evalelem());
             }
         } catch (NotVariableException e) {}
         Generic n[]=Frac.separateCoefficient(parameter[0]);
         if(n[0].compareTo(JSCLInteger.valueOf(1))==0 && n[1].compareTo(JSCLInteger.valueOf(1))==0);
-        else return new Log(n[2]).evalsimp().add(
-            new Log(n[0]).evalsimp()
+        else return new Log(n[2]).evalelem().add(
+            new Log(n[0]).evalelem()
         ).subtract(
-            new Log(n[1]).evalsimp()
+            new Log(n[1]).evalelem()
         );
         return expressionValue();
+    }
+
+    public Generic evalsimp() {
+        return evaluate();
     }
 
     public Generic evalfunc() {

@@ -68,26 +68,26 @@ public class Pow extends Algebraic {
             return JSCLInteger.valueOf(1);
         }
         if(parameter[1].signum()<0) {
-            return new Pow(new Inv(parameter[0]).evaluate(),parameter[1].negate()).evaluate();
-        }
-        try {
-            int c=parameter[1].integerValue().intValue();
-            return parameter[0].pow(c);
-        } catch (NotIntegerException e) {}
-        try {
-            Root r=rootValue();
-            int d=r.degree();
-            Generic g[]=r.parameters();
-            Generic a=g[0].negate();
+        } else {
             try {
-                JSCLInteger en=a.integerValue();
-                if(en.signum()<0);
-                else {
-                    Generic rt=en.nthrt(d);
-                    if(rt.pow(d).compareTo(en)==0) return rt;
-                }
+                int c=parameter[1].integerValue().intValue();
+                return parameter[0].pow(c);
             } catch (NotIntegerException e) {}
-        } catch (NotRootException e) {}
+            try {
+                Root r=rootValue();
+                int d=r.degree();
+                Generic g[]=r.parameters();
+                Generic a=g[0].negate();
+                try {
+                    JSCLInteger en=a.integerValue();
+                    if(en.signum()<0);
+                    else {
+                        Generic rt=en.nthrt(d);
+                        if(rt.pow(d).compareTo(en)==0) return rt;
+                    }
+                } catch (NotIntegerException e) {}
+            } catch (NotRootException e) {}
+        }
         return expressionValue();
     }
 
