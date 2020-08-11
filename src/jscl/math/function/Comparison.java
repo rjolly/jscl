@@ -37,7 +37,7 @@ public class Comparison extends Function {
     public Generic evalsimp() {
         if (operator < 2) {
             return JSCLBoolean.valueOf(compare(parameter[0],parameter[1]));
-	}
+        }
         return expressionValue();
     }
 

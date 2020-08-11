@@ -260,7 +260,7 @@ public class JSCLInteger extends Generic {
         else return new Generic[] {this};
     }
 
-    public Generic[] productValue() throws NotProductException {
+    public Generic[] productValue() {
         if(content.compareTo(BigInteger.valueOf(1))==0) return new Generic[0];
         else return new Generic[] {this};
     }
@@ -270,11 +270,11 @@ public class JSCLInteger extends Generic {
         else return new Power(this,1);
     }
 
-    public Expression expressionValue() throws NotExpressionException {
+    public Expression expressionValue() {
         return Expression.valueOf(this);
     }
 
-    public JSCLInteger integerValue() throws NotIntegerException {
+    public JSCLInteger integerValue() {
         return this;
     }
 

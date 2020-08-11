@@ -257,7 +257,7 @@ public class Matrix extends Generic {
             throw new ArithmeticException();
         } else {
             Matrix m=(Matrix)identity(n,p).multiply(generic);
-                        return newinstance(m.element);
+            return newinstance(m.element);
         }
     }
 

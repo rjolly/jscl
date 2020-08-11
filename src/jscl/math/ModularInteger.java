@@ -48,12 +48,13 @@ public class ModularInteger extends JSCLInteger implements Field {
         return (ModularInteger)super.valueof(generic);
     }
 
-    public static ModularInteger valueOf(String str, String mod) {
-        return new ModularInteger(new BigInteger(str), new BigInteger(mod));
+    @Override
+    public JSCLInteger integerValue() {
+        return new JSCLInteger(content);
     }
 
-    public String toString() {
-        return content.toString();
+    public static ModularInteger valueOf(String str, String mod) {
+        return new ModularInteger(new BigInteger(str), new BigInteger(mod));
     }
 
     @Override

@@ -186,7 +186,7 @@ public final class Rational extends Generic implements Field {
         }
     }
 
-    public Generic[] productValue() throws NotProductException {
+    public Generic[] productValue() {
         try {
             if(integerValue().compareTo(JSCLInteger.valueOf(1))==0) return new Generic[0];
             else return new Generic[] {this};
@@ -195,11 +195,11 @@ public final class Rational extends Generic implements Field {
         }
     }
 
-    public Power powerValue() throws NotPowerException {
+    public Power powerValue() {
         return new Power(this,1);
     }
 
-    public Expression expressionValue() throws NotExpressionException {
+    public Expression expressionValue() {
         return Expression.valueOf(this);
     }
 
