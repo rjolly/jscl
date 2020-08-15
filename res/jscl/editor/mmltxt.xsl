@@ -640,7 +640,7 @@ self::m:implies]]">
 	<xsl:param name="p" select="0"/>
 	<xsl:if test="0 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
 	<xsl:apply-templates select="*[2]">
-		<xsl:with-param name="p" select="0"/>
+		<xsl:with-param name="p" select="-1"/>
 	</xsl:apply-templates>
 	<xsl:text>-</xsl:text>
 	<xsl:apply-templates select="*[3]">
@@ -653,7 +653,7 @@ self::m:implies]]">
 	<xsl:param name="p" select="0"/>
 	<xsl:if test="0 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
 	<xsl:apply-templates select="*[2]">
-		<xsl:with-param name="p" select="0"/>
+		<xsl:with-param name="p" select="-1"/>
 	</xsl:apply-templates>
 	<xsl:text>+</xsl:text>
 	<xsl:apply-templates select="*[3]">
