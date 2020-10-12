@@ -5,6 +5,10 @@ public class ExpressionVariable extends GenericVariable {
         super(generic);
     }
 
+    public Generic simplify() {
+        return content.simplify();
+    }
+
     public String toString() {
         StringBuffer buffer=new StringBuffer();
         buffer.append("(").append(content).append(")");

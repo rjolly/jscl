@@ -286,7 +286,7 @@ public class Matrix extends Generic {
     }
 
     public Variable[] variables() {
-        return null;
+        return new Variable[0];
     }
 
     public boolean isPolynomial(Variable variable) {
