@@ -215,7 +215,10 @@ public class Expression extends Generic {
         } else if(generic instanceof Rational) {
             return divideAndRemainder(valueof(generic));
         } else {
-            return generic.valueof(this).divideAndRemainder(generic);
+            try {
+                return generic.valueof(this).divideAndRemainder(generic);
+            } catch (ArithmeticException e) {}
+            return new Generic[] {JSCLInteger.valueOf(0),this};
         }
     }
 
