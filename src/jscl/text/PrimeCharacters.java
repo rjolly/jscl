@@ -20,6 +20,6 @@ public class PrimeCharacters extends Parser {
             str.charAt(pos[0]++);
             c++;
         }
-        return new Integer(c);
+        return c;
     }
 }

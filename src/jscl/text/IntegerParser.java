@@ -23,7 +23,7 @@ public class IntegerParser extends Parser {
 //          buffer.append(c);
             n=10*n+(c-'0');
         }
-//      return new Integer(buffer.toString());
-        return new Integer(n);
+//      return Integer.valueOf(buffer.toString());
+        return n;
     }
 }

@@ -169,7 +169,7 @@ public final class JSCLDouble extends Numeric {
     }
 
     public String toString() {
-        return new Double(content).toString();
+        return String.valueOf(content);
     }
 
     public String toMathML() {

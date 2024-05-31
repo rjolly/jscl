@@ -132,6 +132,6 @@ class CommaAndInteger extends Parser {
             pos[0]=pos0;
             throw e;
         }
-        return new Integer(c);
+        return c;
     }
 }

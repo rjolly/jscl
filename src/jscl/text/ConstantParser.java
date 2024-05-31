@@ -54,7 +54,7 @@ class Prime extends Parser {
                 throw e2;
             }
         }
-        return new Integer(c);
+        return c;
     }
 }
 
@@ -86,6 +86,6 @@ class Superscript extends Parser {
             pos[0]=pos0;
             throw new ParseException();
         }
-        return new Integer(c);
+        return c;
     }
 }

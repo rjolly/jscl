@@ -43,7 +43,7 @@ class Singularity extends Parser {
         } catch (ParseException e) {
             throw e;
         }
-        return new Double(d);
+        return d;
     }
 }
 
@@ -90,7 +90,7 @@ class FloatingPointLiteral extends Parser {
                 throw e;
             }
         }
-        return new Double(buffer.toString());
+        return Double.valueOf(buffer.toString());
     }
 }
 

@@ -295,7 +295,7 @@ public class Literal implements Comparable {
         Variable unk[]=monomial.unknown();
         for(int i=0;i<unk.length;i++) {
             int c=monomial.element(i);
-            if(c>0) map.put(unk[i],new Integer(c));
+            if(c>0) map.put(unk[i], c);
         }
         init(map.size());
         Iterator it=map.entrySet().iterator();
@@ -311,7 +311,7 @@ public class Literal implements Comparable {
 
     Map content() {
         Map map=new TreeMap();
-        for(int i=0;i<size;i++) map.put(variable[i],new Integer(power[i]));
+        for(int i=0;i<size;i++) map.put(variable[i], power[i]);
         return map;
     }
 
