@@ -24,11 +24,73 @@
 </xsl:template>
 
 <xsl:template match="m:true">
-	<xsl:text>1</xsl:text>
+	<xsl:text>true</xsl:text>
 </xsl:template>
 
 <xsl:template match="m:false">
-	<xsl:text>0</xsl:text>
+	<xsl:text>false</xsl:text>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:and]]">
+	<xsl:param name="p" select="0"/>
+	<xsl:if test="1 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
+	<xsl:apply-templates select="*[2]">
+		<xsl:with-param name="p" select="1"/>
+	</xsl:apply-templates>
+	<xsl:text>&amp;</xsl:text>
+	<xsl:apply-templates select="*[3]">
+	    	<xsl:with-param name="p" select="1"/>
+	</xsl:apply-templates>
+	<xsl:if test="1 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:or]]">
+	<xsl:param name="p" select="0"/>
+	<xsl:if test="0 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
+	<xsl:apply-templates select="*[2]">
+		<xsl:with-param name="p" select="0"/>
+	</xsl:apply-templates>
+	<xsl:text>|</xsl:text>
+	<xsl:apply-templates select="*[3]">
+	    	<xsl:with-param name="p" select="0"/>
+	</xsl:apply-templates>
+	<xsl:if test="0 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:xor]]">
+	<xsl:param name="p" select="0"/>
+	<xsl:if test="0 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
+	<xsl:apply-templates select="*[2]">
+		<xsl:with-param name="p" select="0"/>
+	</xsl:apply-templates>
+	<xsl:text>^</xsl:text>
+	<xsl:apply-templates select="*[3]">
+	    	<xsl:with-param name="p" select="0"/>
+	</xsl:apply-templates>
+	<xsl:if test="0 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:not]]">
+	<xsl:param name="p" select="0"/>
+	<xsl:if test="2 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
+	<xsl:text>!</xsl:text>
+	<xsl:apply-templates select="*[2]">
+		<xsl:with-param name="p" select="2"/>
+	</xsl:apply-templates>
+	<xsl:if test="2 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
+</xsl:template>
+
+<xsl:template match="m:apply[*[1][self::m:implies]]">
+	<xsl:param name="p" select="0"/>
+	<xsl:if test="0 &lt; $p"><xsl:text>(</xsl:text></xsl:if>
+	<xsl:apply-templates select="*[2]">
+		<xsl:with-param name="p" select="0"/>
+	</xsl:apply-templates>
+	<xsl:text>=&gt;</xsl:text>
+	<xsl:apply-templates select="*[3]">
+	    	<xsl:with-param name="p" select="0"/>
+	</xsl:apply-templates>
+	<xsl:if test="0 &lt; $p"><xsl:text>)</xsl:text></xsl:if>
 </xsl:template>
 
 <xsl:template match="m:exponentiale">
@@ -279,12 +341,7 @@ self::m:lt or
 self::m:geq or
 self::m:gt or
 self::m:approx or
-self::m:factorof or
-self::m:and or
-self::m:or or
-self::m:xor or
-self::m:not or
-self::m:implies]]">
+self::m:factorof]]">
 	<xsl:value-of select="local-name(*[1])"/>
 	<xsl:text>(</xsl:text>
 	<xsl:apply-templates select="*[2]"/>
