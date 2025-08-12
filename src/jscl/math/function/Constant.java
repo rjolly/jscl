@@ -169,8 +169,6 @@ public class Constant extends Variable {
         if(subscript.length==0) {
             if(prime==0) {
                 b.append(nameToMathML());
-            } else if(prime<=PRIMECHARS) {
-                b.append(nameToMathML() + primecharsToMathML(prime));
             } else {
                 b.append("<msup>");
                 b.append("<mi>" + nameToMathML() + "</mi>");
@@ -181,11 +179,6 @@ public class Constant extends Variable {
             if(prime==0) {
                 b.append("<msub>");
                 b.append("<mi>" + nameToMathML() + "</mi>");
-                b.append(subscriptToMathML());
-                b.append("</msub>");
-            } else if(prime<=PRIMECHARS) {
-                b.append("<msub>");
-                b.append("<mi>" + nameToMathML() + primecharsToMathML(prime) + "</mi>");
                 b.append(subscriptToMathML());
                 b.append("</msub>");
             } else {
@@ -211,15 +204,15 @@ public class Constant extends Variable {
 
     String primeToMathML() {
         StringBuffer b = new StringBuffer();
-        b.append("<mfenced>");
-        b.append("<mn>" + String.valueOf(prime) + "</mn>");
-        b.append("</mfenced>");
-        return b.toString();
-    }
-
-    static String primecharsToMathML(int n) {
-        StringBuffer b = new StringBuffer();
-        for(int i=0;i<n;i++) b.append("\u2032");
+        if(prime<=PRIMECHARS) {
+            b.append("<mrow>");
+            for(int i=0;i<prime;i++) b.append("<mo>&#x02032;</mo>");
+            b.append("</mrow>");
+        } else {
+            b.append("<mfenced>");
+            b.append("<mn>" + String.valueOf(prime) + "</mn>");
+            b.append("</mfenced>");
+        }
         return b.toString();
     }
 
