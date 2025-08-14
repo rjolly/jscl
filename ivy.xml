@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
-    <info module="jscl" organisation="net.sourceforge.jscl-meditor" revision="2.4.17">
+    <info module="jscl" organisation="net.sourceforge.jscl-meditor" revision="2.4.18">
         <description homepage="http://jscl-meditor.sourceforge.net/"/>
     </info>
     <configurations>
